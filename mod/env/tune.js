@@ -4,16 +4,16 @@ const tune = {
     maxZoom: 5,
 
     turnDelay:  .5,
-    turnTime:   1,
+    turnTime:   .5,
     fastTime:   .015,
     keyRepeat:  .3,
-    fogOfWar: true,
+    fogOfWar: false,
+    hideUnexplored: false,
     defaultFoV: 21,
 
     followingRadius: 15,
     altarRadius: 30,
     altarMinimum: 1,
-    hideUnexplored: true,
     solidAether:    true,
 
     defaultSegmentWidth:    128,

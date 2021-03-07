@@ -108,12 +108,10 @@ function fadeTo(name, opt) {
         fadeout: fadeout,
 
         onKeep: function() {
-            log('KEEPING')
             control.hideAll()
             if (opt && opt.onHide) opt.onHide()
         },
         onFadeout: function() {
-            log('FADING OUT...')
             control.showScreen(screen)
             if (opt && opt.onShow) opt.onShow()
         },
