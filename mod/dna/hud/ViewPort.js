@@ -14,8 +14,7 @@ const df = {
 class ViewPort {
 
     constructor(st) {
-        augment(this, df)
-        augment(this, st)
+        augment(this, df, st)
     }
 
     init() {

@@ -414,7 +414,14 @@ class TextMode extends sys.LabFrame {
         // translate into text coordinate space
         const lx = this.lx(x)
         const ly = this.ly(y)
-        return this.viewPort.pick(lx, ly)
+
+        for (let i = 0; i < this._ls.length; i++) {
+            const component = this._ls[i]
+            if (!component.hidden && component.pick) {
+                const res = this.viewPort.pick(lx, ly)
+                if (res) return res
+            }
+        }
     }
 
     onAttached(e) {
