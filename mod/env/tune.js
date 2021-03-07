@@ -10,7 +10,11 @@ const tune = {
     altarMinimum: 1,
     hideUnexplored: true,
     solidAether:    true,
+
     zoomStep:   0.2,
+    minZoom: 0.5,
+    maxZoom: 5,
+
     defaultSegmentWidth:    128,
     defaultSegmentHeight:   128,
     solid:  ['~', '^', '#', '|', '-'],

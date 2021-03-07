@@ -13,9 +13,11 @@ function handleControl(e) {
     switch(e.code) {
         case 'Minus':
             lab.textMode.zoomOut()
+            lib.settings.save()
             break
         case 'Equal':
             lab.textMode.zoomIn()
+            lib.settings.save()
             break
 
         case 'KeyP':

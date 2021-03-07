@@ -1,4 +1,5 @@
 // @depends(env/style)
+// @depends(env/settings)
 const CHAR = 1
 const FACE = 2
 const BACK = 3
@@ -8,7 +9,6 @@ const FX = 5
 const df = {
     name: 'textMode',
     border: 0.05,
-    scale: env.style.scale,
 
     font: env.style.font,
     cellWidth: env.style.cellWidth,
@@ -49,6 +49,7 @@ class TextMode extends sys.LabFrame {
             mode: [],
             fx: [],   // effect parameters objects
         }
+        this.scale = env.settings.zoom
 
         this.fx = dna.fx
         // make sure all fx methods are present
@@ -166,13 +167,23 @@ class TextMode extends sys.LabFrame {
     }
 
     zoomIn() {
-        this.scale *= 1 + env.tune.zoomStep
+        const s = floor(this.scale * (1 + env.tune.zoomStep) * 100)/100
+        this.scale = limit(s, env.tune.minZoom, env.tune.maxZoom)
         this.adjust()
     }
 
     zoomOut() {
-        this.scale *= 1 - env.tune.zoomStep
+        const s = floor(this.scale * (1 - env.tune.zoomStep) * 100)/100
+        this.scale = limit(s, env.tune.minZoom, env.tune.maxZoom)
         this.adjust()
+    }
+
+    setZoom(scale) {
+        this.scale = scale
+    }
+
+    getZoom() {
+        return this.scale
     }
 
     put(x, y, c, t) {
