@@ -1,6 +1,6 @@
 const df = {
-    fadein: 1,
-    keep: 1, 
+    fadein:  1,
+    keep:   .5, 
     fadeout: 1,
 }
 
@@ -10,7 +10,7 @@ function init(st) {
     this.dir = {}
 }
 
-function define(name, nodes, opt) {
+function defineScreen(name, nodes, opt) {
     if (!isString(name)) throw 'no screen name is specified!'
     if (!isArray(nodes)) {
         // wrap the node into an array
@@ -35,9 +35,10 @@ function define(name, nodes, opt) {
     }
 }
 
-function defineHidden(name, node) {
-    const screen = this.define(name, node)
+function define(name, nodes, opt) {
+    const screen = this.defineScreen(name, nodes, opt)
     this.hide(screen.name)
+    return this
 }
 
 function hideScreen(screen) {
@@ -62,35 +63,38 @@ function showScreen(screen) {
         else node.hidden = false
         if (isFun(node.onShow)) node.onShow()
     }
-    return screen
+    return this
 }
 
 function hide(name) {
     const screen = this.dir[name]
-    return this.hideScreen(screen)
+    this.hideScreen(screen)
+    return this
 }
 
 function hideAll() {
     for (const screen of this.ls) {
         this.hide(screen.name)
     }
+    return this
 }
 
 function show(name) {
     const screen = this.dir[name]
     if (!screen) {
         log.error(`missing screen [${name}]!`)
-        return
+        return this
     }
     this.hideAll()
     this.showScreen(screen)
+    return this
 }
 
 function fadeTo(name, opt) {
     const screen = this.dir[name]
     if (!screen) {
         log.error(`missing screen [${name}]!`)
-        return
+        return this
     }
 
     const fadein = (opt && opt.fadein !== undefined)? opt.fadein : this.fadein
@@ -104,20 +108,24 @@ function fadeTo(name, opt) {
         fadeout: fadeout,
 
         onKeep: function() {
+            log('KEEPING')
             control.hideAll()
             if (opt && opt.onHide) opt.onHide()
         },
         onFadeout: function() {
+            log('FADING OUT...')
             control.showScreen(screen)
             if (opt && opt.onShow) opt.onShow()
         },
     })
+    return this
 }
 
 function dump() {
-    if (this.active) log.raw('active screen: ' + this.active.name)
+    if (this.active) log.raw('active: ' + this.active.name + ' screen')
+    else log.raw('no active screen')
     for (screen of this.ls) {
-        let def = 'screen ' + screen.name
+        let def = screen.name + ' screen'
         def += ': [' + screen.nodes.map(n => n.name).join(', ') + ']'
         log.raw(def)
     }

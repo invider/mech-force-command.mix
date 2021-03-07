@@ -1,19 +1,20 @@
 const tune = {
+    zoomStep:   0.2,
+    minZoom: 0.5,
+    maxZoom: 5,
+
     turnDelay:  .5,
     turnTime:   1,
     fastTime:   .015,
     keyRepeat:  .3,
     fogOfWar: true,
     defaultFoV: 21,
+
     followingRadius: 15,
     altarRadius: 30,
     altarMinimum: 1,
     hideUnexplored: true,
     solidAether:    true,
-
-    zoomStep:   0.2,
-    minZoom: 0.5,
-    maxZoom: 5,
 
     defaultSegmentWidth:    128,
     defaultSegmentHeight:   128,

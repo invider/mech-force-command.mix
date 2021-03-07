@@ -1,10 +1,13 @@
 // @depends(dna/hud/Panel)
 
-class TopPanel extends dna.hud.Panel {
+const df = {
+    name: 'titleBar',
+}
+
+class TitleBar extends dna.hud.Panel {
 
     constructor(st) {
-        super(st)
-        this.name = 'topPanel'
+        super( augment({}, df, st) )
     }
 
     adjust() {}

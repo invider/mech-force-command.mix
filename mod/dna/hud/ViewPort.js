@@ -28,23 +28,26 @@ class ViewPort {
         let deltaHeight = 0
 
         this.x = 0
-        if (tx.topPanel.hidden) {
+        if (!tx.titleBar || tx.titleBar.hidden) {
             this.y = 0
         } else {
             this.y = 1
             deltaHeight --
         }
 
-        if (!tx.statusBar.hidden) {
+        if (tx.statusBar && !tx.statusBar.hidden) {
             deltaHeight --
         }
         this.h = tx.th + deltaHeight
 
+        this.w = tx.tw
+        /*
         if (tx.sidePanel.hidden) {
             this.w = tx.tw
         } else {
             this.w = tx.tw - tx.sidePanel.w
         }
+        */
     }
 
     printEntity(e) {

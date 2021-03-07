@@ -9,15 +9,15 @@ function textMode() {
 function panels() {
     const tx = lab.textMode
 
-    tx.spawn(dna.hud.TopPanel, { hidden: true })
-    tx.spawn(dna.hud.StatusBar, { hidden: true })
-    tx.spawn(dna.hud.SidePanel, { hidden: true })
+    const titleBar = tx.spawn(dna.hud.TitleBar, { hidden: true })
+    const statusBar = tx.spawn(dna.hud.StatusBar, { hidden: true })
+    //tx.spawn(dna.hud.SidePanel, { hidden: true })
 
-    tx.spawn('ViewPort', {
+    const viewPort = tx.spawn('hud/ViewPort', {
         tx: tx,
         hidden: true,
     })
-
+    lab.screenKeeper.define('game', [ titleBar, statusBar, viewPort ])
     //tx.spawn(dna.hud.DebugPanel)
 }
 
@@ -26,8 +26,8 @@ function menu() {
 
     const mainMenu = tx.spawn('hud/Menu', {
         name: 'mainMenu',
-        title: 'INFECTED  ISLAND',
-        subtitle: 'by Igor Khotin',
+        title: env.msg.title.toUpperCase(),
+        subtitle: 'by ' + env.msg.author,
         items: [
             {
                 name: 'New Game',
@@ -36,7 +36,8 @@ function menu() {
                     const difficulty = menu.items[2].difficulty()
                     log(`starting new game at ${island}/${difficulty}`)
                     lib.factory.world(island, difficulty)
-                    menu.hide()
+                    //menu.hide()
+                    lab.screenKeeper.fadeTo('game')
                     trap('start')
                 }
             },
@@ -84,6 +85,7 @@ function menu() {
         ]
     })
     mainMenu.show()
+    lab.screenKeeper.define('menu', mainMenu)
 }
 
 function ui() {
@@ -91,4 +93,3 @@ function ui() {
     panels()
     menu()
 }
-

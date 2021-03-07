@@ -112,9 +112,11 @@ class Menu extends dna.hud.Panel {
 
     show() {
         const menu = this
+        /*
         this.__._ls.forEach(e => {
             if (e !== menu) e.hide()
         })
+        */
         this.hidden = false
         this.bind()
     }
@@ -128,7 +130,8 @@ class Menu extends dna.hud.Panel {
     hide() {
         const menu = this
         menu.unbind()
-
+        this.hidden = true
+        /*
         lab.spawn(dna.hud.Transition, {
             Z: 1001,
             fadein: 1,
@@ -136,15 +139,15 @@ class Menu extends dna.hud.Panel {
             fadeout: 1,
 
             onKeep: function() {
+                log('HIDIHNG MENU')
                 menu.hidden = true
             },
 
             onFadeout: function() {
-                menu.__._ls.forEach(e => {
-                    if (e !== menu) e.show()
-                })
+                log('FADING OUT!')
                 menu.__.adjust()
             },
         })
+        */
     }
 }
