@@ -24,22 +24,14 @@ function handleControl(e) {
             lab.world.paused = !lab.world.paused
             break
 
-        case 'Backslash':
-            if (lab.textMode.sidePanel.hidden) {
-                lab.textMode.sidePanel.show()
-            } else {
-                lab.textMode.sidePanel.hide()
-            }
-            break
-
         case 'F7':
             if (res.island) {
                 const data = res.island.toDataURL()
-                lib.img.downloadDataURL(data, 'island-map')
+                lib.img.downloadDataURL(data, 'map')
             }
             break
         case 'F8':
-            lib.img.screenshot('infected-island')
+            lib.img.screenshot(env.tune.app)
             break
     }
 }

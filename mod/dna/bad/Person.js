@@ -1,6 +1,6 @@
-// @depends(dna/bad/LifeForm)
+// @depends(dna/mob/Platform)
 
-class Person extends dna.bad.LifeForm {
+class Person extends dna.mob.Platform {
 
     constructor(st) {
         super(st)

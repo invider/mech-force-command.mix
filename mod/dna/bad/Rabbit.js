@@ -1,8 +1,8 @@
-// @depends(dna/bad/LifeForm)
+// @depends(dna/mob/Platform)
 
 let id = 0
 
-class Rabbit extends dna.bad.LifeForm {
+class Rabbit extends dna.mob.Platform {
 
     constructor(st) {
         super(st)
