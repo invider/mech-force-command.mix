@@ -5,7 +5,7 @@ function setup() {
     lib.attach(lib.shaddowFov, 'fov')
 
     lib.settings.load()
-    lib.factory.ui()
+    lib.factory.mode().menu().ui()
 
     //trap('fadein')
     lab.screenKeeper.hideAll()
