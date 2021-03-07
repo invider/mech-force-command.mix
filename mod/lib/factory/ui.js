@@ -27,32 +27,28 @@ function menu() {
     const mainMenu = tx.spawn('hud/Menu', {
         name: 'mainMenu',
         title: env.msg.title.toUpperCase(),
-        subtitle: 'by ' + env.msg.author,
+        subtitle: env.msg.author,
         items: [
             {
-                name: 'New Game',
+                name: env.msg.newGame,
                 action: function(menu) {
-                    const island = menu.items[1].level
-                    const difficulty = menu.items[2].difficulty()
-                    log(`starting new game at ${island}/${difficulty}`)
-                    lib.factory.world(island, difficulty)
-                    //menu.hide()
-                    lab.screenKeeper.fadeTo('game')
-                    trap('start')
+                    trap('newGame', {
+                        level: menu.items[1].level,
+                    })
                 }
             },
             {
-                name: 'Island: 1',
+                name: env.msg.map + ': 1',
                 level: 1,
 
                 actionNext: function() {
-                    this.level ++
-                    this.name = 'Island: ' + this.level
+                    this.level = min(this.level + 1, env.tune.maxLevel)
+                    this.name = env.msg.map + ': ' + this.level
                 },
                 actionPrev: function() {
                     if (this.level > 1) {
                         this.level --
-                        this.name = 'Island: ' + this.level
+                        this.name = env.msg.map + ': ' + this.level
                     }
                 },
             },

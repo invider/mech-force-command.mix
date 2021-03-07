@@ -2,8 +2,8 @@
 
 const df = {
     selected: 0,
-    title: 'The Game',
-    subtitle: 'by Team',
+    title: '',
+    subtitle: '',
 }
 
 class Menu extends dna.hud.Panel {
@@ -112,11 +112,6 @@ class Menu extends dna.hud.Panel {
 
     show() {
         const menu = this
-        /*
-        this.__._ls.forEach(e => {
-            if (e !== menu) e.hide()
-        })
-        */
         this.hidden = false
         this.bind()
     }
@@ -131,23 +126,5 @@ class Menu extends dna.hud.Panel {
         const menu = this
         menu.unbind()
         this.hidden = true
-        /*
-        lab.spawn(dna.hud.Transition, {
-            Z: 1001,
-            fadein: 1,
-            keep: .5,
-            fadeout: 1,
-
-            onKeep: function() {
-                log('HIDIHNG MENU')
-                menu.hidden = true
-            },
-
-            onFadeout: function() {
-                log('FADING OUT!')
-                menu.__.adjust()
-            },
-        })
-        */
     }
 }

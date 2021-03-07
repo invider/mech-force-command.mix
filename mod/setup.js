@@ -9,7 +9,21 @@ function setup() {
 
     //trap('fadein')
     lab.screenKeeper.hideAll()
-    lab.screenKeeper.fadeTo('menu', {
-        fadein: 0,
-    })
+
+    if (!env.config.map) {
+        lab.screenKeeper.fadeTo('menu', {
+            fadein: 0,
+        })
+
+    } else {
+        // debug branch - jump straight to the game
+        trap('newGame', {
+            level: env.config.map,
+            fade: {
+                fadein:   0,
+                keep:     0,
+                fadeout: .5,
+            },
+        })
+    }
 }

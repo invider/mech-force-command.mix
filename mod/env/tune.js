@@ -1,5 +1,6 @@
 const tune = {
     app: 'mech-force-command',
+    maxLevel: 7,
 
     zoomStep:   0.2,
     minZoom: 0.5,
