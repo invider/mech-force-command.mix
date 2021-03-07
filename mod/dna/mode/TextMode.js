@@ -51,7 +51,7 @@ class TextMode extends sys.LabFrame {
         }
         this.scale = env.settings.zoom
 
-        this.fx = dna.fx
+        this.fx = dna.mode.fx
         // make sure all fx methods are present
         const fxBase = this.fx[0]
         for (let i = 1; i < this.fx.length; i++) {

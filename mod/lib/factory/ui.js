@@ -1,5 +1,5 @@
 function textMode() {
-    lab.spawn('TextMode', {
+    lab.spawn('mode/TextMode', {
         Z: 1,
         //targetWidth: 40,
         //targetHeight: 25,
