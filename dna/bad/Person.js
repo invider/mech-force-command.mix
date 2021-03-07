@@ -53,7 +53,7 @@ class Person extends dna.bad.LifeForm {
                 y: e.y,
             })
 
-            sfx.play('selectLow')
+            sfx('selectLow')
             this.log('killed a rabbit')
         }
     }

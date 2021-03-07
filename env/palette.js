@@ -1,4 +1,9 @@
+// TODO provide base color palette structure
 
+// TODO introduce main palette
+
+// TODO include basic colors and extend main palette
+//      can be extended with other palettes
 const dir = {
     base: hsl(.45, .1, .1),
     baseHi: hsl(.45, .2, .2),
@@ -17,6 +22,7 @@ const dir = {
     dark: '101010',
 }
 
+// indexed colors
 const ls = [
     '#151515',
     hsl(.40, .2, .3),
@@ -39,4 +45,3 @@ function init() {
     })
     lib.cidx = cidx
 }
-
