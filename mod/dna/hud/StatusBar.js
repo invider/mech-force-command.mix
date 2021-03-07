@@ -9,10 +9,6 @@ class StatusBar extends dna.hud.Panel {
 
     adjust() {}
 
-    pick() {
-        return this.__.pick(mouse.x, mouse.y)
-    }
-
     matchLabel(target) {
         if (target.getStatus) return target.getStatus()
         if (target.name) return target.name
@@ -49,7 +45,7 @@ class StatusBar extends dna.hud.Panel {
         }
         */
 
-        const target = this.pick()
+        const target = this.__.pick(mouse.x, mouse.y)
         if (target) label = this.matchLabel(target)
 
         tx

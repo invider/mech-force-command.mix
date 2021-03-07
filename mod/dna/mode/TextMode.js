@@ -418,7 +418,7 @@ class TextMode extends sys.LabFrame {
         for (let i = 0; i < this._ls.length; i++) {
             const component = this._ls[i]
             if (!component.hidden && component.pick) {
-                const res = this.viewPort.pick(lx, ly)
+                const res = component.pick(lx, ly)
                 if (res) return res
             }
         }

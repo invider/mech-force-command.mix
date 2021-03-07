@@ -4,10 +4,6 @@ const df = {
     y: 0,
     w: 10,
     h: 10,
-    port: {
-        x: 0,
-        y: 0,
-    },
     targetEdge: 5,
 }
 
@@ -15,6 +11,10 @@ class ViewPort {
 
     constructor(st) {
         augment(this, df, st)
+        this.port = {
+            x: 0,
+           y: 0,
+        }
     }
 
     init() {
@@ -23,30 +23,35 @@ class ViewPort {
 
     adjust() {
         const tx = this.__
-        let deltaWidth = 0
-        let deltaHeight = 0
 
-        this.x = 0
-        if (!tx.titleBar || tx.titleBar.hidden) {
-            this.y = 0
-        } else {
-            this.y = 1
-            deltaHeight --
+        let x = 0
+        let y = 0
+        let w = tx.tw
+        let h = tx.th
+
+        switch(this.stick) {
+            case 'left':
+                w = floor(w/2 - 1)
+                break
+            case 'right':
+                x = floor(w/2)
+                w = w - x
+                break
+        }
+
+        if (tx.titleBar && !tx.titleBar.hidden) {
+            y = 1
+            h--
         }
 
         if (tx.statusBar && !tx.statusBar.hidden) {
-            deltaHeight --
+            h--
         }
-        this.h = tx.th + deltaHeight
 
-        this.w = tx.tw
-        /*
-        if (tx.sidePanel.hidden) {
-            this.w = tx.tw
-        } else {
-            this.w = tx.tw - tx.sidePanel.w
-        }
-        */
+        this.x = x
+        this.y = y
+        this.h = h
+        this.w = w
     }
 
     printEntity(e) {

@@ -47,7 +47,7 @@ function hero() {
 
 function bind() {
     lab.textMode._ls.forEach(e => e.world = lab.world)
-    lab.textMode.viewPort.follow = lab.world.hero
+    lab.textMode.port1.follow = lab.world.hero
     lib.util.bindAllPlayers()
 }
 

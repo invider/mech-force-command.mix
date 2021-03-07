@@ -5,11 +5,18 @@ function ui() {
     const statusBar = tx.spawn(dna.hud.StatusBar, { hidden: true })
     //tx.spawn(dna.hud.SidePanel, { hidden: true })
 
-    const viewPort = tx.spawn('hud/ViewPort', {
+    const port1 = tx.spawn('hud/ViewPort', {
+        name: 'port1',
+        stick: 'left',
         tx: tx,
-        hidden: true,
     })
-    lab.screenKeeper.define('game', [ titleBar, statusBar, viewPort ])
+    const port2 = tx.spawn('hud/ViewPort', {
+        name: 'port2',
+        stick: 'right',
+        tx: tx,
+    })
+
+    lab.screenKeeper.define('game', [ titleBar, statusBar, port1 ])
     //tx.spawn(dna.hud.DebugPanel)
 
     return this
