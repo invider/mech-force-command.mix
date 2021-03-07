@@ -51,21 +51,7 @@ augment(heroPack, {
         if (!dropped) return false
         if (dropped < 0) this.selectPrev()
 
-        switch(type) {
-            case 'stones':
-                lib.factory.hedge(world, hero.x, hero.y)
-                break
-            case 'food':
-                world.spawn({
-                    symbol: '*',
-                    heroic: true,
-                    x: hero.x,
-                    y: hero.y,
-                })
-                hero.log('droped food')
-                sfx('selectLow', .4)
-                break
-        }
+        switch(type) {}
     }
 })
 

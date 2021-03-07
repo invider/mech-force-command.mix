@@ -57,28 +57,28 @@ function generateIsland(cfg, level) {
 
     for (let y = 0; y < h; y++) {
         for (let x = 0; x < w; x++) {
-            const v = lib.gen.gnoise(
+            const v = lib.ken.gnoise(
                 (dx + x/w) * scale,
                 (dy + y/h) * scale, z
             )
             const v2 = circleGradientFilter(x, y, v)
 
             // moisture noise
-            const mv = lib.gen.gnoise(
+            const mv = lib.ken.gnoise(
                 (13*dx + x/w) * scale * 20,
                 (11*dy + y/h) * scale * 20,
                 z
             )
 
             // grass noise
-            const gv = lib.gen.gnoise(
+            const gv = lib.ken.gnoise(
                 (9*dx + x/w) * scale * 10,
                 (17*dy + y/h) * scale * 10,
                 z
             )
 
             // ocean noise
-            const oceanNoise = lib.gen.gnoise(
+            const oceanNoise = lib.ken.gnoise(
                 (11*dx + x/w) * scale * 2,
                 (29*dy + y/h) * scale * 2,
                 z

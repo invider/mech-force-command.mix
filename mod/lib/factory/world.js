@@ -1,5 +1,5 @@
 function generateTerrain(world, island, difficulty) {
-    $.lib.gen.generateIsland({
+    $.lib.ken.generateIsland({
         width: env.tune.defaultSegmentWidth,
         height: env.tune.defaultSegmentHeight,
 
