@@ -103,7 +103,6 @@ class ViewPort {
                 const explored = !env.tune.hideUnexplored
                             || this.world.isExplored(gx, gy)
                 const visible = fov.test(gx, gy)
-                const infected = this.world.infected.isInfected(gx, gy)
 
                 const s = visible?
                             this.world.get(gx, gy)
@@ -118,10 +117,6 @@ class ViewPort {
                     case '_': c = cidx('sand'); break;
                     case '^': c = cidx('ice'); break;
                     case '"': c = cidx('forest'); break;
-                    }
-
-                    if (infected) {
-                        c = cidx('infected')
                     }
 
                     this.tx.put(vx, vy, c, this.tx.FACE)

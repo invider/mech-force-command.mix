@@ -6,6 +6,8 @@ function generateIsland(cfg, level) {
     const dy = cfg.dy || 0
     const scale = cfg.scale || 12
     const world = cfg.world || { set: () => {} }
+    world.width = w
+    world.height = h
 
     const canvas = document.createElement('canvas')
     canvas.width = w
@@ -64,40 +66,31 @@ function generateIsland(cfg, level) {
             // moisture noise
             const mv = lib.gen.gnoise(
                 (13*dx + x/w) * scale * 20,
-                (11*dy + y/h) * scale * 20, z
+                (11*dy + y/h) * scale * 20,
+                z
             )
 
             // grass noise
             const gv = lib.gen.gnoise(
                 (9*dx + x/w) * scale * 10,
-                (17*dy + y/h) * scale * 10, z
+                (17*dy + y/h) * scale * 10,
+                z
             )
 
             // ocean noise
-            const peopleNoise = lib.gen.gnoise(
+            const oceanNoise = lib.gen.gnoise(
                 (11*dx + x/w) * scale * 2,
-                (29*dy + y/h) * scale * 2, z
-            )
-
-            const rabbitNoise = lib.gen.gnoise(
-                (41*dx + x/w) * scale * 8,
-                (89*dy + y/h) * scale * 8, z
+                (29*dy + y/h) * scale * 2,
+                z
             )
 
             if (v2 < cfg.level.water) {
-                rgbv(x, y, 0, .3, .7, .1, peopleNoise)
+                rgbv(x, y, 0, .3, .7, .1, oceanNoise)
                 world.set(x, y, '~')
 
             } else if (v2 < cfg.level.sand) {
                 rgbv(x, y, .5, .5, .1, .4, mv)
                 world.set(x, y, '_')
-
-                if (peopleNoise > cfg.level.islanders) {
-                    world.spawn(new dna.bad.Islander({
-                        x: x,
-                        y: y,
-                    }))
-                }
 
             } else if (v2 < cfg.level.stone) {
                 const grass = cfg.level.stone - cfg.level.sand
@@ -107,16 +100,11 @@ function generateIsland(cfg, level) {
                 rgbv(x, y, .1, .3, .05, .3, v4 * gv)
 
                 world.set(x, y, '.')
+                /*
                 if (mv > cfg.level.rocks) {
                     world.spawn({ symbol: 'o', x: x, y: y, })
                 }
-
-                if (peopleNoise > cfg.level.islanders) {
-                    world.spawn(new dna.bad.Islander({
-                        x: x,
-                        y: y,
-                    }))
-                }
+                */
 
             } else if (v2 < cfg.level.ice) {
                 const stone = cfg.level.ice - cfg.level.stone
@@ -126,6 +114,8 @@ function generateIsland(cfg, level) {
                 rgbv(x, y, .4, .15, .1, .4, v4)
 
                 world.set(x, y, '"')
+
+                /*
                 if (mv > cfg.level.rocks) {
                     world.spawn({ symbol: 'o', x: x, y: y, })
                 }
@@ -136,6 +126,7 @@ function generateIsland(cfg, level) {
                         y: y,
                     }))
                 }
+                */
 
             } else {
                 mono(x, y, v2 + .3)

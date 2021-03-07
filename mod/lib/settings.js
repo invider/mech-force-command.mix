@@ -26,8 +26,8 @@ function saveFn() {
     syncIn()
     const settings = augment({}, env.settings)
     delete settings.name
-    log('saving settings: ')
-    log.list(settings)
+    //log('saving settings: ')
+    //log.list(settings)
     lib.store.saveJSON(STORE, settings)
 }
 this.save = saveFn

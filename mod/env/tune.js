@@ -19,8 +19,8 @@ const tune = {
     altarMinimum: 1,
     solidAether:    true,
 
-    defaultSegmentWidth:    128,
-    defaultSegmentHeight:   128,
+    defaultSegmentWidth:    64,
+    defaultSegmentHeight:   64,
     solid:  ['~', '^', '#', '|', '-'],
     opaque: ['#'],
     resistant: ['~', '^', '#'],
@@ -28,17 +28,4 @@ const tune = {
     destructionFactor: .05,
     guardSteps: 16,
     guardFactor: .3, // chance of containment for a single turn
-
-    infection: {
-        minLife: 11,
-        maxLife: 27, 
-    },
-
-    // how much rabbit have to eat
-    // before it's ready to procreate
-    rabbitProcreateFood: 9,
-
-    healthForFood: 25,
-    spoiledFoodPenalty: 15,
-    infectedStonePenalty: 5,
 }

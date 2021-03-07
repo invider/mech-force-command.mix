@@ -127,6 +127,7 @@ class Segment {
             if (this.segmentLow) return this.segmentLow.set(x, y, l)
         }
         // TODO trap set on unexisted segment
+        throw 'unexistent segment'
         return
     }
 

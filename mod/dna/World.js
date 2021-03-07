@@ -77,10 +77,6 @@ class World extends sys.Frame {
         const e = this.getEntity(x, y)
         if (e) return e.symbol
 
-        const source = this.infected.getInfected(x, y)
-        if (source === 2) return env.style.infectionSource
-        if (source === -1) return env.style.guard
-
         return this.segment.get(x, y)
     }
 
@@ -105,10 +101,6 @@ class World extends sys.Frame {
         if (target) {
             if (mob.touch) mob.touch(target)
             if (target.touchedBy) target.touchedBy(mob)
-        }
-
-        if (mob.infect && this.infected.isInfected(x, y)) {
-            mob.infect()
         }
     }
 
@@ -168,12 +160,6 @@ class World extends sys.Frame {
         return area
     }
 
-    calculateInfectedArea() {
-        const total = this.landArea()
-        const infected = round((this.infected.cells / total) * 100)
-        env.status.infected = infected
-    }
-
     evo(dt) {
         if (this.paused) return
 
@@ -216,7 +202,6 @@ class World extends sys.Frame {
         }
 
         this.onMovement()
-        this.calculateInfectedArea()
     }
 
     onMovement() {

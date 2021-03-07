@@ -13,10 +13,6 @@ function generateTerrain(world, island, difficulty) {
             sand: .14,
             stone: .2,
             ice: .3,
-
-            rocks: .7,
-            islanders: .78,
-            rabbits: .73,
         },
         world: world,
     })
@@ -25,43 +21,28 @@ function generateTerrain(world, island, difficulty) {
 function hero() {
     const world = lab.world
     // find a palce for the hero
-    let x = 0
-    let y = 0
+    let sx = -1
+    let sy = -1
     let land
-    while (land !== '.') {
-        land = world.getLand(x++, y++)
+
+    for (let y = 0; y < world.height; y++) {
+        for (let x = 0; x < world.width; x++) {
+            land = world.getLand(x, y)
+            if (land === '.' || land === '_' || land === '"') {
+                sx = x
+                sy = y
+            }
+            if (sx >= 0 && sy >= 0) break
+        }
+        if (sx >= 0 && sy >= 0) break
     }
+    if (sx < 0 || sy < 0) throw 'no place to land the hero!'
 
     world.hero = world.spawn(dna.bad.Hero, {
         name: 'Hero',
-        x: x,
-        y: y,
+        x: sx,
+        y: sy,
     })
-
-    // provide some food
-    for (let i = 0; i < 4; i++) {
-        world.hero.pack.provide('food')
-    }
-}
-
-function spreadInfection(difficulty) {
-    const world = lab.world
-    const infected = world.infected
-
-    let n = 3
-    switch (difficulty) {
-        case 2: n = 5; break;
-        case 3: n = 11; break;
-    }
-
-    let last
-    for (let i = 0; i < n; i++) {
-        if (last) {
-            let last = infected.jump(last.x, last.y, 1, 15)
-        } else {
-            let last = infected.jump(world.hero.x, world.hero.y, 1, 3)
-        }
-    }
 }
 
 function bind() {
@@ -84,17 +65,7 @@ function world(island, difficulty) {
         h: world.segment.h,
     }))
 
-    world.attach(new dna.bad.Infected({
-        world: world,
-        w: world.segment.w,
-        h: world.segment.h,
-    }))
-    world.ghost.link(world.infected)
-    
     hero()
-
-    spreadInfection(difficulty)
-
     bind()
 
     return world

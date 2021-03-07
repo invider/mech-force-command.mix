@@ -17,7 +17,7 @@ const dir = {
     water: '#1d74c4',
     forest: '#598a48',
     ice: '#53c9e0',
-    infected: '#eb3434',
+    //danger-red: '#eb3434',
 
     dark: '101010',
 }

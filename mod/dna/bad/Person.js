@@ -13,36 +13,27 @@ class Person extends dna.mob.Platform {
     touch(e) {
         if (this.skipLoot) return
 
-        const infected = this._.infected.isInfected(e.x, e.y)
-
         if (e.symbol === 'o') {
             // grab the stone
             if (this.pack.grab('stones')) {
                 e.dead = true
-                if (infected) {
-                    this.infect(env.tune.infectedStonePenalty)
-                }
                 this.log('+1 stone')
             }
 
         } else if (e.symbol === '*') {
             e.dead = true
-            if (infected) {
-                this.infect(env.tune.spoiledFoodPenalty)
+            const plusHealth = this.eat()
+            if (plusHealth > 0) {
+                this.log(`+${plusHealth} health`)
 
-            } else {
-                const plusHealth = this.eat()
-                if (plusHealth > 0) {
-                    this.log(`+${plusHealth} health`)
-
-                } else if (this.pack.grab('food')) {
-                    this.log('+1 food')
-                }
+            } else if (this.pack.grab('food')) {
+                this.log('+1 food')
             }
         }
     }
 
     push(e) {
+        /*
         if (e instanceof dna.bad.Rabbit) {
             // kill the rabbit for food
             e.kill()
@@ -56,6 +47,7 @@ class Person extends dna.mob.Platform {
             sfx('selectLow')
             this.log('killed a rabbit')
         }
+        */
     }
 
     eat() {
