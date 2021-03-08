@@ -66,4 +66,9 @@ class Mob {
     }
 
     next() {}
+
+    color() {
+        const team = this.team || 0
+        return pal.team[team].color
+    }
 }

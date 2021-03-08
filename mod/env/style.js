@@ -5,7 +5,8 @@ const style = {
 
     sidePanelWidth: 15,
 
-    aether: ' ',
+    //aether: ' ',
+    aether: '~',
     unexplored: ' ',
     infectionSource: '!',
     guard: '$',

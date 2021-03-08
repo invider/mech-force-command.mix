@@ -132,34 +132,46 @@ class ViewPort {
                             || this.world.isExplored(gx, gy)
                 const visible = fov.test(gx, gy)
 
-                const s = visible?
-                            this.world.get(gx, gy)
-                            : this.world.getLand(gx, gy)
+                if (explored) {
 
-                this.tx.put(vx, vy, 0, this.tx.BACK)
-
-                if (visible) {
-                    let c = cidx('land')
-                    switch (s) {
-                    case '~': c = cidx('water'); break;
-                    case '_': c = cidx('sand'); break;
-                    case '^': c = cidx('ice'); break;
-                    case '"': c = cidx('forest'); break;
+                    let e
+                    let s
+                    if (visible) {
+                        e = this.world.getEntity(gx, gy)
+                        if (e) s = e.symbol
+                        else s = this.world.get(gx, gy)
+                    } else {
+                        s = this.world.getLand(gx, gy)
                     }
+                    if (!s) s = env.style.aether
 
+                    // set background color
+                    this.tx.put(vx, vy, 0, this.tx.BACK)
+
+                    // select color
+                    let c = cidx('land')
+                    if (visible) {
+                        if (e) {
+                            if (e.color) {
+                                c = e.color()
+                            }
+                        } else {
+                            switch (s) {
+                                case '~': c = cidx('water'); break;
+                                case '_': c = cidx('sand'); break;
+                                case '^': c = cidx('ice'); break;
+                                case '"': c = cidx('forest'); break;
+                            }
+                        }
+                    } else {
+                        c = cidx('shaddow')
+                    }
                     this.tx.put(vx, vy, c, this.tx.FACE)
+
+                    this.tx.put(vx, vy, s)
 
                 } else {
                     this.tx.put(vx, vy, cidx('shaddow'), this.tx.FACE)
-                }
-
-                if (explored) {
-                    if (s) {
-                        this.tx.put(vx, vy, s)
-                    } else {
-                        this.tx.put(vx, vy, env.style.aether)
-                    }
-                } else {
                     this.tx.put(vx, vy, env.style.unexplored)
                 }
 
@@ -179,8 +191,8 @@ class ViewPort {
     moveOverTarget(target) {
         if (!target) return
 
-        this.port.x = floor(target.x - this.w/2)
-        this.port.y = floor(target.y - this.h/2)
+        this.port.x = round(target.x - this.w/2)
+        this.port.y = round(target.y - this.h/2)
         /*
         if (target.x - this.targetEdge < this.port.x) {
             this.port.x = target.x - this.targetEdge

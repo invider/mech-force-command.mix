@@ -22,9 +22,37 @@ const dir = {
     dark: '101010',
 }
 
+const team = [
+    {
+        name: 'neutral',
+        hue: .99,
+        sat: 0,
+    },
+    {
+        name: 'red',
+        hue: .03,
+        sat: .5,
+    },
+    {
+        name: 'blue',
+        hue: .6,
+        sat: .5,
+    },
+    {
+        name: 'green',
+        hue: .42,
+        sat: .5,
+    },
+    {
+        name: 'orange',
+        hue: .12,
+        sat: .5,
+    },
+]
+
 // indexed colors
 const ls = [
-    '#151515',
+    '#151515',  // text mode border color
     hsl(.40, .2, .3),
 ]
 
@@ -43,5 +71,17 @@ function init() {
         ls.push(v)
         index[k] = ls.length - 1
     })
+    // calculate team colors
+    team.forEach(t => {
+        const colorName = t.name + 'Team'
+        const color = hsl( t.hue, t.sat, .5 )
+
+        ls.push(color) // include in palette
+        const icolor = ls.length - 1
+        t.color = icolor
+        dir[t.name + 'Team'] = color
+        index[colorName] = icolor
+    })
+
     lib.cidx = cidx
 }
