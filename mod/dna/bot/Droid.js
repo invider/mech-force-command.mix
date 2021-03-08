@@ -2,6 +2,7 @@
 
 const df = {
     symbol: 'D',
+    kind: 'droid',
 }
 
 let id = 0
@@ -10,6 +11,7 @@ class Droid extends dna.bot.Platform {
     constructor(st) {
         super( augment({}, df, st) )
         if (!this.name) this.name = 'droid' + (++id)
+        this.attach(dna.pod.scanner)
         this.attach(dna.pod.move)
         this.attach(dna.behavior.RandomWalker)
     }
