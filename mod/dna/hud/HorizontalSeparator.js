@@ -1,11 +1,11 @@
-const UP = 1
-const DOWN = 2
+const TOP = 1
+const BOTTOM = 2
 
 const df = {
     x: 0,
     y: 0,
     w: 10,
-    stick: UP,
+    stick: TOP,
 }
 
 class HorizontalSeparator {
@@ -20,10 +20,10 @@ class HorizontalSeparator {
         this.x = this.target.x
         this.w = this.target.w
         switch(this.stick) {
-            case UP:
+            case TOP:
                 this.y = this.target.y - 1
                 break
-            case DOWN:
+            case BOTTOM:
                 this.y = this.target.y + this.target.h + 1
                 break
         }

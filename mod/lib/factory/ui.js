@@ -8,19 +8,46 @@ function ui() {
     const port1 = tx.spawn('hud/ViewPort', {
         name: 'port1',
         hidden: true,
-        stick: 'left',
+        stick: 'top-left',
     })
     const port2 = tx.spawn('hud/ViewPort', {
         name: 'port2',
         hidden: true,
-        stick: 'right',
+        stick: 'top-right',
     })
-    const vs = tx.spawn('hud/VerticalSeparator', {
-        name: 'vs',
-        target: port2,
+    const port3 = tx.spawn('hud/ViewPort', {
+        name: 'port3',
+        hidden: true,
+        stick: 'bottom-left',
+    })
+    const port4 = tx.spawn('hud/ViewPort', {
+        name: 'port4',
+        hidden: true,
+        stick: 'bottom-right',
     })
 
-    lab.screenKeeper.define('game', [ titleBar, statusBar, port1, port2, vs ])
+    const vs1 = tx.spawn('hud/VerticalSeparator', {
+        name: 'vs1',
+        target: port2,
+    })
+    const vs2 = tx.spawn('hud/VerticalSeparator', {
+        name: 'vs2',
+        target: port4,
+    })
+    const hs1 = tx.spawn('hud/HorizontalSeparator', {
+        name: 'hs1',
+        target: port3,
+    })
+    const hs2 = tx.spawn('hud/HorizontalSeparator', {
+        name: 'hs2',
+        target: port4,
+    })
+
+    lab.screenKeeper.define('game', [
+        titleBar, statusBar,
+        port1, port2, port3, port4,
+        vs1, vs2, hs1, hs2,
+    ])
     //tx.spawn(dna.hud.DebugPanel)
 
     return this

@@ -25,9 +25,9 @@ class ViewPort {
         const tx = this.__
 
         let x = 0
-        let y = 0
+        let y = 1
         let w = tx.tw
-        let h = tx.th
+        let h = tx.th - 2
 
         switch(this.stick) {
             case 'left':
@@ -37,16 +37,38 @@ class ViewPort {
                 x = floor(w/2)
                 w = w - x
                 break
+
+            case 'top-left':
+                w = floor(w/2)
+                h = floor(h/2 - 1)
+                break
+            case 'top-right':
+                x = floor(w/2 + 1)
+                w = w - x
+                h = floor(h/2 - 1)
+                break
+            case 'bottom-left':
+                w = floor(w/2)
+                y = floor(h/2 + 1)
+                h = h - y + 1
+                break
+            case 'bottom-right':
+                x = floor(w/2 + 1)
+                y = floor(h/2 + 1)
+                w = w - x
+                h = h - y + 1
+                break
         }
 
+        /*
         if (tx.titleBar && !tx.titleBar.hidden) {
             y = 1
             h--
         }
-
         if (tx.statusBar && !tx.statusBar.hidden) {
             h--
         }
+        */
 
         this.x = x
         this.y = y
