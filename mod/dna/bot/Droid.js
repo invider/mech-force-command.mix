@@ -3,6 +3,7 @@
 const df = {
     symbol: 'D',
     kind: 'droid',
+    health: 100,
 }
 
 let id = 0
@@ -13,12 +14,12 @@ class Droid extends dna.bot.Platform {
         if (!this.name) this.name = 'droid' + (++id)
         this.attach(dna.pod.scanner)
         this.attach(dna.pod.move)
-        this.attach(dna.behavior.RandomWalker)
+        this.attach(dna.behavior.RandomStriker)
     }
 
     takeControl() {
         this.symbol = '@'
-        this.detach(this.behavior)
+        this.detach(this.behavior) // disable AI
         this.attach(dna.pod.control)
         this.attach(dna.pod.totalControl)
         lab.control.player.bind(this.id, this)
@@ -27,5 +28,14 @@ class Droid extends dna.bot.Platform {
     releaseControl() {
         this.attach(this.randomWalker)
         this.detach(this.totalControl)
+    }
+
+    hit(source, force) {
+        this.health -= force
+        if (this.health <= 0) {
+            this.dead = true
+            this.health = 0
+            kill(this)
+        }
     }
 }
