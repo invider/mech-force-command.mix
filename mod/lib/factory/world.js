@@ -18,9 +18,16 @@ function generateTerrain(world, island, difficulty) {
     })
 }
 
+function teams() {
+    env.team = []
+    for (let i = 0; i < env.tune.maxTeams + 1; i++) {
+        env.team.push( new dna.Team() )
+    }
+}
 
-let heroId = 0
-function placeHero() {
+
+let leaderId = 0
+function placeLeader(team) {
     const world = lab.world
     // find a palce for the hero
     let sx = -1
@@ -40,14 +47,18 @@ function placeHero() {
     }
     if (sx < 0 || sy < 0) throw 'no place to land the hero!'
 
-    const hero = world.spawn(dna.bot.Droid, {
-        id: heroId,
-        name: 'hero' + (++heroId),
+    const leader = world.spawn(dna.bot.Droid, {
+        id: leaderId,
+        team: team,
+        name: 'leader' + (++leaderId),
+        symbol: 'H',
         x: sx,
         y: sy,
     })
-    lab.textMode['port' + heroId].follow = hero
-    //hero.takeControl()
+    env.team[team].setLeader(leader)
+    //lab.textMode['port' + leaderId].follow = hero
+    //leader.takeControl()
+    return leader
 }
 
 function bind() {
@@ -70,8 +81,13 @@ function world(island, difficulty) {
         h: world.segment.h,
     }))
 
-    placeHero()
-    placeHero()
+    teams()
+
+    placeLeader(1)
+    placeLeader(2)
+    placeLeader(3)
+    placeLeader(4)
+
     bind()
 
     return world

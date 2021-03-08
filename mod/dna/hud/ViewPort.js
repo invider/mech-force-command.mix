@@ -220,7 +220,18 @@ class ViewPort {
     }
     */
 
+    bindToTarget() {
+        if (this.target && this.target.team) {
+            // pick the team's leader
+            const team = env.team[ this.target.team ]
+            if (team && team.leader) {
+                this.follow = team.leader
+            }
+        }
+    }
+
     draw() {
+        this.bindToTarget()
         this.moveOverTarget(this.follow)
         this.print()
     }

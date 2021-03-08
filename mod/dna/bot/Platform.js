@@ -1,15 +1,17 @@
 // @depends(dna/bot/Mob)
 
-let id = 0
+const df = {
+    symbol: 'P',
+    status: '',
+    health: 10,
+    maxHealth: 10,
+}
 
+let id = 0
 class Platform extends dna.bot.Mob {
 
     constructor(st) {
-        super(st)
-        this.symbol = 'P'
-        this.status = ''
-        this.health = 10
-        this.maxHealth = 10
+        super( augment({}, df, st) )
         this.attach(dna.pod.move)
         this.attach(dna.behavior.RandomWalker)
     }

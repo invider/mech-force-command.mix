@@ -1,12 +1,15 @@
 // @depends(dna/bot/Platform)
 
+const df = {
+    symbol: 'D',
+}
+
 let id = 0
 class Droid extends dna.bot.Platform {
 
     constructor(st) {
-        super(st)
+        super( augment({}, df, st) )
         if (!this.name) this.name = 'droid' + (++id)
-        this.symbol = 'D'
     }
 
     takeControl() {

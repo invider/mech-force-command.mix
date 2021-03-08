@@ -9,21 +9,33 @@ function ui() {
         name: 'port1',
         hidden: true,
         stick: 'top-left',
+        target: {
+            team: 1,
+        }
     })
     const port2 = tx.spawn('hud/ViewPort', {
         name: 'port2',
         hidden: true,
         stick: 'top-right',
+        target: {
+            team: 2,
+        }
     })
     const port3 = tx.spawn('hud/ViewPort', {
         name: 'port3',
         hidden: true,
         stick: 'bottom-left',
+        target: {
+            team: 3,
+        }
     })
     const port4 = tx.spawn('hud/ViewPort', {
         name: 'port4',
         hidden: true,
         stick: 'bottom-right',
+        target: {
+            team: 3,
+        }
     })
 
     const vs1 = tx.spawn('hud/VerticalSeparator', {

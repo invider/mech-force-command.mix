@@ -13,6 +13,14 @@ function bind(player, target) {
 
 function act(action, player) {
     if (!player) player = 0
+
+    if (!playerMap[player]) {
+        // nothing is binded for the player
+        // try to capture the faction
+        log('trying to capture control for player #' + player)
+        trap('capture', player + 1)
+    }
+
     if (ctrl[player] && !ctrl[player][action]) {
         ctrl[player][action] = ON
 
@@ -55,4 +63,15 @@ function evo(dt) {
         }
     }
     */
+}
+
+function dump() {
+    for (let i = 0; i < playerMap.length; i++) {
+        const target = playerMap[i]
+        if (target) {
+            log.raw(`#${i}: ${target.name}`)
+        } else {
+            log.raw(`#${i}: unbinded`)
+        }
+    }
 }
