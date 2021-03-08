@@ -64,7 +64,7 @@ function generateIsland(cfg, level) {
             const v2 = circleGradientFilter(x, y, v)
 
             // moisture noise
-            const mv = lib.ken.gnoise(
+            const moistureVal = lib.ken.gnoise(
                 (13*dx + x/w) * scale * 20,
                 (11*dy + y/h) * scale * 20,
                 z
@@ -89,7 +89,7 @@ function generateIsland(cfg, level) {
                 world.set(x, y, '~')
 
             } else if (v2 < cfg.level.sand) {
-                rgbv(x, y, .5, .5, .1, .4, mv)
+                rgbv(x, y, .5, .5, .1, .4, moistureVal)
                 world.set(x, y, '_')
 
             } else if (v2 < cfg.level.stone) {
@@ -100,6 +100,14 @@ function generateIsland(cfg, level) {
                 rgbv(x, y, .1, .3, .05, .3, v4 * gv)
 
                 world.set(x, y, '.')
+
+                if (moistureVal > cfg.level.stone) {
+                    const droid = world.spawn( dna.bot.Droid, {
+                        x: x,
+                        y: y,
+                    })
+                }
+
                 /*
                 if (mv > cfg.level.rocks) {
                     world.spawn({ symbol: 'o', x: x, y: y, })

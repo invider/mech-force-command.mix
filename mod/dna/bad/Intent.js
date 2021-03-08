@@ -71,7 +71,8 @@ class Intent {
     recalc(level) {
         const intent = this
         const world = this.__
-        const hero = world.hero
+        // TODO properly retarget
+        const hero = lab.textMode.port1.follow
 
         function touch(l, x, y, step, from) {
             const i = intent.get(l, x, y)

@@ -32,8 +32,10 @@ class TitleBar extends dna.hud.Panel {
         let turn = 'Turn:' + world.turn
         if (world.scheduled) turn += '<' + world.scheduled
         tx.at(w - 14, 0).print(turn)
-        
+
+        /*
         tx.at(1, 0).print('' + this.world.hero.x + ':'
                         + this.world.hero.y + '     ')
+        */
     }
 }

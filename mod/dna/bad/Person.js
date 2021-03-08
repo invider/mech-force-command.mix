@@ -1,6 +1,6 @@
-// @depends(dna/mob/Platform)
+// @depends(dna/bot/Platform)
 
-class Person extends dna.mob.Platform {
+class Person extends dna.bot.Platform {
 
     constructor(st) {
         super(st)

@@ -1,12 +1,12 @@
-// @depends(dna/mob/Mob)
+// @depends(dna/bot/Mob)
 
 let id = 0
 
-class Platform extends dna.mob.Mob {
+class Platform extends dna.bot.Mob {
 
     constructor(st) {
         super(st)
-        this.symbol = 'f'
+        this.symbol = 'P'
         this.status = ''
         this.health = 10
         this.maxHealth = 10
@@ -15,7 +15,7 @@ class Platform extends dna.mob.Mob {
     }
 
     push(e) {
-        log(e.name + ' is pushed by ' + this.name)
+        //log(e.name + ' is pushed by ' + this.name)
     }
 
     next() {

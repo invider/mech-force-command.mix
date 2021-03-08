@@ -16,14 +16,14 @@ function act(action) {
     switch(action) {
         case 4:
             sfx('move', .4)
-            hero.pack.selectNext()
+            //hero.pack.selectNext()
             break
         case 5:
             sfx('move', .4)
-            hero.pack.selectPrev()
+            //hero.pack.selectPrev()
             break
         case 6:
-            hero.pack.use()
+            //hero.pack.use()
             break
     }
 }

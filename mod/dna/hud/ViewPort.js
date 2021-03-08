@@ -88,10 +88,12 @@ class ViewPort {
     }
 
     print() {
+        if (!this.world) return
+
         const tx = this.tx
         const cidx = lib.cidx
         const port = this.port
-        const fov = this.calculateFoV(this.world.hero)
+        const fov = this.calculateFoV(this.follow)
         this.world.exploreFOV(fov)
 
         //tx.reset()
@@ -202,6 +204,8 @@ class ViewPort {
     }
 
     pick(x, y) {
+        if (this.hidden) return
+
         const lx = x - this.x
         const ly = y - this.y
         if (lx < 0 || lx >= this.w
@@ -215,11 +219,16 @@ class ViewPort {
 
     show() {
         this.hidden = false
-        lib.util.bindAllPlayers()
+        if (this.follow && this.follow.takeControl) {
+            log(`[${this.name}] taking control of [${this.follow.name}]`)
+            this.follow.takeControl()
+        }
+        //lib.util.bindAllPlayers()
     }
 
     hide() {
         this.hidden = true
-        lib.util.unbindAllPlayers()
+        if (this.follow && this.follow.releaseControl) this.follow.releaseControl()
+        //lib.util.unbindAllPlayers()
     }
 }

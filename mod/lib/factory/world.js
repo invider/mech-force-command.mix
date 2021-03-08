@@ -11,14 +11,16 @@ function generateTerrain(world, island, difficulty) {
         level: {
             water: .1,
             sand: .14,
-            stone: .2,
+            stone: .75,
             ice: .3,
         },
         world: world,
     })
 }
 
-function hero() {
+
+let heroId = 0
+function placeHero() {
     const world = lab.world
     // find a palce for the hero
     let sx = -1
@@ -27,8 +29,8 @@ function hero() {
 
     for (let y = 0; y < world.height; y++) {
         for (let x = 0; x < world.width; x++) {
-            land = world.getLand(x, y)
-            if (land === '.' || land === '_' || land === '"') {
+            land = world.get(x, y)
+            if (land === '_') {
                 sx = x
                 sy = y
             }
@@ -38,17 +40,20 @@ function hero() {
     }
     if (sx < 0 || sy < 0) throw 'no place to land the hero!'
 
-    world.hero = world.spawn(dna.bad.Hero, {
-        name: 'Hero',
+    const hero = world.spawn(dna.bot.Droid, {
+        id: heroId,
+        name: 'hero' + (++heroId),
         x: sx,
         y: sy,
     })
+    lab.textMode['port' + heroId].follow = hero
+    //hero.takeControl()
 }
 
 function bind() {
     lab.textMode._ls.forEach(e => e.world = lab.world)
-    lab.textMode.port1.follow = lab.world.hero
-    lib.util.bindAllPlayers()
+    //lab.textMode.port1.follow = lab.world.hero
+    //lib.util.bindAllPlayers()
 }
 
 function world(island, difficulty) {
@@ -65,7 +70,8 @@ function world(island, difficulty) {
         h: world.segment.h,
     }))
 
-    hero()
+    placeHero()
+    placeHero()
     bind()
 
     return world

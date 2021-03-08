@@ -6,6 +6,7 @@ const ctrl = []
 const playerMap = []
 
 function bind(player, target) {
+    log('binding #' + player + ' -> ' + target.name)
     playerMap[player] = target
     if (!ctrl[player]) ctrl[player] = []
 }
