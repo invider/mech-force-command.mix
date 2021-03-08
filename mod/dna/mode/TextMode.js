@@ -426,5 +426,6 @@ class TextMode extends sys.LabFrame {
 
     onAttached(e) {
         log('attached ' + e.name)
+        e.tx = this
     }
 }

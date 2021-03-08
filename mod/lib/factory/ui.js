@@ -9,16 +9,18 @@ function ui() {
         name: 'port1',
         hidden: true,
         stick: 'left',
-        tx: tx,
     })
     const port2 = tx.spawn('hud/ViewPort', {
         name: 'port2',
         hidden: true,
         stick: 'right',
-        tx: tx,
+    })
+    const vs = tx.spawn('hud/VerticalSeparator', {
+        name: 'vs',
+        target: port2,
     })
 
-    lab.screenKeeper.define('game', [ titleBar, statusBar, port1, port2 ])
+    lab.screenKeeper.define('game', [ titleBar, statusBar, port1, port2, vs ])
     //tx.spawn(dna.hud.DebugPanel)
 
     return this
