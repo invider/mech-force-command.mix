@@ -1,5 +1,5 @@
 function ui() {
-    const tx = lab.textMode
+    const tx = lab.mode
 
     const titleBar = tx.spawn(dna.hud.TitleBar, { hidden: true })
     const statusBar = tx.spawn(dna.hud.StatusBar, { hidden: true })

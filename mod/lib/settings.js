@@ -2,12 +2,12 @@ const STORE = 'mech-force-command-settings'
 
 // sync settings in env/settings with scene
 function syncOut() {
-    if (lab.textMode) lab.textMode.setZoom( env.settings.zoom )
+    if (lab.mode) lab.mode.setZoom( env.settings.zoom )
 }
 
 // sync scene settings into env/settings
 function syncIn() {
-    env.settings.zoom = lab.textMode.getZoom()
+    env.settings.zoom = lab.mode.getZoom()
 }
 
 function load() {

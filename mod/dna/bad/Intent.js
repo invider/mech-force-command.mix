@@ -72,7 +72,7 @@ class Intent {
         const intent = this
         const world = this.__
         // TODO properly retarget
-        const hero = lab.textMode.port1.follow
+        const hero = lab.mode.port1.follow
         if (!hero) return
 
         function touch(l, x, y, step, from) {

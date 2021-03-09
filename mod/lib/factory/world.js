@@ -56,14 +56,14 @@ function placeLeader(team) {
         y: sy,
     })
     env.team[team].setLeader(leader)
-    //lab.textMode['port' + leaderId].follow = hero
+    //lab.mode['port' + leaderId].follow = hero
     //leader.takeControl()
     return leader
 }
 
 function bind() {
-    lab.textMode._ls.forEach(e => e.world = lab.world)
-    //lab.textMode.port1.follow = lab.world.hero
+    lab.mode._ls.forEach(e => e.world = lab.world)
+    //lab.mode.port1.follow = lab.world.hero
     //lib.util.bindAllPlayers()
 }
 

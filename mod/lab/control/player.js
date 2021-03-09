@@ -93,7 +93,7 @@ function evo(dt) {
     }
     /*
     // debug control triggers
-    const tx = lab.textMode
+    const tx = lab.mode
     tx.reset().at(0, 4)
 
     for (let p = 0; p < ctrl.length; p++) {

@@ -1,5 +1,5 @@
 function menu() {
-    const tx = lab.textMode
+    const tx = lab.mode
 
     const mainMenu = tx.spawn('hud/Menu', {
         name: 'mainMenu',

@@ -12,11 +12,11 @@ function handleOpt(e) {
 function handleControl(e) {
     switch(e.code) {
         case 'Minus':
-            lab.textMode.zoomOut()
+            lab.mode.zoomOut()
             lib.settings.save()
             break
         case 'Equal':
-            lab.textMode.zoomIn()
+            lab.mode.zoomIn()
             lib.settings.save()
             break
 
