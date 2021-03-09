@@ -233,19 +233,19 @@ class ViewPort {
     */
 
     act(action) {
-        log('#' + action)
+        //log(`[${this.name}] #${action}`)
         switch(action) {
             case 0:
-                this.port.x --
+                this.port.y -= floor(this.h/3)
                 break
             case 1:
-                this.port.y --
+                this.port.x -= floor(this.w/3)
                 break
             case 2:
-                this.port.x ++
+                this.port.y += floor(this.h/3)
                 break
             case 3:
-                this.port.y ++
+                this.port.x += floor(this.w/3)
                 break
         }
     }
@@ -253,6 +253,12 @@ class ViewPort {
     bindControls() {
         if (this.playerId >= 0 || !this.target) return
         lab.control.player.bind(this, this.target.team)
+    }
+
+    unbindControls() {
+        if (this.playerId < 0) return
+        this.playerId = -1
+        lab.control.player.unbind(this)
     }
 
     bindToTarget() {
@@ -266,11 +272,14 @@ class ViewPort {
             this.bindControls()
 
         } else if (this.target.leader) {
+            this.unbindControls()
             // pick the team's leader
             const team = env.team[ this.target.team ]
             if (team && team.leader && !team.leader.dead) {
                 this.follow = team.leader
             } else {
+                this.follow = null
+                this.target.leader = false
                 this.target.free = true
             }
 
