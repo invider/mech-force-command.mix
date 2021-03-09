@@ -15,6 +15,7 @@ function act(action) {
 
     switch(action) {
         case 4:
+            log('USE')
             //sfx('move', .4)
             //hero.pack.selectNext()
             break

@@ -1,11 +1,13 @@
 // list of possible text effects
 const fx = [
     {
+        // no fx
         set: function(fx, tx, i) {},
         evo: function(dt, fx, tx, i) {},
         unset: function(fx, tx, i) {},
     },
     {
+        // face <-> back flip fx
         set: function(fx, tx, i) {
             fx.period = 1
             fx.timer = 0

@@ -13,8 +13,12 @@ class ViewPort {
         augment(this, df, st)
         this.port = {
             x: 0,
-           y: 0,
+            y: 0,
         }
+        this.__.spawn(dna.hud.Menu, {
+            name: 'portMenu',
+            hidden: true,
+        })
     }
 
     init() {
@@ -306,6 +310,10 @@ class ViewPort {
         const gy = this.port.y + ly
 
         return this.world.getEntity(gx, gy)
+    }
+
+    openMenu() {
+
     }
 
     show() {
