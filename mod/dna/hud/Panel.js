@@ -1,19 +1,7 @@
 class Panel {
 
     constructor(st, df) {
-        augment(this, df)
-        augment(this, st)
-    }
-
-    background() {
-        const tx = this.__
-        for (let y = 0; y < this.h; y++) {
-            for (let x = 0; x < this.w; x++) {
-                tx.put(x, y, ' ')
-                tx.put(x, y, 0, 2)
-                tx.put(x, y, 0, 3)
-            }
-        }
+        augment(this, df, st)
     }
 
     adjust() {
@@ -31,5 +19,22 @@ class Panel {
     show() {
         this.hidden = false
         this.__.adjust()
+    }
+
+    background() {
+        const tx = this.__
+        const bx = this.x
+        const by = this.y
+        for (let y = 0; y < this.h; y++) {
+            for (let x = 0; x < this.w; x++) {
+                tx.put(bx+x, by+y, ' ')
+                tx.put(bx+x, by+y, 0, 2)
+                tx.put(bx+x, by+y, 0, 3)
+            }
+        }
+    }
+
+    draw() {
+        this.background()
     }
 }

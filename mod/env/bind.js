@@ -1,11 +1,13 @@
-
-
 const keyboard = [
     [ 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyE', 'KeyQ', 'Space'],
     [ 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
         'PageDown', 'PageUp', 'ShiftRight' ],
     [ 'KeyK', 'KeyH', 'KeyJ', 'KeyL',
         'BracketRight', 'BracketLeft', 'Enter' ],
+    [ 'Numpad8', 'Numpad4', 'Numpad2', 'Numpad6',
+        'NumpadEnter', 'NumpadSubstract', 'Numpad7', 'Numpad9',
+    ],
+
 ]
 
 const keyMap = {}

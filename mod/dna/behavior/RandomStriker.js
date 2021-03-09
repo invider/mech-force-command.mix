@@ -13,7 +13,7 @@ class RandomStriker extends dna.behavior.Behavior {
             if (foe) {
                 // watttack!!!
                 this.status = 'attacking [' + foe.team + '/' + foe.name + ']'
-                log(`[${this.name}] ${this.status}`)
+                //log(`[${this.name}] ${this.status}`)
                 this.gun.shot(foe)
 
             } else {

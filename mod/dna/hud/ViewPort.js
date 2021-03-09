@@ -7,22 +7,27 @@ const df = {
     targetEdge: 5,
 }
 
+let id = 0
 class ViewPort {
 
     constructor(st) {
         augment(this, df, st)
+        this.id = ++id
+        this.name = 'port' + this.id
         this.port = {
             x: 0,
             y: 0,
         }
-        this.__.spawn(dna.hud.Menu, {
-            name: 'portMenu',
-            hidden: true,
-        })
     }
 
     init() {
         this.adjust()
+        this.menu = this.__.spawn(dna.hud.Menu, {
+            Z: this.Z + 20,
+            name: 'portMenu' + this.id,
+            port: this,
+            hidden: true,
+        })
     }
 
     adjust() {
@@ -255,6 +260,7 @@ class ViewPort {
     }
 
     bindControls() {
+        if (this.hidden) return
         if (this.playerId >= 0 || !this.target) return
         lab.control.player.bind(this, this.target.team)
     }
@@ -313,7 +319,32 @@ class ViewPort {
     }
 
     openMenu() {
+        let leader
+        if (this.follow) leader = this.follow
 
+        this.hide()
+        this.menu.selectFrom({
+            items: [
+                'one',
+                'two',
+                'three',
+            ],
+            onSelect: function(item, i) {
+                log('selected: #' + i + ': ' + item.name)
+                if (i === 2) {
+                    this.hide()
+                }
+            },
+            onHide: function() {
+                this.port.show()
+            },
+            track: function() {
+                // handle dead leader
+                if (leader && leader.dead) {
+                    this.hide()
+                }
+            },
+        })
     }
 
     show() {

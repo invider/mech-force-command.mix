@@ -340,6 +340,11 @@ class TextMode extends sys.LabFrame {
                     this.buf.fx[i], this, i)
             }
         }
+
+        for (let i = 0; i < this._ls.length; i++) {
+            const component = this._ls[i]
+            if (component.evo) component.evo(dt)
+        }
     }
 
     renderComponents() {

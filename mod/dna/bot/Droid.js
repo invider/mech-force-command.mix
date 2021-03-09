@@ -27,7 +27,7 @@ class Droid extends dna.bot.Platform {
     }
 
     releaseControl() {
-        this.attach(this.randomWalker)
+        this.attach(dna.behavior.RandomWalker)
         this.detach(this.totalControl)
     }
 
