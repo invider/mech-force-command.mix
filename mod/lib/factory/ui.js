@@ -10,6 +10,7 @@ function ui() {
         hidden: true,
         stick: 'top-left',
         target: {
+            leader: true,
             team: 1,
         }
     })
@@ -18,6 +19,7 @@ function ui() {
         hidden: true,
         stick: 'top-right',
         target: {
+            leader: true,
             team: 2,
         }
     })
@@ -26,6 +28,7 @@ function ui() {
         hidden: true,
         stick: 'bottom-left',
         target: {
+            leader: true,
             team: 3,
         }
     })
@@ -34,7 +37,9 @@ function ui() {
         hidden: true,
         stick: 'bottom-right',
         target: {
-            team: 3,
+            free: true,
+            //leader: true,
+            //team: 3,
         }
     })
 

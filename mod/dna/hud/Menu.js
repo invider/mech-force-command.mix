@@ -106,9 +106,7 @@ class Menu extends dna.hud.Panel {
 
     bind() {
         log('binding menu controls')
-        lab.control.player.bind(0, this)
-        lab.control.player.bind(1, this)
-        lab.control.player.bind(2, this)
+        lab.control.player.bindAll(this)
     }
 
     show() {
@@ -119,9 +117,7 @@ class Menu extends dna.hud.Panel {
 
     unbind() {
         log('unbinding menu controls')
-        lab.control.player.bind(0, false)
-        lab.control.player.bind(1, false)
-        lab.control.player.bind(2, false)
+        lab.control.player.unbindAll()
     }
 
     hide() {

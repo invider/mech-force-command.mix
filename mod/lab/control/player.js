@@ -5,10 +5,34 @@ const ctrl = []
 
 const playerMap = []
 
-function bind(player, target) {
+function bind(target, player) {
+    player = player || 0
     log('binding #' + player + ' -> ' + target.name)
+    target.playerId = player
     playerMap[player] = target
     if (!ctrl[player]) ctrl[player] = []
+}
+
+function bindAll(target) {
+    for (let i = 0; i < env.tune.players; i++) {
+        this.bind(target, i)
+    }
+}
+
+function unbind(player) {
+    player = player || 0
+    const target = playerMap[player]
+    if (target) {
+        log('unbinding #' + player)
+        target.playerId = -1
+        playerMap[player] = null
+    }
+}
+
+function unbindAll() {
+    for (let i = 0; i < env.tune.players; i++) {
+        this.unbind(i)
+    }
 }
 
 function act(action, player) {
@@ -24,9 +48,15 @@ function act(action, player) {
     if (ctrl[player] && !ctrl[player][action]) {
         ctrl[player][action] = ON
 
-        const hero = playerMap[player]
-        if (hero && hero.control.activate) {
-            hero.control.activate(action)
+        const target = playerMap[player]
+        if (target) {
+            if (target.control) {
+                if (target.control.activate) {
+                    target.control.activate(action)
+                }
+            } else if (target.activate) {
+                target.activate(action)
+            }
         }
     }
 }
@@ -41,13 +71,22 @@ function stop(action, player) {
 function evo(dt) {
 
     for (let p = 0; p < ctrl.length; p++) {
+        if (!ctrl[p]) continue
         for (let a = 0; a < ctrl[p].length; a++) {
             if (ctrl[p][a]) {
                 ctrl[p][a] -= dt
                 if (ctrl[p][a] <= 0) {
-                    const hero = playerMap[p]
-                    if (hero) hero.control.act(a)
-                    ctrl[p][a] = env.tune.keyRepeat
+                    const target = playerMap[p]
+                    if (target) {
+                        if (target.control) {
+                            if (target.control.act) {
+                                target.control.act(a)
+                            }
+                        } else if (target.act) {
+                            target.act(a)
+                        }
+                        ctrl[p][a] = env.tune.keyRepeat
+                    }
                 }
             }
         }

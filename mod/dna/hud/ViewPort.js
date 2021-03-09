@@ -232,13 +232,50 @@ class ViewPort {
     }
     */
 
+    act(action) {
+        log('#' + action)
+        switch(action) {
+            case 0:
+                this.port.x --
+                break
+            case 1:
+                this.port.y --
+                break
+            case 2:
+                this.port.x ++
+                break
+            case 3:
+                this.port.y ++
+                break
+        }
+    }
+
+    bindControls() {
+        if (this.playerId >= 0 || !this.target) return
+        lab.control.player.bind(this, this.target.team)
+    }
+
     bindToTarget() {
-        if (this.target && this.target.team) {
+        if (!this.target) {
+            this.target = {
+                free: true,
+            }
+        }
+
+        if (this.target.free) {
+            this.bindControls()
+
+        } else if (this.target.leader) {
             // pick the team's leader
             const team = env.team[ this.target.team ]
-            if (team && team.leader) {
+            if (team && team.leader && !team.leader.dead) {
                 this.follow = team.leader
+            } else {
+                this.target.free = true
             }
+
+        } else {
+            log.error('wrong viewport config!')
         }
     }
 

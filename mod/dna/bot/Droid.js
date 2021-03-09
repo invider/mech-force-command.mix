@@ -23,7 +23,7 @@ class Droid extends dna.bot.Platform {
         this.detach(this.behavior) // disable AI
         this.attach(dna.pod.control)
         this.attach(dna.pod.totalControl)
-        lab.control.player.bind(this.id, this)
+        lab.control.player.bind(this, this.id)
     }
 
     releaseControl() {
