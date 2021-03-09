@@ -2,6 +2,7 @@ const tune = {
     app: 'mech-force-command',
     maxLevel: 7,
     maxTeams: 4,
+    autoevolve: true,
 
     zoomStep:   0.2,
     minZoom: 0.5,

@@ -204,7 +204,7 @@ class World extends sys.Frame {
                 }
                 this.next()
             }
-        } else if (this.autoevolve) {
+        } else if (this.autoevolve || env.tune.autoevolve) {
             this.timer -= dt
             if (this.timer <= 0) {
                 this.next()
