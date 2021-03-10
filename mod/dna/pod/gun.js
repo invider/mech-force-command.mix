@@ -5,5 +5,5 @@ function shot(target) {
     target.hit(this.__, 20)
     //if (target.dead) log(`[${this.__.name}] killed [${target.name}]`)
     this.__.lfx.light(.8)
-    sfx(res.sfx.gunShotsX3, .5)
+    lib.sfx.at('gunShotsX3', this.__.x, this.__.y)
 }

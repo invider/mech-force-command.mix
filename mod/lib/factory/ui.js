@@ -14,7 +14,8 @@ function ui() {
         hidden: true
     })
     //tx.spawn(dna.hud.SidePanel, { hidden: true })
-
+    
+    env.ports = []
     const port1 = tx.spawn('hud/ViewPort', {
         Z: 10,
         hidden: true,
@@ -24,6 +25,8 @@ function ui() {
             team: 1,
         }
     })
+    env.ports.push(port1)
+
     const port2 = tx.spawn('hud/ViewPort', {
         Z: 11,
         hidden: true,
@@ -33,6 +36,8 @@ function ui() {
             team: 2,
         }
     })
+    env.ports.push(port2)
+
     const port3 = tx.spawn('hud/ViewPort', {
         Z: 12,
         hidden: true,
@@ -42,17 +47,24 @@ function ui() {
             team: 3,
         }
     })
+    env.ports.push(port3)
+
     const port4 = tx.spawn('hud/ViewPort', {
         Z: 13,
         hidden: true,
         stick: 'bottom-right',
+        port: {
+            x: 18,
+            y: 18,
+        },
         target: {
             free: true,
             team: -1,
             //leader: true,
             //team: 3,
-        }
+        },
     })
+    env.ports.push(port4)
 
     const vs1 = tx.spawn('hud/VerticalSeparator', {
         Z: 21,
