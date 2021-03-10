@@ -87,7 +87,7 @@ function ui() {
         target: port4,
     })
 
-    lab.screenKeeper.define('game', [
+    lab.control.state.define('game', [
         titleBar, statusBar,
         port1, port2, port3, port4,
         vs1, vs2, hs1, hs2,

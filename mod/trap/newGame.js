@@ -6,5 +6,5 @@ function newGame(opt) {
     fade.onShow = function() {
         lib.factory.world(map)
     }
-    lab.screenKeeper.fadeTo('game', fade)
+    lab.control.state.fadeTo('game', fade)
 }

@@ -57,7 +57,7 @@ function menu() {
             },
         ]
     })
-    lab.screenKeeper.define('menu', mainMenu)
+    lab.control.state.define('menu', mainMenu)
 
     return this
 }

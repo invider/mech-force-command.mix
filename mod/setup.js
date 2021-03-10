@@ -8,7 +8,7 @@ function setup() {
     lib.factory.mode().menu().ui()
 
     //trap('fadein')
-    lab.screenKeeper.hideAll()
+    lab.control.state.hideAll()
 
     let map = 0
     if (env.config.test) {
@@ -27,7 +27,7 @@ function setup() {
     }
 
     if (!map) {
-        lab.screenKeeper.fadeTo('menu', {
+        lab.control.state.fadeTo('menu', {
             fadein: 0,
         })
 
