@@ -48,6 +48,7 @@ function ui() {
         stick: 'bottom-right',
         target: {
             free: true,
+            team: -1,
             //leader: true,
             //team: 3,
         }

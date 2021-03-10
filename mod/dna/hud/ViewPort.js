@@ -262,7 +262,8 @@ class ViewPort {
     bindControls() {
         if (this.hidden) return
         if (this.playerId >= 0 || !this.target) return
-        lab.control.player.bind(this, this.target.team)
+        if (this.target.team < 0) return
+        lab.control.player.bind(this, this.target.team-1)
     }
 
     unbindControls() {
@@ -275,6 +276,7 @@ class ViewPort {
         if (!this.target) {
             this.target = {
                 free: true,
+                team: -1,
             }
         }
 
