@@ -1,11 +1,10 @@
-function generateIsland(cfg, level) {
-    const w = cfg.width || 256
-    const h = cfg.height || 256
+function generateIsland(world, cfg) {
+    const w = cfg.width || 64
+    const h = cfg.height || 64
     const z = cfg.z || 0.8
     const dx = cfg.dx || 0
     const dy = cfg.dy || 0
     const scale = cfg.scale || 12
-    const world = cfg.world || { set: () => {} }
     world.width = w
     world.height = h
 

@@ -1,5 +1,5 @@
 function generateTerrain(world, opt) {
-    $.lib.ken.generateIsland({
+    lib.ken.generateIsland(world, {
         width: opt.w || env.tune.defaultSegmentWidth,
         height: opt.h || env.tune.defaultSegmentHeight,
 
@@ -25,19 +25,27 @@ function teams() {
     }
 }
 
+function intents() {
+    /*
+    world.attach(new dna.bad.Intent({
+        world: world,
+        w: world.segment.w,
+        h: world.segment.h,
+    }))
+    */
+}
+
 
 let leaderId = 0
-function placeLeader(team) {
-    const world = lab.world
+function placeLeader(world, base, team) {
     // find a palce for the hero
     let sx = -1
     let sy = -1
-    let land
 
     for (let y = 0; y < world.height; y++) {
         for (let x = 0; x < world.width; x++) {
-            land = world.get(x, y)
-            if (land === '_') {
+            const land = world.get(x, y)
+            if (land === base) {
                 sx = x
                 sy = y
             }
@@ -45,7 +53,7 @@ function placeLeader(team) {
         }
         if (sx >= 0 && sy >= 0) break
     }
-    if (sx < 0 || sy < 0) throw 'no place to land the hero!'
+    if (sx < 0 || sy < 0) throw 'no place to land the leader!'
 
     const leader = world.spawn(dna.bot.Droid, {
         id: leaderId,
@@ -61,6 +69,14 @@ function placeLeader(team) {
     return leader
 }
 
+function leaders(world, opt) {
+    const base = opt.base || '_'
+    placeLeader(world, base, 1)
+    placeLeader(world, base, 2)
+    placeLeader(world, base, 3)
+    placeLeader(world, base, 4)
+}
+
 function bind() {
     lab.mode._ls.forEach(e => e.world = lab.world)
     //lab.mode.port1.follow = lab.world.hero
@@ -69,27 +85,29 @@ function bind() {
 
 // accepts map # from the menu to generate
 function world(imap) {
-    if (!imap) imap = 0
-
-    const defaultConfig = $.sce.map[0]
-    const config = augment({}, defaultConfig, $.sce.map[imap])
-    if (!config.seed) config.seed = imap - 1
-
-    const world = lab.spawn('World')
-    generateTerrain(world, config.opt)
-
-    world.attach(new dna.bad.Intent({
-        world: world,
-        w: world.segment.w,
-        h: world.segment.h,
-    }))
-
     teams()
 
-    placeLeader(1)
-    placeLeader(2)
-    placeLeader(3)
-    placeLeader(4)
+    // determine map config
+    if (!imap) imap = 0
+    const defaultConfig = $.sce.map[0]
+    let config
+    if (!env.config.test) {
+        log('=== MAP #' + imap + ' ===')
+        config = augment({}, defaultConfig, $.sce.map[imap])
+    } else {
+        log('=== TEST #' + env.config.test + ' ===')
+        config = augment({}, defaultConfig, $.sce.test.map[env.config.test])
+    }
+    if (!config.opt.seed) config.opt.seed = imap - 1
+
+    const world = lab.spawn('World')
+    intents(world)
+
+    if (config.genTerrain) config.genTerrain(world, config.opt)
+    else generateTerrain(world, config.opt)
+
+    if (config.genSquads) config.genSquads(world, config.opt)
+    else leaders(world, config.opt)
 
     bind()
 

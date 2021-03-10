@@ -27,8 +27,7 @@ class World extends sys.Frame {
             y: 0,
         })
 
-        augment(this, df)
-        augment(this, st)
+        augment(this, df, st)
     }
 
     place(segment, quad, target) {
@@ -248,7 +247,7 @@ class World extends sys.Frame {
     }
 
     onMovement() {
-        this.intent.recalc(0)
+        //this.intent.recalc(0)
     }
 
     scheduleNext() {
