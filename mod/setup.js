@@ -10,7 +10,23 @@ function setup() {
     //trap('fadein')
     lab.screenKeeper.hideAll()
 
-    if (!env.config.map) {
+    let map = 0
+    if (env.config.test) {
+        if (isNumber(env.config.test)) {
+            map = env.tune.testRange + env.config.test
+        } else {
+            map= env.tune.testRange + 1
+        }
+
+    } else if (env.config.map) {
+        if (isNumber(env.config.map)) {
+            map = env.config.map
+        } else {
+            throw 'map number is expected!'
+        }
+    }
+
+    if (!map) {
         lab.screenKeeper.fadeTo('menu', {
             fadein: 0,
         })
@@ -18,7 +34,7 @@ function setup() {
     } else {
         // debug branch - jump straight to the game
         trap('newGame', {
-            level: env.config.map,
+            level: map,
             fade: {
                 fadein:   0,
                 keep:     0,

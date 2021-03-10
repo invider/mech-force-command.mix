@@ -36,4 +36,6 @@ const tune = {
     destructionFactor: .05,
     guardSteps: 16,
     guardFactor: .3, // chance of containment for a single turn
+
+    testRange: 1000,
 }

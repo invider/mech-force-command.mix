@@ -21,7 +21,9 @@ function generateTerrain(world, opt) {
 function teams() {
     env.team = []
     for (let i = 0; i < env.tune.maxTeams + 1; i++) {
-        env.team.push( new dna.Team() )
+        const team = new dna.Team()
+        env.team.push( team )
+        team.active = true    // TODO level responsiblity
     }
 }
 
@@ -88,15 +90,18 @@ function world(imap) {
     teams()
 
     // determine map config
-    if (!imap) imap = 0
-    const defaultConfig = $.sce.map[0]
+    imap = imap || 0
+    const defaultConfig = $.sce.land[0]
+
     let config
-    if (!env.config.test) {
-        log('=== MAP #' + imap + ' ===')
-        config = augment({}, defaultConfig, $.sce.map[imap])
+    if (imap < env.tune.testRange) {
+        log('=== LAND #' + imap + ' ===')
+        config = augment({}, defaultConfig, $.sce.land[imap])
+
     } else {
-        log('=== TEST #' + env.config.test + ' ===')
-        config = augment({}, defaultConfig, $.sce.test.map[env.config.test])
+        imap -= env.tune.testRange
+        log('=== TEST #' + imap + ' ===')
+        config = augment({}, defaultConfig, $.sce.test.land[imap])
     }
     if (!config.opt.seed) config.opt.seed = imap - 1
 
