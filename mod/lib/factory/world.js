@@ -91,6 +91,8 @@ function world(imap) {
 
     // determine map config
     imap = imap || 0
+    if (isString(imap)) imap = parseInt(imap)
+    env.imap = imap
     const defaultConfig = $.sce.land[0]
 
     let config
