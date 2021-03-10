@@ -96,15 +96,16 @@ function world(imap) {
     let config
     if (imap < env.tune.testRange) {
         log('=== LAND #' + imap + ' ===')
-        config = augment({}, defaultConfig, $.sce.land[imap])
+        config = extend({}, defaultConfig, $.sce.land[imap])
 
     } else {
         imap -= env.tune.testRange
         log('=== TEST #' + imap + ' ===')
-        config = augment({}, defaultConfig, $.sce.test.land[imap])
+        config = extend({}, defaultConfig, $.sce.test.land[imap])
     }
     if (!config.opt.seed) config.opt.seed = imap - 1
 
+    if (lab.world) lab.detach(lab.world) // clean up the old world
     const world = lab.spawn('World')
     intents(world)
 

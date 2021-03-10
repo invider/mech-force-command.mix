@@ -34,7 +34,7 @@ function setup() {
     } else {
         // debug branch - jump straight to the game
         trap('newGame', {
-            level: map,
+            map: map,
             fade: {
                 fadein:   0,
                 keep:     0,

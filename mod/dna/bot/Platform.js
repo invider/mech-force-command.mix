@@ -96,7 +96,7 @@ class Platform {
 
         defer(() => {
             platform.dead = true
-            log(`${platform.name} has died!`)
+            //log(`${platform.name} has died!`)
             platform.__.detach(platform)
         })
     }

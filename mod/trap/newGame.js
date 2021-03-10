@@ -1,8 +1,10 @@
 function newGame(opt) {
-    const level = opt.level
-    //log(`starting a new game on map #${level}`)
+    const map = opt.map
+    //log(`starting a new game on map #${map}`)
 
-    lib.factory.world(level)
-
-    lab.screenKeeper.fadeTo('game', opt.fade)
+    const fade = opt.fade || {}
+    fade.onShow = function() {
+        lib.factory.world(map)
+    }
+    lab.screenKeeper.fadeTo('game', fade)
 }
