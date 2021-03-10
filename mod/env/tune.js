@@ -9,6 +9,9 @@ const tune = {
     minZoom: 0.5,
     maxZoom: 5,
 
+    minVolume: .1,
+    sfxFade:    32,
+
     turnDelay:  .5,
     turnTime:   .5,
     fastTime:   .015,

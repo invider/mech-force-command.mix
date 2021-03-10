@@ -34,12 +34,12 @@ soundFx.at = function(name, x, y) {
     })
 
     if (inView) {
-        log(`${x}:${y} is in view! ` + floor(minDist))
         soundFx(name)
     } else {
         // somewhere out
-        log(`${x}:${y} is not in view!` + floor(minDist))
-        //soundFx(name, .2)
+        const fade = 1 - limit(minDist/env.tune.sfxFade, 0, 1)
+        const vol = env.tune.minVolume + (1-env.tune.minVolume) * fade
+        soundFx(name, vol)
     }
 }
 
