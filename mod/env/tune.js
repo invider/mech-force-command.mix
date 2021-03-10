@@ -22,6 +22,11 @@ const tune = {
     altarMinimum: 1,
     solidAether:    true,
 
+    //aether: ' ',
+    aether: '~',
+    outside: '~',
+    unexplored: '?',
+
     defaultSegmentWidth:    64,
     defaultSegmentHeight:   64,
     solid:  ['~', '^', '#', '|', '-'],

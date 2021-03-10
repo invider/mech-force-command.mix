@@ -457,7 +457,7 @@ class TextMode extends sys.LabFrame {
         return floor(sy / this.cellHeight)
     }
 
-    pick(x, y) {
+    pick(x, y, opt) {
         // translate into text coordinate space
         const lx = this.lx(x)
         const ly = this.ly(y)
@@ -465,7 +465,7 @@ class TextMode extends sys.LabFrame {
         for (let i = 0; i < this._ls.length; i++) {
             const component = this._ls[i]
             if (!component.hidden && component.pick) {
-                const res = component.pick(lx, ly)
+                const res = component.pick(lx, ly, opt)
                 if (res) return res
             }
         }

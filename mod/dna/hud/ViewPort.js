@@ -174,7 +174,7 @@ class ViewPort {
                     } else {
                         s = this.world.getLand(gx, gy)
                     }
-                    if (!s) s = env.style.aether
+                    if (!s) s = env.tune.aether
 
                     // set background color
                     if (eBackColor) this.tx.put(vx, vy, eBackColor, this.tx.CBACK)
@@ -204,7 +204,7 @@ class ViewPort {
 
                 } else {
                     this.tx.put(vx, vy, cidx('shaddow'), this.tx.FACE)
-                    this.tx.put(vx, vy, env.style.unexplored)
+                    this.tx.put(vx, vy, env.tune.unexplored)
                 }
 
                 /*
@@ -329,7 +329,7 @@ class ViewPort {
         this.print()
     }
 
-    pick(x, y) {
+    pick(x, y, opt) {
         if (this.hidden) return
 
         const lx = x - this.x
@@ -340,7 +340,12 @@ class ViewPort {
         const gx = this.port.x + lx
         const gy = this.port.y + ly
 
-        return this.world.getEntity(gx, gy)
+        if (opt === 'showLand') {
+            const land = this.world.getLand(gx, gy)
+            log(`[${land}] at ${gx}:${gy}`)
+        } else {
+            return this.world.getEntity(gx, gy)
+        }
     }
 
     openMenu() {

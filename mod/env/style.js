@@ -3,11 +3,4 @@ const style = {
     cellWidth: 8,
     cellHeight: 10,
 
-    sidePanelWidth: 15,
-
-    //aether: ' ',
-    aether: '~',
-    unexplored: ' ',
-    infectionSource: '!',
-    guard: '$',
 }

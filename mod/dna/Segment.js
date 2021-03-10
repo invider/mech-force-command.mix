@@ -7,7 +7,7 @@ const df = {
     y: 0,
     w: env.tune.defaultSegmentWidth,
     h: env.tune.defaultSegmentHeight,
-    def: '.',
+    def: env.tune.outside,
 }
 
 // Represents a squeare segment of the map
