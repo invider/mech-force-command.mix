@@ -5,17 +5,33 @@ function onInstall() {
 }
 
 function act(action) {
-    const hero = this.__
+    const bot = this.__
 
     if (action < 4) {
-        hero.move.dir(action)
+        bot.move.dir(action)
         sfx('step', .5)
+
+        // try to fire
+        const foe = bot.scanner.scanForEnemy()
+        if (foe) {
+            // watttack!!!
+            bot.status = 'attacking [' + foe.team + '/' + foe.name + ']'
+            //log(`[${this.name}] ${this.status}`)
+            bot.gun.shot(foe)
+        }
+
         return true
     }
 
     switch(action) {
         case 4:
-            log('USE')
+            const foe = bot.scanner.scanForEnemy()
+            if (foe) {
+                // watttack!!!
+                bot.status = 'attacking [' + foe.team + '/' + foe.name + ']'
+                //log(`[${this.name}] ${this.status}`)
+                bot.gun.shot(foe)
+            }
             //sfx('move', .4)
             //hero.pack.selectNext()
             break
