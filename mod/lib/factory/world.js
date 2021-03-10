@@ -1,10 +1,10 @@
-function generateTerrain(world, island, difficulty) {
+function generateTerrain(world, opt) {
     $.lib.ken.generateIsland({
-        width: env.tune.defaultSegmentWidth,
-        height: env.tune.defaultSegmentHeight,
+        width: opt.w || env.tune.defaultSegmentWidth,
+        height: opt.h || env.tune.defaultSegmentHeight,
 
-        dx: island * 727,
-        dy: island * 571,
+        dx: opt.seed * 727,
+        dy: opt.seed * 571,
         z: .2,
 
         scale: 11,
@@ -67,13 +67,16 @@ function bind() {
     //lib.util.bindAllPlayers()
 }
 
-function world(island, difficulty) {
-    if (!island) island = 0
-    else island -= 1
-    if (!difficulty) difficulty = 1
+// accepts map # from the menu to generate
+function world(imap) {
+    if (!imap) imap = 0
+
+    const defaultConfig = $.sce.map[0]
+    const config = augment({}, defaultConfig, $.sce.map[imap])
+    if (!config.seed) config.seed = imap - 1
 
     const world = lab.spawn('World')
-    generateTerrain(world, island, difficulty)
+    generateTerrain(world, config.opt)
 
     world.attach(new dna.bad.Intent({
         world: world,
