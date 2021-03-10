@@ -1,10 +1,12 @@
 // @depends(env/style)
 // @depends(env/settings)
-const CHAR = 1
-const FACE = 2
-const BACK = 3
-const MODE = 4
-const FX = 5
+const CHAR  = 1
+const FACE  = 2
+const BACK  = 3
+const CFACE = 4
+const CBACK = 5
+const MODE  = 6
+const FX    = 7
 
 const df = {
     name: 'textMode',
@@ -46,6 +48,8 @@ class TextMode extends sys.LabFrame {
             char: [],
             face: [],
             back: [],
+            cface: [],
+            cback: [],
             mode: [],
             fx: [],   // effect parameters objects
         }
@@ -77,11 +81,13 @@ class TextMode extends sys.LabFrame {
     }
 
     setConstants() {
-        this.CHAR = CHAR
-        this.FACE = FACE
-        this.BACK = BACK
-        this.MODE = MODE
-        this.FX = FX
+        this.CHAR  = CHAR
+        this.FACE  = FACE
+        this.BACK  = BACK
+        this.CFACE = CFACE
+        this.CBACK = CBACK
+        this.MODE  = MODE
+        this.FX    = FX
     }
 
     init() {
@@ -98,12 +104,16 @@ class TextMode extends sys.LabFrame {
             const c = copyBuf(this.buf.char, pw, ph, tw, th)
             const f = copyBuf(this.buf.face, pw, ph, tw, th)
             const b = copyBuf(this.buf.back, pw, ph, tw, th)
+            const cf = copyBuf(this.buf.cface, pw, ph, tw, th)
+            const cb = copyBuf(this.buf.cback, pw, ph, tw, th)
             const m = copyBuf(this.buf.mode, pw, ph, tw, th)
             const x = copyBuf(this.buf.fx, pw, ph, tw, th)
 
             this.buf.char = c
             this.buf.face = f
             this.buf.back = b
+            this.buf.cface = cf
+            this.buf.cback = cb
             this.buf.mode = m
             this.buf.fx = x
             this.tw = tw
@@ -193,9 +203,17 @@ class TextMode extends sys.LabFrame {
             switch(t) {
             case FACE:
                 this.buf.face[i] = c
+                this.buf.cface[i] = null
                 break;
             case BACK:
                 this.buf.back[i] = c
+                this.buf.cback[i] = null
+                break;
+            case CFACE:
+                this.buf.cface[i] = c
+                break;
+            case CBACK:
+                this.buf.cback[i] = c
                 break;
             case MODE:
                 if (!isNumber(c) || c < 0 || c >= this.fx.length) throw `wrong mode [${c}]`
@@ -261,9 +279,17 @@ class TextMode extends sys.LabFrame {
             this.put(this.cursor.x, this.cursor.y,
                     this.cursor.face, FACE)
         }
+        if (this.cursor.cface) {
+            this.put(this.cursor.x, this.cursor.y,
+                    this.cursor.cface, CFACE)
+        }
         if (this.cursor.back) {
             this.put(this.cursor.x, this.cursor.y,
                     this.cursor.back, BACK)
+        }
+        if (this.cursor.cback) {
+            this.put(this.cursor.x, this.cursor.y,
+                    this.cursor.cback, CBACK)
         }
         if (this.cursor.mode) {
             this.put(this.cursor.x, this.cursor.y,
@@ -336,8 +362,10 @@ class TextMode extends sys.LabFrame {
         for (let i = 0; i < n; i++) {
             const mode = this.buf.mode[i]
             if (mode) {
-                this.fx[mode].evo(dt,
-                    this.buf.fx[i], this, i)
+                if (this.fx[mode].evo) {
+                    this.fx[mode].evo(dt,
+                        this.buf.fx[i], this, i)
+                }
             }
         }
 
@@ -379,15 +407,29 @@ class TextMode extends sys.LabFrame {
                 const symbol = this.buf.char[sh]
 
                 // background
-                const back = this.buf.back[sh]
-                if (back) {
-                    fill(pal.ls[back])
+                const cback = this.buf.cback[sh]
+                if (cback) {
+                    // direct color
+                    fill(cback)
                     rect(tx*cw, ty*ch, cw + .5, ch + .5)
+                } else {
+                    const back = this.buf.back[sh]
+                    if (back) {
+                        // indexed color
+                        fill(pal.ls[back])
+                        rect(tx*cw, ty*ch, cw + .5, ch + .5)
+                    }
                 }
 
                 // color
-                const face = this.buf.face[sh]
-                fill(pal.ls[face] || this.textColor)
+                const cface = this.buf.cface[sh]
+                if (cface) {
+                    // direct font color
+                    fill(cface)
+                } else {
+                    const face = this.buf.face[sh]
+                    fill(pal.ls[face] || this.textColor)
+                }
 
                 // character
                 if (symbol) {

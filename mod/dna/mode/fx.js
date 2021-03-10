@@ -34,4 +34,18 @@ const fx = [
             }
         },
     },
+    {
+        // heat wave
+        set: function(fx, tx, i) {
+            fx.period = 1
+            fx.timer = 0
+            fx.color = hsl(.1, .5, 0)
+        },
+        evo: function(dt, fx, tx, i) {
+            fx.timer += dt
+            const t = fx.timer % (2*fx.peroid)
+            if (t < fx.peroid) fx.color = hsl(.1, .5, t/fx.peroid)
+            else fx.color = hsl(.1, .5, 1-t/fx.peroid)
+        },
+    },
 ]

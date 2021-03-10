@@ -144,18 +144,24 @@ class ViewPort {
                 if (explored) {
 
                     let e
+                    let eBackColor
                     let s
                     if (visible) {
                         e = this.world.getEntity(gx, gy)
-                        if (e) s = e.symbol
-                        else s = this.world.get(gx, gy)
+                        if (e) {
+                            s = e.symbol
+                            eBackColor = e.bcolor
+                        } else {
+                            s = this.world.get(gx, gy)
+                        }
                     } else {
                         s = this.world.getLand(gx, gy)
                     }
                     if (!s) s = env.style.aether
 
                     // set background color
-                    this.tx.put(vx, vy, 0, this.tx.BACK)
+                    if (eBackColor) this.tx.put(vx, vy, eBackColor, this.tx.CBACK)
+                    else this.tx.put(vx, vy, 0, this.tx.BACK)
 
                     // select color
                     let c = cidx('land')
