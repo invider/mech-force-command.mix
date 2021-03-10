@@ -85,6 +85,11 @@ function bind() {
     //lib.util.bindAllPlayers()
 }
 
+function cleanup() {
+    lab.control.mission.clear()
+    if (lab.world) lab.detach(lab.world) // clean up the old world
+}
+
 // accepts map # from the menu to generate
 function world(imap) {
     teams()
@@ -107,7 +112,8 @@ function world(imap) {
     }
     if (!config.opt.seed) config.opt.seed = imap - 1
 
-    if (lab.world) lab.detach(lab.world) // clean up the old world
+    cleanup()
+
     const world = lab.spawn('World')
     intents(world)
 
@@ -117,7 +123,8 @@ function world(imap) {
     if (config.genSquads) config.genSquads(world, config.opt)
     else leaders(world, config.opt)
 
-    bind()
+    if (config.setup) config.setup(world, config.opt)
 
+    bind()
     return world
 }

@@ -39,6 +39,9 @@ class Droid extends dna.bot.Platform {
             this.dead = true
             this.health = 0
             kill(this)
+            lab.control.mission.on('kill', this, {
+                source,
+            })
         }
     }
 }
