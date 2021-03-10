@@ -14,7 +14,7 @@ class ViewPort {
         augment(this, df, st)
         this.id = ++id
         this.name = 'port' + this.id
-        this.port = {
+        if (!this.port) this.port = {
             x: 0,
             y: 0,
         }
@@ -83,6 +83,23 @@ class ViewPort {
         this.y = y
         this.h = h
         this.w = w
+    }
+
+    cx() {
+        return floor(this.port.x + this.w/2)
+    }
+
+    cy() {
+        return floor(this.port.y + this.h/2)
+    }
+
+    inView(x, y) {
+        return (x >= this.port.x && x < this.port.x + this.w
+                && y >= this.port.y && y < this.port.y + this.h)
+    }
+
+    distToCenter(x, y) {
+        return dist(x, y, this.cx(), this.cy())
     }
 
     printEntity(e) {
