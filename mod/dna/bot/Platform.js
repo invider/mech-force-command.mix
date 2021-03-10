@@ -79,6 +79,13 @@ class Platform {
         return pal.team[team].color
     }
 
+    evo(dt) {
+        for (let i = 0; i < this.pod.length; i++) {
+            const pod = this.pod[i]
+            if (pod.evo) pod.evo(dt)
+        }
+    }
+
     getStatus() {
         if (this.status) return this.name + ' - ' + this.status
         else return this.name

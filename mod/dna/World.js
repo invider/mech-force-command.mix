@@ -213,6 +213,19 @@ class World extends sys.Frame {
                 else this.timer = env.tune.turnTime
             }
         }
+
+        for (let i = 0; i < this.mob._ls.length; i++) {
+            const mob = this.mob._ls[i]
+            if (mob && !mob.dead && mob.evo) {
+                mob.evo(dt)
+            }
+        }
+        for (let i = 0; i < this.prop._ls.length; i++) {
+            const prop = this.prop._ls[i]
+            if (prop && !prop.dead && prop.evo) {
+                prop.evo(dt)
+            }
+        }
     }
 
     next() {

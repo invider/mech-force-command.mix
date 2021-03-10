@@ -12,6 +12,7 @@ class Droid extends dna.bot.Platform {
     constructor(st) {
         super( augment({}, df, st) )
         if (!this.name) this.name = 'droid' + (++id)
+        this.attach(dna.pod.lfx)
         this.attach(dna.pod.gun)
         this.attach(dna.pod.scanner)
         this.attach(dna.pod.move)
@@ -33,6 +34,7 @@ class Droid extends dna.bot.Platform {
 
     hit(source, force) {
         this.health -= force
+        this.lfx.light(.8, .01, .6)
         if (this.health <= 0) {
             this.dead = true
             this.health = 0
