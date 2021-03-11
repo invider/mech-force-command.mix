@@ -3,7 +3,7 @@ function newGame(opt) {
     //log(`starting a new game on map #${map}`)
 
     const fade = opt.fade || {}
-    fade.onShow = function() {
+    fade.onHide = function() {
         lib.factory.world(map)
     }
     lab.control.state.fadeTo('game', fade)

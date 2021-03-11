@@ -135,16 +135,36 @@ class Menu extends dna.hud.Panel {
         if (this.onHide) this.onHide()
     }
 
-    selectFrom(opt) {
-        // TODO move handlers to items structure
-        //      so everything will be in a single obj
-        this.track = null
-        this.onSelect = null
-        this.onHide = null
+    defineItems(opt) {
+        //this.track = null
+        //this.onSelect = null
+        //this.onHide = null
+        //augment(this, opt)
+        this.track    = opt.track
+        this.onSelect = opt.onSelect
+        this.onHide   = opt.onHide
+        this.items    = opt.items
 
-        augment(this, opt)
         this.normalizeItems()
+    }
+
+    selectFrom(opt) {
+        if (opt) this.defineItems(opt)
         this.show()
+    }
+
+    selectMore(opt) {
+        const menu = this
+        lab.spawn(dna.hud.Transition, {
+            Z: 1001,
+            fadein: .5,
+            keep: .5,
+            fadeout: .5,
+
+            onFadeout: function() {
+                menu.defineItems(opt)
+            },
+        })
     }
 
     evo(dt) {
@@ -189,5 +209,4 @@ class Menu extends dna.hud.Panel {
             y += 2
         }
     }
-
 }

@@ -12,6 +12,8 @@ totalControl.alias = 'control'
 totalControl.react = totalControl.act
 
 totalControl.act = function act(action) {
+    if (lab.world.paused || lab.world.disabled) return
+
     if (this.react(action)) {
         this.__._.scheduleNext()
         this.__._.onMovement()

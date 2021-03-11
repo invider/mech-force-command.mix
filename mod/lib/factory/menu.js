@@ -5,7 +5,7 @@ function menu() {
         name: 'mainMenu',
         title: env.msg.title.toUpperCase(),
         subtitle: env.msg.author,
-        items: lib.menu.main,
+        items: lib.menu.main.items,
     })
     lab.control.state.define('menu', mainMenu)
 

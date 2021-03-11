@@ -12,6 +12,14 @@ class TitleBar extends dna.hud.Panel {
 
     adjust() {}
 
+    show() {
+        lab.world.show()
+    }
+
+    hide() {
+        if (lab.world) lab.world.hide()
+    }
+
     draw() {
         const world = this.world
         const hero = world.hero

@@ -256,4 +256,35 @@ class World extends sys.Frame {
         }
         this.scheduled ++
     }
+
+    switchPause() {
+        if (this.disabled) return
+        this.paused = !this.paused
+    }
+
+    pause() {
+        this.paused = true
+    }
+
+    resume() {
+        this.paused = false
+    }
+
+    disable() {
+        this.disabled = true
+    }
+
+    enable() {
+        this.enabled = true
+    }
+
+    show() {
+        this.resume()
+        this.enable()
+    }
+
+    hide() {
+        this.pause()
+        this.disable()
+    }
 }

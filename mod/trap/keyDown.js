@@ -21,7 +21,7 @@ function handleControl(e) {
             break
 
         case 'KeyP':
-            lab.world.paused = !lab.world.paused
+            lab.world.switchPause()
             break
 
         case 'Escape':
@@ -51,7 +51,6 @@ function keyDown(e) {
     }
 
     if (action) {
-        if (lab.world && lab.world.paused) lab.world.paused = false
         lab.control.player.act(action.id, action.player)
 
     } else {
