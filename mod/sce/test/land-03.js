@@ -24,6 +24,7 @@ function genTerrain(world, opt) {
     vline(world, 8, 3, 4, '^')
     hline(world, 4, 2, 4, '^')
     hline(world, 4, 7, 4, '^')
+    hline(world, 2, 6, 3, '^')
 }
 
 function genSquads(world, opt) {
