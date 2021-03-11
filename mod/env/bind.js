@@ -1,13 +1,25 @@
+const actions = {
+    NONE: -1,
+    UP:    0,
+    LEFT:  1,
+    DOWN:  2,
+    RIGHT: 3,
+    NEXT:  4,
+    PREV:  5,
+    USE:   6,
+    BACK:  7,
+}
+
 const keyboard = [
-    [ 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyE', 'KeyQ', 'Space'],
+    [ 'KeyW', 'KeyA', 'KeyS', 'KeyD',
+        'KeyE', 'KeyQ', 'KeyX', 'KeyZ'],
     [ 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
-        'PageDown', 'PageUp', 'ShiftRight' ],
+        'PageDown', 'PageUp', 'ShiftRight', 'Enter' ],
     [ 'KeyK', 'KeyH', 'KeyJ', 'KeyL',
-        'BracketRight', 'BracketLeft', 'Enter' ],
+        'BracketRight', 'BracketLeft', 'KeyM', 'KeyU' ],
     [ 'Numpad8', 'Numpad4', 'Numpad2', 'Numpad6',
         'NumpadEnter', 'NumpadSubstract', 'Numpad7', 'Numpad9',
     ],
-
 ]
 
 const keyMap = {}
@@ -34,4 +46,5 @@ function indexKeys() {
 
 function init() {
     indexKeys()
+    augment(_, actions)
 }

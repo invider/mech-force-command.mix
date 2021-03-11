@@ -24,7 +24,13 @@ function act(action) {
     }
 
     switch(action) {
-        case 4:
+        case $.NEXT:
+            env.team.get(this.__.team).nextLeader()
+            break
+        case $.PREV:
+            env.team.get(this.__.team).prevLeader()
+            break
+        case $.USE:
             const foe = bot.scanner.scanForEnemy()
             if (foe) {
                 // watttack!!!
@@ -34,13 +40,6 @@ function act(action) {
             }
             //sfx('move', .4)
             //hero.pack.selectNext()
-            break
-        case 5:
-            //sfx('move', .4)
-            //hero.pack.selectPrev()
-            break
-        case 6:
-            //hero.pack.use()
             break
     }
 }
