@@ -13,10 +13,13 @@ class StatusBar extends dna.hud.Panel {
         if (target.getStatus) return target.getStatus()
         if (target.name) return target.name
         if (target.symbol) {
+            /*
             switch(target.symbol) {
                 case 'o': return 'Stone';
                 case '*': return 'Food';
             }
+            */
+            return target.symbol
         }
     }
 

@@ -24,6 +24,10 @@ function handleControl(e) {
             lab.world.paused = !lab.world.paused
             break
 
+        case 'Escape':
+            trap('menu')
+            break
+
         case 'F7':
             if (res.island) {
                 const data = res.island.toDataURL()
