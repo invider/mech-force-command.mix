@@ -59,7 +59,7 @@ class Platform {
         const i = this.pod.indexOf(pod)
 
         if (i >= 0) {
-            if (pod.onDeinstall) pod.onDeinstall()
+            if (pod.onRemove) pod.onRemove()
             if (pod.alias) delete this[pod.alias]
             else if (pod.name) delete this[pod.name]
             this.pod.splice(i, 1)
@@ -68,10 +68,10 @@ class Platform {
 
     next() {
         if (this.behave) this.behave()
-        /*
-        const dir = RND(3)
-        this.move.dir(dir)
-        */
+        for (let i = 0; i < this.pod.length; i++) {
+            const pod = this.pod[i]
+            if (pod.next) pod.next(dt)
+        }
     }
 
     color() {

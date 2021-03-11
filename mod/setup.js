@@ -12,10 +12,11 @@ function setup() {
 
     let map = 0
     if (env.config.test) {
-        if (isNumber(env.config.test)) {
-            map = env.tune.testRange + env.config.test
+        const itest = parseInt(env.config.test)
+        if (isNumber(itest)) {
+            map = env.tune.testRange + itest
         } else {
-            map= env.tune.testRange + 1
+            map = env.tune.testRange + 1
         }
 
     } else if (env.config.map) {

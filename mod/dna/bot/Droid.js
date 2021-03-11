@@ -12,6 +12,7 @@ class Droid extends dna.bot.Platform {
     constructor(st) {
         super( augment({}, df, st) )
         if (!this.name) this.name = 'droid' + (++id)
+        this.attach(dna.pod.path)
         this.attach(dna.pod.lfx)
         this.attach(dna.pod.gun)
         this.attach(dna.pod.scanner)

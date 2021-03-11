@@ -79,4 +79,4 @@ function right() {
     }
 }
 
-function onDeinstall() {}
+function onRemove() {}

@@ -103,12 +103,18 @@ function world(imap) {
     let config
     if (imap < env.tune.testRange) {
         log('=== LAND #' + imap + ' ===')
-        config = extend({}, defaultConfig, $.sce.land[imap])
+        const fineConfig = $.sce.land[imap]
+        if (fineConfig) log('Config OK...')
+        else log('No Config!')
+        config = extend({}, defaultConfig, fineConfig)
 
     } else {
-        imap -= env.tune.testRange
-        log('=== TEST #' + imap + ' ===')
-        config = extend({}, defaultConfig, $.sce.test.land[imap])
+        const itest = imap - env.tune.testRange
+        log('=== TEST #' + itest + ' ===')
+        const fineConfig = $.sce.test.land[itest]
+        if (fineConfig) log('Config OK...')
+        else log('No Config!')
+        config = extend({}, defaultConfig, fineConfig)
     }
     if (!config.opt.seed) config.opt.seed = imap - 1
 

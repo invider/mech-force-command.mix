@@ -45,4 +45,4 @@ function act(action) {
     }
 }
 
-function onDeinstall() {}
+function onRemove() {}
