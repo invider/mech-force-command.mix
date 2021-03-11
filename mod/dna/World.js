@@ -109,12 +109,21 @@ class World extends sys.Frame {
         return this.segment.get(x, y)
     }
 
+    getf(x, y) {
+        return this.segment.getf(x, y)
+    }
+
     getLand(x, y) {
         return this.segment.get(x, y)
     }
 
     set(x, y, l) {
         this.segment.set(x, y, l)
+        return this
+    }
+
+    setf(x, y, f) {
+        this.segment.setf(x, y, f)
         return this
     }
 

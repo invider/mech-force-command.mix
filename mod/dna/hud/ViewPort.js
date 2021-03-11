@@ -170,6 +170,7 @@ class ViewPort {
                             eBackColor = e.bcolor
                         } else {
                             s = this.world.get(gx, gy)
+                            eBackColor = this.world.getf(gx, gy)
                         }
                     } else {
                         s = this.world.getLand(gx, gy)

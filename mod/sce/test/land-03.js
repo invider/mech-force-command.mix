@@ -40,5 +40,6 @@ function genSquads(world, opt) {
     const tx = 10
     const ty = 6
     world.set(tx, ty, 'o')
+    world.setf(tx, ty, '#402020')
     droid.pathFinder.findPath(tx, ty)
 }

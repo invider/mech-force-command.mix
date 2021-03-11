@@ -13,6 +13,10 @@ function astar(startNode, targetNode) {
     log('plotting path: ')
     log.list(startNode)
     log.list(targetNode)
+
+    const open = [ startNode, ]
+    const close = []
+    
 }
 
 function findPath(x, y) {

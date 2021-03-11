@@ -15,6 +15,7 @@ class Segment {
 
     constructor(st) {
         this.land = []
+        this.fill = []
         this.explored = []
 
         this.hseparator = true
@@ -125,6 +126,42 @@ class Segment {
             if (this.segmentHi) return this.segmentHi.set(x, y, l)
         } else {
             if (this.segmentLow) return this.segmentLow.set(x, y, l)
+        }
+        // TODO trap set on unexisted segment
+        throw 'unexistent segment'
+        return
+    }
+
+    getf(x, y) {
+        if (this.ginside(x, y)) {
+            // the cell is inside this segment
+            const lx = x - this.x
+            const ly = y - this.y
+            const l = this.fill[ ly * this.w + lx ]
+            return l
+        }
+        // looking down the tree
+        if (this.qualify(x, y)) {
+            if (this.segmentHi) return this.segmentHi.fget(x, y)
+        } else {
+            if (this.segmentLow) return this.segmentLow.fget(x, y)
+        }
+        return
+    }
+
+    setf(x, y, f) {
+        if (this.ginside(x, y)) {
+            // the cell is inside this segment
+            const lx = x - this.x
+            const ly = y - this.y
+            this.fill[ly * this.w + lx] = f
+            return this
+        }
+        // looking down the tree
+        if (this.qualify(x, y)) {
+            if (this.segmentHi) return this.segmentHi.setf(x, y, f)
+        } else {
+            if (this.segmentLow) return this.segmentLow.setf(x, y, f)
         }
         // TODO trap set on unexisted segment
         throw 'unexistent segment'
