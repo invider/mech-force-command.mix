@@ -48,6 +48,7 @@ class Droid extends dna.bot.Platform {
             lab.control.mission.on('kill', this, {
                 source,
             })
+            lib.sfx.at('explosion7', this.x, this.y)
         }
     }
 }
