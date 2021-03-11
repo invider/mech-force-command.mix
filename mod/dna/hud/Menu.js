@@ -102,7 +102,7 @@ class Menu extends dna.hud.Panel {
 
     bind() {
         if (this.port && this.port.target) {
-            const player = this.port.target.team
+            const player = this.port.target.team - 1
             log('binding menu to #' + player)
             lab.control.player.bind(this, player)
         } else {
@@ -196,7 +196,7 @@ class Menu extends dna.hud.Panel {
 
         for (let i = 0; i < len; i++) {
             const item = this.items[i]
-            const x = round(this.w/2 - item.name.length/2)
+            const x = this.x + round(this.w/2 - item.name.length/2)
             
             if (i === this.selected) {
                 tx.back(lib.cidx('alert'))

@@ -42,6 +42,11 @@ class Team {
         }
     }
 
+    openMenu() {
+        const port = lab.mode['port' + this.id]
+        if (port) port.openMenu()
+    }
+
     nextSerial() {
         return ++this.botSerial
     }

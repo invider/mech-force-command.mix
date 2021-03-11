@@ -41,6 +41,10 @@ function act(action) {
             //sfx('move', .4)
             //hero.pack.selectNext()
             break
+
+        case $.BACK:
+            env.team.get(this.__.team).openMenu()
+            break
     }
 }
 
