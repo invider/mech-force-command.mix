@@ -20,9 +20,8 @@ function setup() {
         }
 
     } else if (env.config.map) {
-        if (isNumber(env.config.map)) {
-            map = env.config.map
-        } else {
+        map = parseInt(env.config.map)
+        if (!isNumber(map)) {
             throw 'map number is expected!'
         }
     }

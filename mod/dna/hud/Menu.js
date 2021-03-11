@@ -196,7 +196,7 @@ class Menu extends dna.hud.Panel {
 
         for (let i = 0; i < len; i++) {
             const item = this.items[i]
-            const x = floor(this.w/2 - item.name.length/2)
+            const x = round(this.w/2 - item.name.length/2)
             
             if (i === this.selected) {
                 tx.back(lib.cidx('alert'))

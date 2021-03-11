@@ -34,9 +34,9 @@ class ViewPort {
         const tx = this.__
 
         let x = 0
-        let y = 1
+        let y = 2
         let w = tx.tw
-        let h = tx.th - 2
+        let h = tx.th - 4
 
         switch(this.stick) {
             case 'left':
@@ -58,14 +58,14 @@ class ViewPort {
                 break
             case 'bottom-left':
                 w = floor(w/2)
-                y = floor(h/2 + 1)
-                h = h - y + 1
+                y = floor(h/2 + 3)
+                h = h - y + 3
                 break
             case 'bottom-right':
                 x = floor(w/2 + 1)
-                y = floor(h/2 + 1)
+                y = floor(h/2 + 3)
                 w = w - x
-                h = h - y + 1
+                h = h - y + 3
                 break
         }
 

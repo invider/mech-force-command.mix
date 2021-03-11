@@ -17,8 +17,8 @@ class VerticalSeparator {
     adjust() {
         if (!this.stick || !this.target) return
 
-        this.y = this.target.y
-        this.h = this.target.h
+        this.y = this.target.y - 1
+        this.h = this.target.h + 1
         switch(this.stick) {
             case LEFT:
                 this.x = this.target.x - 1

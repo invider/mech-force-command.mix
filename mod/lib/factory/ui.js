@@ -27,6 +27,13 @@ function ui() {
     })
     env.ports.push(port1)
 
+    const title1 = tx.spawn('hud/ViewPortTitle', {
+        Z: 15,
+        name: 'title1',
+        hidden: true,
+        port: port1,
+    })
+
     const port2 = tx.spawn('hud/ViewPort', {
         Z: 11,
         hidden: true,
@@ -38,6 +45,13 @@ function ui() {
     })
     env.ports.push(port2)
 
+    const title2 = tx.spawn('hud/ViewPortTitle', {
+        Z: 16,
+        name: 'title2',
+        hidden: true,
+        port: port2,
+    })
+
     const port3 = tx.spawn('hud/ViewPort', {
         Z: 12,
         hidden: true,
@@ -48,6 +62,13 @@ function ui() {
         }
     })
     env.ports.push(port3)
+
+    const title3 = tx.spawn('hud/ViewPortTitle', {
+        Z: 17,
+        name: 'title3',
+        hidden: true,
+        port: port3,
+    })
 
     const port4 = tx.spawn('hud/ViewPort', {
         Z: 13,
@@ -66,6 +87,13 @@ function ui() {
     })
     env.ports.push(port4)
 
+    const title4 = tx.spawn('hud/ViewPortTitle', {
+        Z: 18,
+        name: 'title4',
+        hidden: true,
+        port: port4,
+    })
+
     const vs1 = tx.spawn('hud/VerticalSeparator', {
         Z: 21,
         name: 'vs1',
@@ -79,17 +107,18 @@ function ui() {
     const hs1 = tx.spawn('hud/HorizontalSeparator', {
         Z: 23,
         name: 'hs1',
-        target: port3,
+        target: title3,
     })
     const hs2 = tx.spawn('hud/HorizontalSeparator', {
         Z: 24,
         name: 'hs2',
-        target: port4,
+        target: title4,
     })
 
     lab.control.state.define('game', [
         titleBar, statusBar,
         port1, port2, port3, port4,
+        title1, title2, title3, title4,
         vs1, vs2, hs1, hs2,
     ])
     //tx.spawn(dna.hud.DebugPanel)
