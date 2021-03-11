@@ -30,8 +30,10 @@ function genSquads(world, opt) {
     const droid = world.spawn( dna.bot.Droid, {
         team: 1,
         x: 2,
-        y: 2,
+        y: 4,
     })
     droid.attach( dna.pod.markPath )
-}
 
+    droid.attach( dna.pod.pathFinder )
+    droid.attach( dna.behavior.PathWalker )
+}
