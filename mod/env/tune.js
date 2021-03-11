@@ -41,4 +41,12 @@ const tune = {
     guardFactor: .3, // chance of containment for a single turn
 
     testRange: 1000,
+
+    teams: [
+        'neutral',
+        'red',
+        'blue',
+        'green',
+        'orange',
+    ]
 }

@@ -15,7 +15,6 @@ function genSquads(world, opt) {
     const leader1 = world.spawn(dna.bot.Droid, {
         id:   1,
         team: 1,
-        name: 'left-leader',
         symbol: 'L',
         x: 2,
         y: 2,
@@ -25,7 +24,6 @@ function genSquads(world, opt) {
     const leader2 = world.spawn(dna.bot.Droid, {
         id:   2,
         team: 2,
-        name: 'right-leader',
         symbol: 'R',
         x: 6,
         y: 2,

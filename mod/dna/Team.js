@@ -3,7 +3,9 @@ let id = 0
 class Team {
 
     constructor() {
+        this.name = env.tune.teams[id]
         this.id = id ++
+        this.botSerial = 0
     }
 
     setLeader(leader) {
@@ -14,5 +16,9 @@ class Team {
     capture() {
         if (!this.leader) return false
         this.leader.takeControl()
+    }
+
+    nextSerial() {
+        return ++this.botSerial
     }
 }
