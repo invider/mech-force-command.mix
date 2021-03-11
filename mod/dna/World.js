@@ -253,6 +253,7 @@ class World extends sys.Frame {
         }
 
         this.onMovement()
+        lab.control.mission.on('next')
     }
 
     onMovement() {

@@ -51,3 +51,12 @@ function genSquads(world, opt) {
     })
     env.team[4].setLeader(leader4)
 }
+
+let kills = 0
+function setup() {
+    kills = 0
+    lab.control.mission.define('kill', (source, context) => {
+        kills ++
+        if (env.config.test === true && kills > 2) trap('levelUp')
+    })
+}

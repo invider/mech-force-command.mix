@@ -13,7 +13,7 @@ function setup() {
     let map = 0
     if (env.config.test) {
         const itest = parseInt(env.config.test)
-        if (isNumber(itest)) {
+        if (isNumber(itest) && !isNaN(itest)) {
             map = env.tune.testRange + itest
         } else {
             map = env.tune.testRange + 1

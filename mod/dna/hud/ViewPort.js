@@ -269,16 +269,16 @@ class ViewPort {
         //log(`[${this.name}] #${action}`)
         switch(action) {
             case 0:
-                this.port.y -= floor(this.h/3)
+                this.port.y -= ceil(this.h/4)
                 break
             case 1:
-                this.port.x -= floor(this.w/3)
+                this.port.x -= ceil(this.w/4)
                 break
             case 2:
-                this.port.y += floor(this.h/3)
+                this.port.y += ceil(this.h/4)
                 break
             case 3:
-                this.port.x += floor(this.w/3)
+                this.port.x += ceil(this.w/4)
                 break
         }
     }

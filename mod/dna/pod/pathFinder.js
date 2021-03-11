@@ -91,7 +91,7 @@ function astar(world, start, target) {
                 path.push(next)
                 next = next.parent
             }
-            highlight(path)
+            //highlight(path)
             return path
         }
 

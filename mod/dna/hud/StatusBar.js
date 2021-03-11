@@ -40,7 +40,7 @@ class StatusBar extends dna.hud.Panel {
             tx.out(' ')
         }
 
-        let label = ''
+        let label = this.status || ''
         /*
         let label = 'OK'
         if (hero.health < 100)  {

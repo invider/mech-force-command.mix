@@ -27,6 +27,7 @@ function genTerrain(world, opt) {
     hline(world, 2, 6, 3, '^')
 }
 
+let targetDroid
 function genSquads(world, opt) {
     const droid = world.spawn( dna.bot.Droid, {
         team: 1,
@@ -37,10 +38,23 @@ function genSquads(world, opt) {
 
     droid.attach( dna.pod.pathFinder )
     droid.attach( dna.behavior.PathWalker )
+    targetDroid = droid
 
     const tx = 10
     const ty = 6
     world.set(tx, ty, 'o')
     world.setf(tx, ty, '#402020')
     droid.pathFinder.findPath(tx, ty)
+}
+
+function next() {
+    if (targetDroid && targetDroid.x === 10 && targetDroid.y === 6) {
+        targetDroid = null
+        lab.mode.statusBar.status = 'ALL TESTS PASSED'
+        trap('levelUp')
+    }
+}
+
+function setup() {
+    lab.control.mission.define('next', next)
 }
