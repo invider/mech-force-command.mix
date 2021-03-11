@@ -36,4 +36,9 @@ function genSquads(world, opt) {
 
     droid.attach( dna.pod.pathFinder )
     droid.attach( dna.behavior.PathWalker )
+
+    const tx = 10
+    const ty = 6
+    world.set(tx, ty, 'o')
+    droid.pathFinder.findPath(tx, ty)
 }
