@@ -1,5 +1,8 @@
 const ON = 0.0000001
 const OFF = 0
+const TIME_SPACE = 2
+const REPEAT_SPACE = 3
+
 const ctrl = []
 
 const playerMap = []
@@ -45,6 +48,8 @@ function act(action, player) {
 
     if (ctrl[player] && !ctrl[player][action]) {
         ctrl[player][action] = ON
+        ctrl[player][TIME_SPACE * env.tune.players + action] = env.time
+        ctrl[player][REPEAT_SPACE * env.tune.players + action] = 0
 
         const target = playerMap[player]
         if (target) {
@@ -61,10 +66,10 @@ function stop(action, player) {
         ctrl[player][action] = OFF
 
         const target = playerMap[player]
-        if (target) {
-            if (target.deactivate) {
-                target.deactivate(action)
-            }
+        if (target && target.deactivate) {
+            const pressTime = env.time - ctrl[player][TIME_SPACE
+                    * env.tune.players + action]
+            target.deactivate(action, pressTime)
         }
     }
 }
@@ -79,12 +84,10 @@ function evo(dt) {
                 if (ctrl[p][a] <= 0) {
                     const target = playerMap[p]
                     if (target) {
-                        if (target.control) {
-                            if (target.control.act) {
-                                target.control.act(a)
-                            }
-                        } else if (target.act) {
-                            target.act(a)
+                        const repeat = ++ctrl[p][REPEAT_SPACE
+                                * env.tune.players + a]
+                        if (target.act) {
+                            target.act(a, repeat)
                         }
                         ctrl[p][a] = env.tune.keyRepeat
                     }

@@ -119,6 +119,11 @@ class ViewPort {
         this.target.focus = platform
     }
 
+    releaseFocus() {
+        this.releaseControl()
+        this.target.focus = null
+    }
+
     takeControl(platform) {
         platform = platform || this.target.focus
         if (!platform) return
@@ -360,6 +365,12 @@ class ViewPort {
         }
     }
 
+    deactivate(action, pressTime) {
+        if (action === _.PREV && pressTime > env.tune.portReleaseDelay) {
+            this.releaseFocus()
+        }
+    }
+
     capture(player) {
         if (this.hidden || this.disabled || this.locked) return
         if (this.id === player + 1) {
@@ -373,45 +384,6 @@ class ViewPort {
     release() {
         lab.control.player.unbind(this)
     }
-
-    /*
-    bindControls() {
-        if (this.hidden) return
-        if (this.playerId >= 0 || !this.target) return
-        log('binding controls')
-        if (this.target.team < 0) return
-        lab.control.player.bind(this, this.target.team-1)
-    }
-
-    unbindControls() {
-        if (this.playerId < 0) return
-        this.playerId = -1
-        lab.control.player.unbind(this)
-    }
-    */
-
-    /*
-    bindToTarget() {
-        if (this.target.free) {
-            //this.bindControls()
-
-        } else if (this.target.leader) {
-            //this.unbindControls()
-            // pick the team's leader
-            const team = env.team[ this.target.team ]
-            if (team && team.leader && !team.leader.dead) {
-                this.follow = team.leader
-            } else {
-                this.follow = null
-                this.target.leader = false
-                this.target.free = true
-            }
-
-        } else {
-            log.error('wrong viewport config!')
-        }
-    }
-    */
 
     draw() {
         //this.bindToTarget()
@@ -439,8 +411,8 @@ class ViewPort {
     }
 
     openMenu() {
-        let leader
-        if (this.target.focus && this.target.taken) leader = this.target.focus
+        let focusDrone
+        if (this.target.focus && this.target.taken) focusDrone = this.target.focus
 
         this.hide()
         this.menu.selectFrom({
@@ -459,8 +431,8 @@ class ViewPort {
                 this.port.show()
             },
             track: function() {
-                // handle dead leader
-                if (leader && leader.dead) {
+                // handle dead drone in focus
+                if (focusDrone && focusDrone.dead) {
                     this.hide()
                 }
             },
