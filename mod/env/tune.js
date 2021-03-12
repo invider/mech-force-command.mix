@@ -52,5 +52,14 @@ const tune = {
         'blue',
         'green',
         'orange',
-    ]
+    ],
+
+    orders: [
+        'search & destroy',
+        'hold the ground',
+        'follow path',
+        'patrol path',
+        'ram neutrals',
+        'gather parts',
+    ],
 }

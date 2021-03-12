@@ -1,6 +1,6 @@
-function register(reg, iteam, targetDroid) {
+function register(reg, team, targetDroid) {
     const list = lab.world.prop.select(e =>
-        e instanceof dna.prop.Marker && e.team === iteam)
+        e instanceof dna.prop.Marker && e.team === team)
     let cur = targetDroid.memory.findRegVal(reg, list)
 
     list.push({
@@ -45,6 +45,36 @@ function register(reg, iteam, targetDroid) {
     }
 }
 
+function orders(targetDroid) {
+    const list = env.tune.orders
+    let cur = targetDroid.memory.iorder()
+
+    return {
+        name: list[cur],
+        val: cur,
+
+        actionNext: function() {
+            this.val ++
+            if (this.val >= list.length) this.val = 0
+            this.sync(targetDroid)
+            this.updateTitle()
+        }, 
+        actionPrev: function() {
+            this.val --
+            if (this.val < 0) this.val = list.length - 1
+            this.sync(targetDroid)
+            this.updateTitle()
+        },
+        sync: function(droid) {
+            if (!droid || !droid.memory) throw 'missing droid or memory!'
+            droid.memory.setOrder(list[this.val])
+        },
+        updateTitle: function() {
+            this.name = targetDroid.memory.getOrder()
+        },
+    }
+}
+
 function formMenu(focusDroid, targetDroid) {
     const team = env.team.get(targetDroid.team)
     const iteam = team.id
@@ -63,6 +93,7 @@ function formMenu(focusDroid, targetDroid) {
             register('B', iteam, targetDroid),
             register('X', iteam, targetDroid),
             register('Z', iteam, targetDroid),
+            orders(targetDroid),
             {
                 name: 'exit',
                 action: (menu) => {

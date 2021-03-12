@@ -26,7 +26,7 @@ class Droid extends dna.bot.Platform {
         this.attach(dna.pod.move)
         this.attach(dna.pod.control)
         this.attach(dna.pod.totalControl)
-        this.attach(dna.behavior.RandomStriker)
+        this.attach(dna.behavior.Fighter)
     }
 
     /*
