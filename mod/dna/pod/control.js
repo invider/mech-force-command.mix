@@ -5,7 +5,10 @@ function onInstall() {
 }
 
 function take() {
-    this.__.taken = true
+    const droid = this.__
+    droid.taken = true
+    droid.origSymbol = droid.symbol
+    droid.symbol = '@'
 }
 
 function act(action) {
@@ -28,12 +31,6 @@ function act(action) {
     }
 
     switch(action) {
-        case $.NEXT:
-            env.team.get(this.__.team).nextLeader()
-            break
-        case $.PREV:
-            env.team.get(this.__.team).prevLeader()
-            break
         case $.USE:
             const foe = bot.scanner.scanForEnemy()
             if (foe) {
@@ -45,14 +42,11 @@ function act(action) {
             //sfx('move', .4)
             //hero.pack.selectNext()
             break
-
-        case $.BACK:
-            env.team.get(this.__.team).openMenu()
-            break
     }
 }
 
 function release() {
+    this.__.symbol = this.__.origSymbol
     this.__.taken = false
 }
 

@@ -34,7 +34,11 @@ class ViewPortTitle extends dna.hud.Panel {
 
         const cx = this.port.cx()
         const cy = this.port.cy()
-        const name = this.port.follow? this.port.follow.title : ''
+        let name = ''
+        if (this.port.target.focus) {
+            if (this.port.target.taken) name = '@'
+            name += this.port.target.focus.title
+        }
 
         tx.at(this.x, this.y).print(cx + ':' + cy + ' ' + name)
     }

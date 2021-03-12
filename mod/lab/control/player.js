@@ -1,6 +1,5 @@
-const ON = .000001
+const ON = 0.0000001
 const OFF = 0
-
 const ctrl = []
 
 const playerMap = []
@@ -49,11 +48,7 @@ function act(action, player) {
 
         const target = playerMap[player]
         if (target) {
-            if (target.control) {
-                if (target.control.activate) {
-                    target.control.activate(action)
-                }
-            } else if (target.activate) {
+            if (target.activate) {
                 target.activate(action)
             }
         }
@@ -64,6 +59,13 @@ function stop(action, player) {
     if (!player) player = 0
     if (ctrl[player]) {
         ctrl[player][action] = OFF
+
+        const target = playerMap[player]
+        if (target) {
+            if (target.deactivate) {
+                target.deactivate(action)
+            }
+        }
     }
 }
 

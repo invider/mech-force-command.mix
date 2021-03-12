@@ -126,13 +126,20 @@ class ViewPort {
         this.focusOn(platform) // need to follow it first
         if (this.hidden || this.disabled || this.locked) return
 
+        if (this.target.team >= -1 && this.target.team !== platform.team) {
+            //log(`[${this.name}] can't capture [${platform.title}]`)
+            return
+        }
         log('taking control of [' + platform.name + ']')
+        this.target.taken = true
         platform.control.take()
     }
 
     releaseControl() {
-        if (!this.target.focus || !this.target.focus.taken) return
-        platform.control.release()
+        if (!this.target.focus
+            || !this.target.taken) return
+        this.target.taken = false
+        this.target.focus.control.release()
     }
 
     inView(x, y) {
@@ -313,19 +320,26 @@ class ViewPort {
 
     act(action) {
         //log(`[${this.name}] #${action}`)
+        if (action === $.NEXT) {
+            this.jump(1)
+            return
+        } else if (action === $.PREV) {
+            this.jump(-1)
+            return
+        }
+
         if (this.target.focus) {
-            if (this.target.focus.taken) {
+            if (this.target.taken) {
                 // controlling the platform
-                //console.dir(this.target.focus)
                 this.target.focus.control.act(action)
             } else {
-                // take the control
+                // try take the control
                 this.takeControl()
             }
 
         } else {
             // free
-            const s = env.tune.freeReversed? -1 : 1
+            const s = env.tune.reverseFreeControl? -1 : 1
             switch(action) {
                 case 0:
                     this.port.y += s * ceil(this.h * env.tune.freeStep)
@@ -448,6 +462,29 @@ class ViewPort {
                 }
             },
         })
+    }
+
+    jump(n) {
+        const curDroid = this.target.focus
+        const team = this.target.team
+        const ls = lab.world.mob._ls
+
+        let next
+        const fn = n > 0? lib.array.next : lib.array.prev
+        if (team >= 0) {
+            next = fn(ls, curDroid,
+                    (e) => (e.kind === 'droid' && !e.dead && e.team === team))
+        } else {
+            next = fn(ls, curDroid,
+                    (e) => (e.kind === 'droid' && !e.dead))
+        }
+
+        if (next) {
+            log(`jumping to ${next.title}`)
+            this.takeControl(next)
+        } else {
+            this.releaseControl()
+        }
     }
 
     show() {
