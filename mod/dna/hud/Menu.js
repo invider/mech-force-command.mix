@@ -188,7 +188,7 @@ class Menu extends dna.hud.Panel {
             .at(x, y).print(this.subtitle)
             
 
-        y = floor(this.h/2 - len/2)
+        y = this.y + floor(this.h/2 - len/2)
 
         for (let i = 0; i < len; i++) {
             const item = this.items[i]

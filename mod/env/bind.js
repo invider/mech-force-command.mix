@@ -12,11 +12,11 @@ const actions = {
 
 const keyboard = [
     [ 'KeyW', 'KeyA', 'KeyS', 'KeyD',
-        'KeyE', 'KeyQ', 'KeyX', 'KeyZ'],
+        'KeyR', 'KeyF', 'KeyE', 'KeyQ'],
     [ 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
         'PageDown', 'PageUp', 'ShiftRight', 'Enter' ],
     [ 'KeyK', 'KeyH', 'KeyJ', 'KeyL',
-        'BracketRight', 'BracketLeft', 'KeyM', 'KeyU' ],
+        'BracketRight', 'BracketLeft', 'KeyU', 'KeyM' ],
     [ 'Numpad8', 'Numpad4', 'Numpad2', 'Numpad6',
         'NumpadEnter', 'NumpadSubstract', 'Numpad7', 'Numpad9',
     ],
