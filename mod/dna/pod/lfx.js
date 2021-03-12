@@ -34,6 +34,6 @@ function evo(dt) {
             this.hue = 0
             this.sat = 0
         }
-        this.__.bcolor = hsl(this.hue, this.sat, this.val)
+        this.__.bcolor = hsla(this.hue, this.sat, this.val, this.val)
     }
 }

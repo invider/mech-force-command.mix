@@ -178,8 +178,8 @@ class ViewPort {
                     if (!s) s = env.tune.aether
 
                     // set background color
+                    this.tx.put(vx, vy, 0, this.tx.BACK)
                     if (eBackColor) this.tx.put(vx, vy, eBackColor, this.tx.CBACK)
-                    else this.tx.put(vx, vy, 0, this.tx.BACK)
 
                     // select color
                     let c = cidx('land')
