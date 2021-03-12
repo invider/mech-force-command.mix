@@ -17,6 +17,7 @@ class Droid extends dna.bot.Platform {
             if (team) this.title = team.name + ' droid ' + team.nextSerial()
             else this.title = 'neutral ' + this.name
         }
+        this.attach(dna.pod.marker)
         this.attach(dna.pod.path)
         this.attach(dna.pod.lfx)
         this.attach(dna.pod.gun)
@@ -63,10 +64,12 @@ class Droid extends dna.bot.Platform {
     }
 
     push(target) {
+        if (this.team === 0) return
         if (!target || target.kind !== 'droid') return
+
         if (target.team === 0) {
             // interface and capture the bot!
-            log(`${target.title} is captured by ${this.__.name}`)
+            log(`${target.title} is captured by ${this.name}`)
             target.team = this.team
             lib.sfx.at('capture', this.__.x, this.__.y)
         } else if (target.team === this.__.team) {

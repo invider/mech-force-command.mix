@@ -1,11 +1,14 @@
-let id = 0
 
+const MAX_MARKERS = 9
+
+let id = 0
 class Team {
 
     constructor() {
         this.name = env.tune.teams[id]
         this.id = id ++
         this.droidSerial = 0
+        this.marker = 0
     }
 
     /*
@@ -22,5 +25,11 @@ class Team {
 
     nextSerial() {
         return ++this.droidSerial
+    }
+
+    nextMarker() {
+        this.marker ++
+        if (this.marker > MAX_MARKERS) this.marker = 1
+        return this.marker
     }
 }

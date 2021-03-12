@@ -17,6 +17,11 @@ module.exports = {
         vol: 1,
     },
 
+    mark: {
+        res: 'beepPositive6',
+        vol: 1,
+    },
+
     default: {
         vol: .7,
     }
