@@ -13,6 +13,7 @@ function take() {
 
 function act(action) {
     const bot = this.__
+    if (bot.dead) return
 
     if (action < 4) {
         bot.move.dir(action)

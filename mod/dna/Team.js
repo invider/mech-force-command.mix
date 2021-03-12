@@ -8,6 +8,7 @@ class Team {
         this.droidSerial = 0
     }
 
+    /*
     focusOn(droid) {
         this.focus = droid
     }
@@ -17,7 +18,7 @@ class Team {
         if (!this.leader) return false
         this.leader.takeControl()
     }
-
+    */
 
     nextSerial() {
         return ++this.droidSerial

@@ -126,7 +126,7 @@ class ViewPort {
 
     takeControl(platform) {
         platform = platform || this.target.focus
-        if (!platform) return
+        if (!platform || platform.dead) return
 
         this.focusOn(platform) // need to follow it first
         if (this.hidden || this.disabled || this.locked) return
@@ -337,6 +337,18 @@ class ViewPort {
         }
 
         if (this.target.focus) {
+            if (this.target.focus.dead) {
+                // focus droid has been destroyed
+                this.releaseControl()
+                if (this.target.taken) {
+                    const port = this
+                    setTimeout(() =>  {
+                        port.jump(1)
+                    }, 100)
+                } else {
+                    this.target.focus = null
+                }
+            }
             if (this.target.taken) {
                 // controlling the platform
                 this.target.focus.control.act(action)
@@ -440,6 +452,7 @@ class ViewPort {
     }
 
     jump(n) {
+        n = n || 1
         const curDroid = this.target.focus
         const team = this.target.team
         const ls = lab.world.mob._ls
