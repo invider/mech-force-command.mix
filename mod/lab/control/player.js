@@ -40,9 +40,8 @@ function act(action, player) {
 
     if (!playerMap[player]) {
         // nothing is binded for the player
-        // try to capture the faction
-        log('trying to capture control for player #' + player)
-        trap('capture', player + 1)
+        // try to capture the port
+        trap('capture', player)
     }
 
     if (ctrl[player] && !ctrl[player][action]) {

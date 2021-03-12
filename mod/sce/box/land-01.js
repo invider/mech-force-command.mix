@@ -18,7 +18,7 @@ function genSquads(world, opt) {
         x: 2,
         y: 2,
     })
-    env.team[2].setLeader(leader1)
+    env.team[2].focusOn(leader1)
 
     const d2 = world.spawn(dna.bot.Droid, {
         team: 2,
@@ -30,4 +30,8 @@ function genSquads(world, opt) {
 
 function setup() {
     lab.mode.titleBar.title = name
+    lab.mode.port1.lookAt(0, 0)
+    lab.mode.port2.lookAt(8, 0)
+    lab.mode.port3.lookAt(0, 8)
+    lab.mode.port4.lookAt(8, 8)
 }

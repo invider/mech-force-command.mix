@@ -1,5 +1,7 @@
 function capture(player) {
-    if (!lab.world) return
-    const team = env.team[player]
-    if (team) team.capture()
+    if (!lab.world || lab.world.disabled) return
+    //log('trying to capture control for player #' + player)
+    lab.mode.apply(e => {
+        if (e.capture) e.capture(player)
+    })
 }

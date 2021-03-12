@@ -8,6 +8,7 @@ const tune = {
     zoomStep:   0.2,
     minZoom: 0.5,
     maxZoom: 5,
+    freeStep:   .125,  // size of free-mode step in port dimentions
 
     minVolume: .1,
     sfxFade:    32,

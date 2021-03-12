@@ -79,10 +79,10 @@ function ui() {
             y: 18,
         },
         target: {
-            free: true,
-            team: -1,
-            //leader: true,
-            //team: 3,
+            //free: true,
+            //team: -1,
+            leader: true,
+            team: 3,
         },
     })
     env.ports.push(port4)

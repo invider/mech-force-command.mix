@@ -70,7 +70,7 @@ function placeLeader(world, base, team) {
         x: sx,
         y: sy,
     })
-    env.team[team].setLeader(leader)
+    env.team[team].focusOn(leader)
     //lab.mode['port' + leaderId].follow = hero
     //leader.takeControl()
     return leader

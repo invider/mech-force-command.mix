@@ -5,11 +5,11 @@ class Team {
     constructor() {
         this.name = env.tune.teams[id]
         this.id = id ++
-        this.botSerial = 0
+        this.droidSerial = 0
     }
 
-    setLeader(leader) {
-        this.leader = leader
+    focusOn(droid) {
+        this.focus = droid
     }
 
     // try to bind controls to the leader
@@ -48,6 +48,6 @@ class Team {
     }
 
     nextSerial() {
-        return ++this.botSerial
+        return ++this.droidSerial
     }
 }

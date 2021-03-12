@@ -18,6 +18,10 @@ class ViewPort {
             x: 0,
             y: 0,
         }
+        if (!this.target) this.target = {
+            free: true,
+            team: -1,
+        }
     }
 
     init() {
@@ -85,17 +89,34 @@ class ViewPort {
         this.w = w
     }
 
+    bx() {
+        return this.port.x - floor(this.w/2)
+    }
+
+    by() {
+        return this.port.y - floor(this.h/2)
+    }
+
     cx() {
-        return floor(this.port.x + this.w/2)
+        return this.port.x
+        //return floor(this.port.x + this.w/2)
     }
 
     cy() {
-        return floor(this.port.y + this.h/2)
+        return this.port.y
+        //return floor(this.port.y + this.h/2)
+    }
+
+    lookAt(x, y) {
+        this.port.x = x
+        this.port.y = y
     }
 
     inView(x, y) {
-        return (x >= this.port.x && x < this.port.x + this.w
-                && y >= this.port.y && y < this.port.y + this.h)
+        const bx = this.bx()
+        const by = this.by()
+        return (x >= bx && x < bx + this.w
+                && y >= by && y < by + this.h)
     }
 
     distToCenter(x, y) {
@@ -103,8 +124,8 @@ class ViewPort {
     }
 
     printEntity(e) {
-        const lx = e.x - this.port.x
-        const ly = e.y - this.port.y
+        const lx = e.x - this.bx()
+        const ly = e.y - this.by()
 
         if (lx >= 0 && lx < this.w && ly >= 0 && ly < this.h) {
             this.tx.put( this.x + lx, this.y + ly, e.symbol)
@@ -148,8 +169,8 @@ class ViewPort {
 
         for (let y = 0; y < this.h; y++) {
             for (let x = 0; x < this.w; x++) {
-                const gx = port.x + x
-                const gy = port.y + y
+                const gx = this.bx() + x
+                const gy = this.by() + y
                 const vx = this.x + x
                 const vy = this.y + y
 
@@ -224,8 +245,10 @@ class ViewPort {
     moveOverTarget(target) {
         if (!target) return
 
-        this.port.x = round(target.x - this.w/2)
-        this.port.y = round(target.y - this.h/2)
+        this.port.x = target.x
+        this.port.y = target.y
+        //this.port.x = round(target.x - this.w/2)
+        //this.port.y = round(target.y - this.h/2)
         /*
         if (target.x - this.targetEdge < this.port.x) {
             this.port.x = target.x - this.targetEdge
@@ -269,23 +292,37 @@ class ViewPort {
         //log(`[${this.name}] #${action}`)
         switch(action) {
             case 0:
-                this.port.y -= ceil(this.h/4)
+                this.port.y -= ceil(this.h * env.tune.freeStep)
                 break
             case 1:
-                this.port.x -= ceil(this.w/4)
+                this.port.x -= ceil(this.w * env.tune.freeStep)
                 break
             case 2:
-                this.port.y += ceil(this.h/4)
+                this.port.y += ceil(this.h * env.tune.freeStep)
                 break
             case 3:
-                this.port.x += ceil(this.w/4)
+                this.port.x += ceil(this.w * env.tune.freeStep)
                 break
         }
+    }
+
+    capture(player) {
+        if (this.hidden || this.disabled || this.locked) return
+        if (this.id === player + 1) {
+            //log(`capturing ${this.name} for player #${player+1}`)
+            this.binded = true
+            lab.control.player.bind(this, player)
+        }
+    }
+
+    release() {
+        lab.control.player.unbind(this)
     }
 
     bindControls() {
         if (this.hidden) return
         if (this.playerId >= 0 || !this.target) return
+        log('binding controls')
         if (this.target.team < 0) return
         lab.control.player.bind(this, this.target.team-1)
     }
@@ -297,18 +334,11 @@ class ViewPort {
     }
 
     bindToTarget() {
-        if (!this.target) {
-            this.target = {
-                free: true,
-                team: -1,
-            }
-        }
-
         if (this.target.free) {
-            this.bindControls()
+            //this.bindControls()
 
         } else if (this.target.leader) {
-            this.unbindControls()
+            //this.unbindControls()
             // pick the team's leader
             const team = env.team[ this.target.team ]
             if (team && team.leader && !team.leader.dead) {
@@ -380,16 +410,21 @@ class ViewPort {
 
     show() {
         this.hidden = false
+        // TODO rebind to player if has been binded before
+        if (this.binded) this.capture(this.id - 1)
+        /*
         if (this.follow && this.follow.takeControl) {
             log(`[${this.name}] taking control of [${this.follow.name}]`)
             this.follow.takeControl()
         }
+        */
         //lib.util.bindAllPlayers()
     }
 
     hide() {
         this.hidden = true
-        if (this.follow && this.follow.releaseControl) this.follow.releaseControl()
+        this.release()
+        //if (this.follow && this.follow.releaseControl) this.follow.releaseControl()
         //lib.util.unbindAllPlayers()
     }
 }

@@ -19,7 +19,7 @@ function genSquads(world, opt) {
         x: 2,
         y: 5,
     })
-    env.team[1].setLeader(leader1)
+    env.team[1].focusOn(leader1)
 
     const leader2 = world.spawn(dna.bot.Droid, {
         id:   2,
@@ -29,7 +29,7 @@ function genSquads(world, opt) {
         x: 8,
         y: 5,
     })
-    env.team[2].setLeader(leader2)
+    env.team[2].focusOn(leader2)
 
     const leader3 = world.spawn(dna.bot.Droid, {
         id:   3,
@@ -39,7 +39,7 @@ function genSquads(world, opt) {
         x: 5,
         y: 0,
     })
-    env.team[3].setLeader(leader3)
+    env.team[3].focusOn(leader3)
 
     const leader4 = world.spawn(dna.bot.Droid, {
         id:   4,
@@ -49,7 +49,7 @@ function genSquads(world, opt) {
         x: 6,
         y: 9,
     })
-    env.team[4].setLeader(leader4)
+    env.team[4].focusOn(leader4)
 }
 
 let kills = 0
