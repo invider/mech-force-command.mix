@@ -93,6 +93,7 @@ function bindToHUD() {
 }
 
 function cleanup() {
+    job.serial.reset()
     lab.control.mission.clear()
     if (lab.world) lab.detach(lab.world) // clean up the old world
 }

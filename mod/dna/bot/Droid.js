@@ -6,16 +6,19 @@ const df = {
     health: 100,
 }
 
-let id = 0
 class Droid extends dna.bot.Platform {
 
     constructor(st) {
         super( augment({}, df, st) )
-        if (!this.name) this.name = 'droid' + (++id)
+        if (!this.name) this.name = 'droid' + job.serial('droid')
         if (!this.title) {
             const team = env.team[this.team]
-            if (team) this.title = team.name + ' droid ' + team.nextSerial()
-            else this.title = 'neutral ' + this.name
+            if (team) {
+                this.title = team.name + ' droid ' + team.nextSerial()
+                if (!team.name) debugger
+            } else {
+                this.title = 'neutral ' + this.name
+            }
         }
         this.attach(dna.pod.memory)
         this.attach(dna.pod.marker)

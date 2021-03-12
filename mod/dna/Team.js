@@ -1,12 +1,11 @@
 
 const MAX_MARKERS = 9
 
-let id = 0
 class Team {
 
     constructor() {
-        this.name = env.tune.teams[id]
-        this.id = id ++
+        this.id = job.serial('team')
+        this.name = env.tune.teams[this.id - 1]
         this.droidSerial = 0
         this.marker = 0
     }

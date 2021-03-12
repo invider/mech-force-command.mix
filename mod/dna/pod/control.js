@@ -19,6 +19,7 @@ function act(action) {
         bot.move.dir(action)
         //lib.sfx('step')
 
+        /*
         // try to fire
         const foe = bot.scanner.scanForEnemy()
         if (foe) {
@@ -27,6 +28,7 @@ function act(action) {
             //log(`[${this.name}] ${this.status}`)
             bot.gun.shot(foe)
         }
+        */
 
         return true
     }

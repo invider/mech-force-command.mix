@@ -12,44 +12,40 @@ function genTerrain(world, opt) {
 
 function genSquads(world, opt) {
     const leader1 = world.spawn(dna.bot.Droid, {
-        id:   1,
         team: 1,
         name: 'left-leader',
         symbol: 'L',
         x: 2,
         y: 5,
     })
-    env.team[1].focusOn(leader1)
+    lab.mode.port1.focusOn(leader1)
 
     const leader2 = world.spawn(dna.bot.Droid, {
-        id:   2,
         team: 2,
         name: 'right-leader',
         symbol: 'R',
         x: 8,
         y: 5,
     })
-    env.team[2].focusOn(leader2)
+    lab.mode.port2.focusOn(leader2)
 
     const leader3 = world.spawn(dna.bot.Droid, {
-        id:   3,
         team: 3,
         name: 'top-leader',
         symbol: 'T',
         x: 5,
         y: 0,
     })
-    env.team[3].focusOn(leader3)
+    lab.mode.port3.focusOn(leader3)
 
     const leader4 = world.spawn(dna.bot.Droid, {
-        id:   4,
         team: 4,
         name: 'down-leader',
         symbol: 'D',
         x: 6,
         y: 9,
     })
-    env.team[4].focusOn(leader4)
+    lab.mode.port4.focusOn(leader4)
 }
 
 let kills = 0

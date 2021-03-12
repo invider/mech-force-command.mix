@@ -329,14 +329,18 @@ class ViewPort {
             this.jump(1)
             return
         } else if (action === _.PREV) {
-            if (this.target.focus && repeat >= env.tune.portReleaseRepeats) {
+            if (this.target.focus) {
                 this.releaseFocus()
                 lib.sfx('free')
+            }
+            /*
+            if (this.target.focus && repeat >= env.tune.portReleaseRepeats) {
             } else {
                 if (this.target.focus) {
                     this.jump(-1)
                 }
             }
+            */
             return
         } else if (action === _.OPT) {
             this.openMenu()
