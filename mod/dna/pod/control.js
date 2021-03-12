@@ -16,7 +16,7 @@ function act(action) {
 
     if (action < 4) {
         bot.move.dir(action)
-        sfx('step', .5)
+        lib.sfx('step')
 
         // try to fire
         const foe = bot.scanner.scanForEnemy()

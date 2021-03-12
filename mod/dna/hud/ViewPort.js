@@ -457,6 +457,8 @@ class ViewPort {
         if (next) {
             log(`jumping to ${next.title}`)
             this.takeControl(next)
+            if (n > 0) lib.sfx('next')
+            else lib.sfx('prev')
         } else {
             this.releaseControl()
         }
