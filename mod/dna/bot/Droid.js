@@ -61,4 +61,18 @@ class Droid extends dna.bot.Platform {
             lib.sfx.at('explosion7', this.x, this.y)
         }
     }
+
+    push(target) {
+        if (!target || target.kind !== 'droid') return
+        if (target.team === 0) {
+            // interface and capture the bot!
+            log(`${target.title} is captured by ${this.__.name}`)
+            target.team = this.team
+            lib.sfx.at('capture', this.__.x, this.__.y)
+        } else if (target.team === this.__.team) {
+            // TODO only if this bot is taken...
+            // TODO mark the bot for interfacing
+            // TODO interfacing sfx
+        }
+    }
 }

@@ -43,6 +43,11 @@ function genSquads(world, opt) {
     lab.mode.port2.target.team = -1
     lab.mode.port3.target.team = 1
     lab.mode.port4.target.team = 0
+
+    env.team[0].active = false
+    env.team[2].active = false
+    env.team[3].active = false
+    env.team[4].active = false
 }
 
 function setup() {
