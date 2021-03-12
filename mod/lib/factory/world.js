@@ -70,7 +70,7 @@ function placeLeader(world, base, team) {
         x: sx,
         y: sy,
     })
-    env.team[team].focusOn(leader)
+    //env.team[team].focusOn(leader)
     //lab.mode['port' + leaderId].follow = hero
     //leader.takeControl()
     return leader
@@ -78,13 +78,15 @@ function placeLeader(world, base, team) {
 
 function leaders(world, opt) {
     const base = opt.base || '_'
+    /*
     placeLeader(world, base, 1)
     placeLeader(world, base, 2)
     placeLeader(world, base, 3)
     placeLeader(world, base, 4)
+    */
 }
 
-function bind() {
+function bindToHUD() {
     lab.mode._ls.forEach(e => e.world = lab.world)
     //lab.mode.port1.follow = lab.world.hero
     //lib.util.bindAllPlayers()
@@ -95,10 +97,7 @@ function cleanup() {
     if (lab.world) lab.detach(lab.world) // clean up the old world
 }
 
-// accepts map # from the menu to generate
-function world(imap) {
-    teams()
-
+function determineConfig(imap) {
     // determine map config
     imap = imap || 0
     if (isString(imap)) imap = parseInt(imap)
@@ -130,7 +129,25 @@ function world(imap) {
     }
     if (!config.opt.seed) config.opt.seed = imap - 1
 
+    return config
+}
+
+function bringInFocus() {
+    lab.mode.apply(e => {
+        if (e instanceof dna.hud.ViewPort) {
+            const team = env.team[e.id]
+            if (team && team.active) e.jump()
+        }
+    })
+}
+
+// accepts map # from the menu to generate
+function world(imap) {
     cleanup()
+
+    const config = determineConfig(imap)
+
+    teams()
 
     const world = lab.spawn('World')
     intents(world)
@@ -143,6 +160,8 @@ function world(imap) {
 
     if (config.setup) config.setup(world, config.opt)
 
-    bind()
+    bindToHUD()
+    bringInFocus()
+
     return world
 }
