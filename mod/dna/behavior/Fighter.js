@@ -1,39 +1,76 @@
 // @depends(dna/behavior/Behavior)
+
+function nope(bot) {
+    log.warn('orders are not implemented!')
+}
+
+function fire(bot) {
+    // no fire for neutrals - they are peaceful
+    if (bot.team <= 0) return
+
+    const foe = bot.scanner.scanForEnemy()
+    if (foe) {
+        // watttack!!!
+        bot.status = 'attacking [' + foe.team + '/' + foe.name + ']'
+        //log(`[${this.name}] ${this.status}`)
+        bot.gun.shot(foe)
+
+    } else {
+        bot.status = 'skipping attack'
+    }
+}
+
+function searchAndDestroy(bot) {
+    if (bot.steps > 0) {
+        bot.steps --
+    } else {
+        bot.steps = RND(5)
+        bot.action = RND(5)
+    }
+
+    if (bot.action <= 3) {
+        bot.move.dir(RND(3))
+        bot.status = 'walking around'
+
+    } else if (bot.action === 4) {
+        // just skip and wait
+    } else {
+        fire(bot)
+    }
+}
+
+function holdTheGround(bot) {
+    if (bot.steps > 0) {
+        bot.steps --
+    } else {
+        bot.steps = RND(1, 5)
+        bot.action = RND(1)
+    }
+
+    if (bot.action === 0) {
+        // just skip and wait
+    } else {
+        fire(bot)
+    }
+}
+
+const orderActions = {
+    'search & destroy': searchAndDestroy,
+    'hold the ground':  holdTheGround,
+    'follow path':      nope,
+    'patrol path':      nope,
+    'ram neutrals':     nope,
+    'gather parts':     nope,
+}
+
 class Fighter extends dna.behavior.Behavior {
 
     // NOTE the behavior run in the context of platform, not the pod
     behave() {
         if (this.taken) return
 
-        if (this.steps > 0) {
-            this.steps --
-        } else {
-            this.steps = RND(5)
-            this.action = RND(5)
-        }
-
-        if (this.action <= 3) {
-            this.move.dir(RND(3))
-            this.status = 'walking around'
-
-        } else if (this.action === 4) {
-            // just skip
-
-        } else {
-            // no fire for neutrals - they are peaceful
-            if (this.team <= 0) return
-
-            const foe = this.scanner.scanForEnemy()
-            if (foe) {
-                // watttack!!!
-                this.status = 'attacking [' + foe.team + '/' + foe.name + ']'
-                //log(`[${this.name}] ${this.status}`)
-                this.gun.shot(foe)
-
-            } else {
-                this.status = 'skipping attack'
-            }
-        }
+        const orders = this.memory.getOrders()
+        const actions = orderActions[orders]
+        if (actions) actions(this)
     }
-
 }

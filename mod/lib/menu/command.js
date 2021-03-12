@@ -47,7 +47,7 @@ function register(reg, team, targetDroid) {
 
 function orders(targetDroid) {
     const list = env.tune.orders
-    let cur = targetDroid.memory.iorder()
+    let cur = targetDroid.memory.iorders()
 
     return {
         name: list[cur],
@@ -67,10 +67,10 @@ function orders(targetDroid) {
         },
         sync: function(droid) {
             if (!droid || !droid.memory) throw 'missing droid or memory!'
-            droid.memory.setOrder(list[this.val])
+            droid.memory.setOrders(list[this.val])
         },
         updateTitle: function() {
-            this.name = targetDroid.memory.getOrder()
+            this.name = targetDroid.memory.getOrders()
         },
     }
 }

@@ -13,19 +13,19 @@ function dreg(reg) {
     else return (reg.title || reg.name)
 }
 
-function iorder() {
-    if (!this.order) return 0
-    const i = env.tune.orders.indexOf(this.order)
+function iorders() {
+    if (!this.orders) return 0
+    const i = env.tune.orders.indexOf(this.orders)
     return (i < 0? 0 : i)
 }
 
-function getOrder() {
-    if (!this.order) return env.tune.orders[0]
-    return this.order
+function getOrders() {
+    if (!this.orders) return env.tune.orders[0]
+    return this.orders
 }
 
-function setOrder(order) {
-    this.order = order
+function setOrders(orders) {
+    this.orders = orders
 }
 
 function dump() {
