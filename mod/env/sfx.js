@@ -11,6 +11,14 @@ module.exports = {
         res: 'computer3',
         vol: .3,
     },
+    idle: {
+        res: 'beepNegative6',
+        vol: .5,
+    },
+    free: {
+        res: 'computer5',
+        vol: .5,
+    },
 
     capture: {
         res: 'computer20',

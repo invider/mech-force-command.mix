@@ -1,9 +1,11 @@
 const ON = 0.0000001
 const OFF = 0
-const TIME_SPACE = 2
-const REPEAT_SPACE = 3
+
+const MAX_ACTIONS = 32
+const REPEAT_SPACE = 1
 
 const ctrl = []
+const timers = []
 
 const playerMap = []
 
@@ -12,7 +14,10 @@ function bind(target, player) {
     log('binding #' + player + ' -> ' + target.name)
     target.playerId = player
     playerMap[player] = target
-    if (!ctrl[player]) ctrl[player] = []
+    if (!ctrl[player]) {
+        ctrl[player] = []
+        timers[player] = []
+    }
 }
 
 function bindAll(target) {
@@ -48,8 +53,8 @@ function act(action, player) {
 
     if (ctrl[player] && !ctrl[player][action]) {
         ctrl[player][action] = ON
-        ctrl[player][TIME_SPACE * env.tune.players + action] = env.time
-        ctrl[player][REPEAT_SPACE * env.tune.players + action] = 0
+        timers[player][action] = env.time
+        timers[player][REPEAT_SPACE * MAX_ACTIONS + action] = 0
 
         const target = playerMap[player]
         if (target) {
@@ -67,8 +72,7 @@ function stop(action, player) {
 
         const target = playerMap[player]
         if (target && target.deactivate) {
-            const pressTime = env.time - ctrl[player][TIME_SPACE
-                    * env.tune.players + action]
+            const pressTime = env.time - timers[player][action]
             target.deactivate(action, pressTime)
         }
     }
@@ -84,10 +88,11 @@ function evo(dt) {
                 if (ctrl[p][a] <= 0) {
                     const target = playerMap[p]
                     if (target) {
-                        const repeat = ++ctrl[p][REPEAT_SPACE
-                                * env.tune.players + a]
+                        const repeat = ++timers[p][REPEAT_SPACE * MAX_ACTIONS + a]
+
                         if (target.act) {
-                            target.act(a, repeat)
+                            const pressTime = env.time - timers[p][a]
+                            target.act(a, repeat, pressTime)
                         }
                         ctrl[p][a] = env.tune.keyRepeat
                     }

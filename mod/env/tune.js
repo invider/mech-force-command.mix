@@ -18,7 +18,7 @@ const tune = {
     turnTime:   .5,
     fastTime:   .015,
     keyRepeat:  .3,
-    portReleaseDelay: 2,
+    portReleaseRepeats: 4,
     fogOfWar: false,
     hideUnexplored: false,
     defaultFoV: 21,

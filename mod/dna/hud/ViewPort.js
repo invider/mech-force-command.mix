@@ -19,7 +19,6 @@ class ViewPort {
             y: 0,
         }
         if (!this.target) this.target = {
-            free: true,
             team: -1,
         }
     }
@@ -324,13 +323,20 @@ class ViewPort {
     }
     */
 
-    act(action) {
+    act(action, repeat, pressTime) {
         //log(`[${this.name}] #${action}`)
         if (action === _.NEXT) {
             this.jump(1)
             return
         } else if (action === _.PREV) {
-            this.jump(-1)
+            if (this.target.focus && repeat >= env.tune.portReleaseRepeats) {
+                this.releaseFocus()
+                lib.sfx('free')
+            } else {
+                if (this.target.focus) {
+                    this.jump(-1)
+                }
+            }
             return
         } else if (action === _.OPT) {
             this.openMenu()
@@ -378,11 +384,13 @@ class ViewPort {
         }
     }
 
+    /*
     deactivate(action, pressTime) {
         if (action === _.PREV && pressTime > env.tune.portReleaseDelay) {
             this.releaseFocus()
         }
     }
+    */
 
     capture(player) {
         if (this.hidden || this.disabled || this.locked) return
@@ -450,6 +458,10 @@ class ViewPort {
         }
 
         if (next) {
+            if (next === curDroid) {
+                lib.sfx('idle')
+                return
+            }
             log(`jumping to ${next.title}`)
             this.takeControl(next)
             if (n > 0) lib.sfx('next')
@@ -463,13 +475,6 @@ class ViewPort {
         this.hidden = false
         // TODO rebind to player if has been binded before
         if (this.binded) this.capture(this.id - 1)
-        /*
-        if (this.follow && this.follow.takeControl) {
-            log(`[${this.name}] taking control of [${this.follow.name}]`)
-            this.follow.takeControl()
-        }
-        */
-        //lib.util.bindAllPlayers()
     }
 
     hide() {
