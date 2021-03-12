@@ -40,6 +40,6 @@ class ViewPortTitle extends dna.hud.Panel {
             name += this.port.target.focus.title
         }
 
-        tx.at(this.x, this.y).print(cx + ':' + cy + ' ' + name)
+        tx.at(this.x, this.y).print(`[${cx}:${cy}] ${name}`)
     }
 }

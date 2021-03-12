@@ -285,7 +285,7 @@ class World extends sys.Frame {
     }
 
     enable() {
-        this.enabled = true
+        this.disabled = false
     }
 
     show() {
