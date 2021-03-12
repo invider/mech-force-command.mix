@@ -17,6 +17,7 @@ class Droid extends dna.bot.Platform {
             if (team) this.title = team.name + ' droid ' + team.nextSerial()
             else this.title = 'neutral ' + this.name
         }
+        this.attach(dna.pod.memory)
         this.attach(dna.pod.marker)
         this.attach(dna.pod.path)
         this.attach(dna.pod.lfx)

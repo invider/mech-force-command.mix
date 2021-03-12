@@ -31,6 +31,7 @@ class ViewPort {
             name: 'portMenu' + this.id,
             port: this,
             hidden: true,
+            itemStep: 1,
         })
     }
 
@@ -423,44 +424,13 @@ class ViewPort {
     }
 
     openMenu() {
-        let focusDrone
-        if (this.target.focus && this.target.taken) focusDrone = this.target.focus
-        const targetDrone = focusDrone
-        if (!targetDrone) return
+        let focusDroid
+        if (this.target.focus && this.target.taken) focusDroid = this.target.focus
+        const targetDroid = focusDroid
+        if (!targetDroid) return
 
         this.hide()
-        this.menu.selectFrom({
-            items: [
-                {
-                    name: 'mark',
-                    action: (menu) => {
-                        targetDrone.marker.mark()
-                        // TODO placement sfx
-                        menu.hide()
-                    },
-                },
-                {
-                    name: 'exit',
-                    action: (menu) => {
-                        menu.hide()
-                    },
-                },
-            ],
-            onSelect: function(item, i) {
-                log('selected: #' + i + ': ' + item.name)
-                if (item.name === 'exit') {
-                }
-            },
-            onHide: function() {
-                this.port.show()
-            },
-            track: function() {
-                if (targetDrone && targetDrone.dead) {
-                    // close the menu - we can't control a dead droid
-                    this.hide()
-                }
-            },
-        })
+        this.menu.selectFrom( lib.menu.command.formMenu(focusDroid, targetDroid) )
     }
 
     jump(n) {
