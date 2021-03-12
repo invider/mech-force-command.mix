@@ -4,6 +4,10 @@ function onInstall() {
     if (!this.__.move) throw `move pod must be present to control ${this.__.name}`
 }
 
+function take() {
+    this.__.taken = true
+}
+
 function act(action) {
     const bot = this.__
 
@@ -46,6 +50,10 @@ function act(action) {
             env.team.get(this.__.team).openMenu()
             break
     }
+}
+
+function release() {
+    this.__.taken = false
 }
 
 function onRemove() {}

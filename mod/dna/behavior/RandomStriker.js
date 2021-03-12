@@ -3,6 +3,8 @@ class RandomStriker extends dna.behavior.Behavior {
 
     // NOTE the behavior run in the context of platform, not the pod
     behave() {
+        if (this.taken) return
+
         const action = RND(4)
 
         if (action <= 3) {

@@ -112,6 +112,29 @@ class ViewPort {
         this.port.y = y
     }
 
+    focusOn(platform) {
+        if (this.target.focus) {
+            this.releaseControl(this.target.focus)
+        }
+        this.target.focus = platform
+    }
+
+    takeControl(platform) {
+        platform = platform || this.target.focus
+        if (!platform) return
+
+        this.focusOn(platform) // need to follow it first
+        if (this.hidden || this.disabled || this.locked) return
+
+        log('taking control of [' + platform.name + ']')
+        platform.control.take()
+    }
+
+    releaseControl() {
+        if (!this.target.focus || !this.target.focus.taken) return
+        platform.control.release()
+    }
+
     inView(x, y) {
         const bx = this.bx()
         const by = this.by()
@@ -290,19 +313,33 @@ class ViewPort {
 
     act(action) {
         //log(`[${this.name}] #${action}`)
-        switch(action) {
-            case 0:
-                this.port.y -= ceil(this.h * env.tune.freeStep)
-                break
-            case 1:
-                this.port.x -= ceil(this.w * env.tune.freeStep)
-                break
-            case 2:
-                this.port.y += ceil(this.h * env.tune.freeStep)
-                break
-            case 3:
-                this.port.x += ceil(this.w * env.tune.freeStep)
-                break
+        if (this.target.focus) {
+            if (this.target.focus.taken) {
+                // controlling the platform
+                //console.dir(this.target.focus)
+                this.target.focus.control.act(action)
+            } else {
+                // take the control
+                this.takeControl()
+            }
+
+        } else {
+            // free
+            const s = env.tune.freeReversed? -1 : 1
+            switch(action) {
+                case 0:
+                    this.port.y += s * ceil(this.h * env.tune.freeStep)
+                    break
+                case 1:
+                    this.port.x += s * ceil(this.w * env.tune.freeStep)
+                    break
+                case 2:
+                    this.port.y -= s * ceil(this.h * env.tune.freeStep)
+                    break
+                case 3:
+                    this.port.x -= s * ceil(this.w * env.tune.freeStep)
+                    break
+            }
         }
     }
 
@@ -312,6 +349,7 @@ class ViewPort {
             //log(`capturing ${this.name} for player #${player+1}`)
             this.binded = true
             lab.control.player.bind(this, player)
+            this.takeControl() // take droid control if focused
         }
     }
 
@@ -319,6 +357,7 @@ class ViewPort {
         lab.control.player.unbind(this)
     }
 
+    /*
     bindControls() {
         if (this.hidden) return
         if (this.playerId >= 0 || !this.target) return
@@ -332,7 +371,9 @@ class ViewPort {
         this.playerId = -1
         lab.control.player.unbind(this)
     }
+    */
 
+    /*
     bindToTarget() {
         if (this.target.free) {
             //this.bindControls()
@@ -353,10 +394,11 @@ class ViewPort {
             log.error('wrong viewport config!')
         }
     }
+    */
 
     draw() {
-        this.bindToTarget()
-        this.moveOverTarget(this.follow)
+        //this.bindToTarget()
+        this.moveOverTarget(this.target.focus)
         this.print()
     }
 

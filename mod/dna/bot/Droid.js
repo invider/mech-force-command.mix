@@ -22,9 +22,12 @@ class Droid extends dna.bot.Platform {
         this.attach(dna.pod.gun)
         this.attach(dna.pod.scanner)
         this.attach(dna.pod.move)
+        this.attach(dna.pod.control)
+        this.attach(dna.pod.totalControl)
         this.attach(dna.behavior.RandomStriker)
     }
 
+    /*
     takeControl() {
         this.symbol = '@'
         this.detach(this.behavior) // disable AI
@@ -37,6 +40,7 @@ class Droid extends dna.bot.Platform {
         this.attach(dna.behavior.RandomWalker)
         this.detach(this.totalControl)
     }
+    */
 
     hit(source, force) {
         this.health -= force
