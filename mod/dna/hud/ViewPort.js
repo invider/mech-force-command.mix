@@ -496,4 +496,10 @@ class ViewPort {
         //if (this.follow && this.follow.releaseControl) this.follow.releaseControl()
         //lib.util.unbindAllPlayers()
     }
+
+    inFocus(platform) {
+        if (this.target.focus === platform) return true
+        if (!this.next) return false
+        return this.next.inFocus(platform)
+    }
 }

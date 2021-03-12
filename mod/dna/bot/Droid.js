@@ -42,6 +42,12 @@ class Droid extends dna.bot.Platform {
     }
     */
 
+    fsfx(name, vol) {
+        if (lab.mode.port1.inFocus(this)) {
+            lib.sfx(name, vol)
+        }
+    }
+
     hit(source, force) {
         this.health -= force
         this.lfx.light(.8, .01, .6)

@@ -3,6 +3,7 @@ const name = 'move'
 function onInstall() {}
 
 function dir(direction) {
+    this.__.fsfx('step')
     switch(direction) {
         case 0: return this.up();
         case 1: return this.left();

@@ -87,6 +87,12 @@ function ui() {
     })
     env.ports.push(port4)
 
+    // chain viewports
+    port1.next = port2
+    port2.next = port3
+    port3.next = port4
+    port4.next = null
+
     const title4 = tx.spawn('hud/ViewPortTitle', {
         Z: 18,
         name: 'title4',

@@ -5,12 +5,24 @@ class RandomStriker extends dna.behavior.Behavior {
     behave() {
         if (this.taken) return
 
-        const action = RND(4)
+        if (this.steps > 0) {
+            this.steps --
+        } else {
+            this.steps = RND(5)
+            this.action = RND(5)
+        }
 
-        if (action <= 3) {
+        if (this.action <= 3) {
             this.move.dir(RND(3))
             this.status = 'walking around'
+
+        } else if (this.action === 4) {
+            // just skip
+
         } else {
+            // no fire for neutrals - they are peaceful
+            if (this.team <= 0) return
+
             const foe = this.scanner.scanForEnemy()
             if (foe) {
                 // watttack!!!
