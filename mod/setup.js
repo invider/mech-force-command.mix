@@ -11,7 +11,15 @@ function setup() {
     lab.control.state.hideAll()
 
     let map = 0
-    if (env.config.test) {
+    if (env.config.box) {
+        const ibox = parseInt(env.config.box)
+        if (isNumber(ibox) && !isNaN(ibox)) {
+            map = env.tune.boxRange + ibox
+        } else {
+            map = env.tune.boxRange + 1
+        }
+
+    } else if (env.config.test) {
         const itest = parseInt(env.config.test)
         if (isNumber(itest) && !isNaN(itest)) {
             map = env.tune.testRange + itest

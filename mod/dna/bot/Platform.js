@@ -41,6 +41,7 @@ class Platform {
                 pod = src
             }
         } else {
+            // extend from a pod object
             pod = {}
             augment(pod, src) 
             augment(pod, st)

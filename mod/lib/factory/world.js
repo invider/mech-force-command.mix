@@ -107,16 +107,23 @@ function world(imap) {
 
     let config
     if (imap < env.tune.testRange) {
-        log('=== LAND #' + imap + ' ===')
+        log('=== MAP #' + imap + ' ===')
         const fineConfig = $.sce.land[imap]
         if (fineConfig) log('Config OK...')
         else log('No Config!')
         config = extend({}, defaultConfig, fineConfig)
 
-    } else {
+    } else if (imap < env.tune.boxRange) {
         const itest = imap - env.tune.testRange
         log('=== TEST #' + itest + ' ===')
         const fineConfig = $.sce.test.land[itest]
+        if (fineConfig) log('Config OK...')
+        else log('No Config!')
+        config = extend({}, defaultConfig, fineConfig)
+    } else {
+        const ibox = imap - env.tune.boxRange
+        log('=== BOX #' + ibox + ' ===')
+        const fineConfig = $.sce.box.land[ibox]
         if (fineConfig) log('Config OK...')
         else log('No Config!')
         config = extend({}, defaultConfig, fineConfig)

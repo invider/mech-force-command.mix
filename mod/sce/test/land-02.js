@@ -54,6 +54,7 @@ function genSquads(world, opt) {
 
 let kills = 0
 function setup() {
+    lab.mode.titleBar.title = name
     kills = 0
     lab.control.mission.define('kill', (source, context) => {
         kills ++

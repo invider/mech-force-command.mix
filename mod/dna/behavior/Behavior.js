@@ -25,7 +25,7 @@ class Behavior {
 
     behave() {}
 
-    onDeinstall() {
+    onRemove() {
         const mob = this.__
         if (mob.behave === this.behave) {
             mob.behave = false 
