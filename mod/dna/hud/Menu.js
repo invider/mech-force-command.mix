@@ -10,20 +10,6 @@ class Menu extends dna.hud.Panel {
 
     constructor(st) {
         super(st, df)
-
-        this.control = {
-            __: this,
-            act: function() {},
-            activate: function(action) {
-                switch(action) {
-                    case 0: this.__.selectPrev(); break;
-                    case 2: this.__.selectNext(); break;
-                    case 1: this.__.actionPrev(); break;
-                    case 3: this.__.actionNext(); break;
-                    case 6: this.__.action(); break;
-                }
-            }
-        }
     }
 
     adjust() {
@@ -37,6 +23,16 @@ class Menu extends dna.hud.Panel {
             this.y = 0
             this.w = this.__.tw
             this.h = this.__.th
+        }
+    }
+
+    activate(action) {
+        switch(action) {
+            case 0: this.selectPrev(); break;
+            case 2: this.selectNext(); break;
+            case 1: this.actionPrev(); break;
+            case 3: this.actionNext(); break;
+            case 6: this.action(); break;
         }
     }
 
@@ -102,8 +98,8 @@ class Menu extends dna.hud.Panel {
 
     bind() {
         if (this.port && this.port.target) {
-            const player = this.port.target.team - 1
-            log('binding menu to #' + player)
+            const player = this.port.playerId
+            log(`binding [${this.name}] -> #${player}`)
             lab.control.player.bind(this, player)
         } else {
             log('binding menu controls')

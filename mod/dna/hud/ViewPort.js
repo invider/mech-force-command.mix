@@ -320,11 +320,14 @@ class ViewPort {
 
     act(action) {
         //log(`[${this.name}] #${action}`)
-        if (action === $.NEXT) {
+        if (action === _.NEXT) {
             this.jump(1)
             return
-        } else if (action === $.PREV) {
+        } else if (action === _.PREV) {
             this.jump(-1)
+            return
+        } else if (action === _.OPT) {
+            this.openMenu()
             return
         }
 
@@ -437,7 +440,7 @@ class ViewPort {
 
     openMenu() {
         let leader
-        if (this.follow) leader = this.follow
+        if (this.target.focus && this.target.taken) leader = this.target.focus
 
         this.hide()
         this.menu.selectFrom({

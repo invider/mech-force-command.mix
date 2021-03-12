@@ -7,7 +7,7 @@ const actions = {
     NEXT:  4,
     PREV:  5,
     USE:   6,
-    BACK:  7,
+    OPT:   7,
 }
 
 const keyboard = [
