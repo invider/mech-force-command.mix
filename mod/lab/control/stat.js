@@ -10,7 +10,10 @@ function next() {
         if (i > 0 && units > 0) activeTeams++
     }
     
-    if (activeTeams < 2 && env.state !== 'gameover') {
+    if (activeTeams < 2
+            && env.state !== 'gameover'
+            && !env.config.test
+            && !env.config.box) {
         defer(() => trap('gameover'), env.tune.gameoverDelay)
     }
 }

@@ -23,8 +23,10 @@ function setup() {
         const itest = parseInt(env.config.test)
         if (isNumber(itest) && !isNaN(itest)) {
             map = env.tune.testRange + itest
+            env.autoProgress = false
         } else {
             map = env.tune.testRange + 1
+            env.autoProgress = true
         }
 
     } else if (env.config.map) {

@@ -38,7 +38,7 @@ function genSquads(world, opt) {
 function next() {
     if (targetDroid && targetDroid.x === 10 && targetDroid.y === 6) {
         targetDroid = null
-        trap('levelUp')
+        trap('nextTest')
     }
 }
 

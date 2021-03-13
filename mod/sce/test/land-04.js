@@ -102,7 +102,7 @@ function onNext() {
         env.test.waypoints = -1
 
         setTimeout(() => {
-            trap('levelUp')
+            trap('nextTest')
         }, 1000)
     }
 }

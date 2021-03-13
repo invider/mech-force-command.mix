@@ -110,7 +110,7 @@ function onNext() {
 
         _.sce.test.util.allTestsPassed()
         setTimeout(() => {
-            trap('levelUp')
+            trap('nextTest')
         }, 1000)
     }
 }

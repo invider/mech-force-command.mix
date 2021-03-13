@@ -34,6 +34,6 @@ function genSquads(world, opt) {
 function setup() {
     lab.mode.titleBar.title = name
     lab.control.mission.define('kill', (source, context) => {
-        if (env.config.test === true) trap('levelUp')
+        if (env.config.test === true) trap('nextTest')
     })
 }
