@@ -26,13 +26,21 @@ function genSquads(world, opt) {
     })
     d2.attach( dna.behavior.EmptyBrain )
 
-    world.spawn( dna.prop.Marker, {
+    const d3 = world.spawn(dna.bot.Droid, {
+        team: 0,
+        symbol: 'C',
+        x: 3,
+        y: 4,
+    })
+    d3.attach( dna.behavior.EmptyBrain )
+
+    const m1 = world.spawn( dna.prop.Marker, {
         team: 1,
         id: 1,
         x: 6,
-        y: 4,
+        y: 7,
     })
-    world.spawn( dna.prop.Marker, {
+    const m2 = world.spawn( dna.prop.Marker, {
         team: 1,
         id: 2,
         x: 3,
@@ -60,6 +68,9 @@ function genSquads(world, opt) {
     env.team[2].active = false
     env.team[3].active = false
     env.team[4].active = false
+
+    // orders!
+    d1.brain.order('follow path', m1)
 }
 
 function setup() {

@@ -56,24 +56,32 @@ function holdTheGround(bot) {
 
 function followPath(bot) {
     // move along existing path
-    console.dir(bot)
     const nextStep = bot.pathFinder.nextStep()
+    log('next step: ' + env.bind.actionName(nextStep))
+
     if (nextStep >= 0) {
         // got it!
-        bot.move.dir(RND(3))
-    } else {
+        bot.move.dir(nextStep)
+    } else if (nextStep < -10) {
         const waypoint = bot.brain.firstRegVal()
         if (waypoint) {
-            const path = bot.pathFinder.findPath(waypoint.x, waypoint.y)
+            const path = bot.pathFinder.findPath(waypoint.x, waypoint.y, true)
             log(`[${bot.title}] === new path ===`)
-            log.list(path)
+            if (path) {
+                path.forEach(e => {
+                    log('    > ' + e.x + ':' + e.y)
+                })
+            }
             bot.brain.resetFirstReg()
+            bot.status = 'following path'
 
         } else {
-            bot.orders = 'hold the ground'
+            bot.brain.orders = 'hold the ground'
             log(`[${bot.title}] switching to hold the ground procedure`)
             // TODO sfx/reporting
         }
+    } else {
+        // no movement provided - just skip this turn
     }
 }
 

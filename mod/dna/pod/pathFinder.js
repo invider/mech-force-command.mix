@@ -20,7 +20,7 @@ function match(n1, n2) {
     return (n1.x === n2.x && n1.y === n2.y)
 }
 
-function astar(world, start, target) {
+function astar(world, start, target, debug) {
     start.n = 0
     start.g = 0
     start.f = 0
@@ -91,7 +91,7 @@ function astar(world, start, target) {
                 path.push(next)
                 next = next.parent
             }
-            //highlight(path)
+            if (debug) highlight(path)
             return path
         }
 
@@ -137,19 +137,22 @@ function astar(world, start, target) {
     return null
 }
 
-function findPath(x, y) {
+function findPath(x, y, highlight) {
     this.target = { x, y }
 
     const base = {
         x: this.__.x,
         y: this.__.y,
     }
-    this.path = astar(lab.world, base, this.target)
+    this.path = astar(lab.world, base, this.target, highlight)
+    console.dir(this.path)
+    return this.path
 }
 
 function nextStep() {
     if (this.path && this.path.length > 0) {
         const cell = this.path.pop()
+        log(`${this.__.x}:${this.__.y} -> ${cell.x}:${cell.y}`)
 
         if (this.__.y < cell.y) return 2
         if (this.__.x > cell.x) return 1
@@ -158,7 +161,7 @@ function nextStep() {
         return -1
 
     } else {
-        return -1
+        return -11
         /*
         this.step ++
         if (this.step % 10 < 5) return 3
