@@ -474,7 +474,11 @@ class ViewPort {
                 return
             }
             log(`jumping to ${next.title}`)
-            if (!observe) this.takeControl(next)
+            if (observe) {
+                this.focusOn(next)
+            } else {
+                this.takeControl(next)
+            }
 
             if (n > 0) lib.sfx('next')
             else lib.sfx('prev')

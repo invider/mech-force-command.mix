@@ -141,7 +141,9 @@ function bringInFocus() {
     lab.mode.apply(e => {
         if (e instanceof dna.hud.ViewPort) {
             const team = env.team[e.id]
-            if (team && team.active) e.jump(0, true)
+            if (team && team.active) {
+                e.jump(1, true)
+            }
         }
     })
 }
