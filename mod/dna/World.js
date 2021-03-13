@@ -204,6 +204,18 @@ class World extends sys.Frame {
         return area
     }
 
+    locateByTag(tag) {
+        for (let i = 0; i < this.mob._ls.length; i++) {
+            const e = this.mob._ls[i]
+            if (e && !e.dead && (e.name === tag || e.title === tag)) return e
+        }
+        for (let i = 0; i < this.prop._ls.length; i++) {
+            const e = this.prop._ls[i]
+            if (e && !e.dead && (e.name === tag || e.title === tag)) return e
+        }
+        return null
+    }
+
     evo(dt) {
         if (this.paused) return
 
