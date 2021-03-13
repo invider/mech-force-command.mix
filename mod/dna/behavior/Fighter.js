@@ -57,7 +57,7 @@ function holdTheGround(bot) {
 function followPath(bot) {
     // move along existing path
     const nextStep = bot.pathFinder.nextStep()
-    log('next step: ' + env.bind.actionName(nextStep))
+    //log('next step: ' + env.bind.actionName(nextStep))
 
     if (nextStep >= 0) {
         // got it!
@@ -65,13 +65,7 @@ function followPath(bot) {
     } else if (nextStep < -10) {
         const waypoint = bot.brain.firstRegVal()
         if (waypoint) {
-            const path = bot.pathFinder.findPath(waypoint.x, waypoint.y, true)
-            log(`[${bot.title}] === new path ===`)
-            if (path) {
-                path.forEach(e => {
-                    log('    > ' + e.x + ':' + e.y)
-                })
-            }
+            const path = bot.pathFinder.findPath(waypoint.x, waypoint.y)
             bot.brain.resetFirstReg()
             bot.status = 'following path'
 

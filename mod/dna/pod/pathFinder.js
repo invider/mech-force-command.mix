@@ -145,14 +145,16 @@ function findPath(x, y, highlight) {
         y: this.__.y,
     }
     this.path = astar(lab.world, base, this.target, highlight)
-    console.dir(this.path)
+
     return this.path
 }
 
 function nextStep() {
     if (this.path && this.path.length > 0) {
         const cell = this.path.pop()
-        log(`${this.__.x}:${this.__.y} -> ${cell.x}:${cell.y}`)
+
+        // dump step reasoning
+        //log(`${this.__.x}:${this.__.y} -> ${cell.x}:${cell.y}`)
 
         if (this.__.y < cell.y) return 2
         if (this.__.x > cell.x) return 1
