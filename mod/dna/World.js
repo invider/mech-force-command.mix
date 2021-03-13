@@ -271,6 +271,7 @@ class World extends sys.Frame {
         }
 
         this.onMovement()
+        lab.control.stat.next()
         lab.control.mission.on('next')
     }
 
