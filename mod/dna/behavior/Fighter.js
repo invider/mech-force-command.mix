@@ -81,7 +81,7 @@ function follow(bot, patrol) {
     // determine if there is a failed action cached
     if (bot.cache.retry) {
         bot.cache.retriesLeft --
-        if (bot.cache.retries < 0) {
+        if (bot.cache.retriesLeft < 0) {
             // reevaluate path!
             bot.cache.retry = false
             const path = plotPath(bot, bot.brain.target)
