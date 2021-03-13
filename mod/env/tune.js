@@ -4,6 +4,7 @@ const tune = {
     maxTeams: 4,
     players: 4,
     autoevolve: true,
+    gameoverDelay: 3,
 
     zoomStep:   0.2,
     minZoom: 0.5,

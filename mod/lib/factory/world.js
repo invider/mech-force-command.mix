@@ -97,6 +97,7 @@ function bindToHUD() {
 }
 
 function cleanup() {
+    env.state = 'plaing'
     job.serial.reset()
     lab.control.stat.reset()
     lab.control.mission.clear()
