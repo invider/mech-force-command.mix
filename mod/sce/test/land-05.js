@@ -1,4 +1,4 @@
-const name = 'Test Waypoints'
+const name = 'Test Patrol'
 
 const opt = {
     w: 8,
@@ -21,28 +21,29 @@ function genSquads(world, opt) {
     })
 
     const d2 = world.spawn(dna.bot.Droid, {
-        team: 1,
-        symbol: 'F',
-        x: 5,
-        y: 1,
-    })
-    d2.attach( dna.behavior.EmptyBrain )
-
-    const d3 = world.spawn(dna.bot.Droid, {
         team: 0,
         symbol: 'B',
         x: 6,
         y: 5,
     })
-    d3.attach( dna.behavior.EmptyBrain )
+    d2.attach( dna.behavior.EmptyBrain )
 
-    const d4 = world.spawn(dna.bot.Droid, {
+    const d3 = world.spawn(dna.bot.Droid, {
         team: 0,
         symbol: 'C',
         x: 3,
         y: 4,
     })
+    d3.attach( dna.behavior.EmptyBrain )
+
+    const d4 = world.spawn(dna.bot.Droid, {
+        team: 1,
+        symbol: 'F',
+        x: 5,
+        y: 1,
+    })
     d4.attach( dna.behavior.EmptyBrain )
+
 
     const m1 = world.spawn( dna.prop.Marker, {
         team: 1,
@@ -53,14 +54,20 @@ function genSquads(world, opt) {
     const m2 = world.spawn( dna.prop.Marker, {
         team: 1,
         id: 2,
-        x: 3,
-        y: 3,
+        x: 6,
+        y: 2,
     })
     const m3 = world.spawn( dna.prop.Marker, {
         team: 1,
         id: 3,
         x: 1,
         y: 6,
+    })
+    const m4 = world.spawn( dna.prop.Marker, {
+        team: 1,
+        id: 4,
+        x: 1,
+        y: 1,
     })
     world.spawn( dna.prop.Marker, {
         team: 0,
@@ -77,10 +84,10 @@ function genSquads(world, opt) {
 
     lab.mode.port1.target.team = 1
     lab.mode.port2.target.team = 1
-    lab.mode.port3.target.team = 1
+    lab.mode.port3.target.team = 0
     lab.mode.port4.target.team = 0
     lab.mode.port1.focusOn(d1)
-    lab.mode.port2.focusOn(d2)
+    lab.mode.port2.focusOn(d4)
 
     env.team[0].active = false
     env.team[2].active = false
@@ -89,7 +96,7 @@ function genSquads(world, opt) {
 
     // ===============================
     // orders!
-    d1.brain.order('follow path', m1, m3, m1, m2)
+    d1.brain.order('patrol path', m1, m3, m4, m2)
 }
 
 function onReach(droid, opt) {
@@ -98,9 +105,10 @@ function onReach(droid, opt) {
 }
 
 function onNext() {
-    if (env.test.waypoints === 4) {
+    if (env.test.waypoints === 8) {
         env.test.waypoints = -1
 
+        _.sce.test.util.allTestsPassed()
         setTimeout(() => {
             trap('levelUp')
         }, 1000)
