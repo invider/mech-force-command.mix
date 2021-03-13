@@ -424,8 +424,8 @@ class ViewPort {
         if (lx < 0 || lx >= this.w
             || ly < 0 || ly >= this.h) return
 
-        const gx = this.port.x + lx
-        const gy = this.port.y + ly
+        const gx = this.bx() + lx
+        const gy = this.by() + ly
 
         if (opt === 'showLand') {
             const land = this.world.getLand(gx, gy)
