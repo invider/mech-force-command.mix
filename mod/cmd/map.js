@@ -1,4 +1,4 @@
-module.exports = function(args, cmd, con) {
+const fn = function(args, cmd, con) {
     const map = parseInt(args[1])
     if (isNaN(map)) return 'map must be specified'
 
@@ -7,4 +7,8 @@ module.exports = function(args, cmd, con) {
         map: map,
     })
 }
+fn.args = '<map-index>'
+fn.info = 'open the specified map'
+
+module.exports = fn
 

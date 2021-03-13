@@ -57,8 +57,11 @@ class Droid extends dna.bot.Platform {
     }
 
     hit(source, force) {
-        this.health -= force
         this.lfx.light(.8, .01, .6)
+
+        if (this.god) return
+
+        this.health -= force
         if (this.health <= 0) {
             this.dead = true
             this.health = 0
