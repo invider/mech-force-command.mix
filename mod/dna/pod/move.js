@@ -26,6 +26,7 @@ function up() {
     } else {
         if (this.__.push) this.__.push(obstacle, 0)
         if (obstacle.pushedBy) obstacle.pushedBy(this.__, 0)
+        return false
     }
 }
 
@@ -43,6 +44,7 @@ function left() {
     } else {
         if (this.__.push) this.__.push(obstacle, 1)
         if (obstacle.pushedBy) obstacle.pushedBy(this.__, 1)
+        return false
     }
 }
 
@@ -60,6 +62,7 @@ function down() {
     } else {
         if (this.__.push) this.__.push(obstacle, 2)
         if (obstacle.pushedBy) obstacle.pushedBy(this.__, 2)
+        return false
     }
 }
 
@@ -77,6 +80,7 @@ function right() {
     } else {
         if (this.__.push) this.__.push(obstacle, 3)
         if (obstacle.pushedBy) obstacle.pushedBy(this.__, 3)
+        return false
     }
 }
 

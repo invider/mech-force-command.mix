@@ -23,6 +23,7 @@ class Droid extends dna.bot.Platform {
                 + ' droid ' + serialId
         }
         this.attach(dna.pod.brain)
+        this.attach(dna.pod.cache)
         this.attach(dna.pod.marker)
         this.attach(dna.pod.pathFinder)
         this.attach(dna.pod.lfx)

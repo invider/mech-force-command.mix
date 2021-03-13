@@ -80,12 +80,34 @@ function followPath(bot) {
 }
 
 function patrolPath(bot) {
-    // move along existing path
-    const nextStep = bot.pathFinder.nextStep()
+
+    let nextStep = -1
+
+    // determine if there is a failed action cached
+    if (bot.cache.retry) {
+        bot.cache.retriesLeft --
+        if (bot.cache.retries < 0) {
+            // TODO reevaluate the path
+            bot.cache.retry = false
+        } else {
+            nextStep = bot.cache.retryMove
+        }
+    }
+    
+    if (nextStep < 0) {
+        // get next step from path finder
+        nextStep = bot.pathFinder.nextStep()
+    }
 
     if (nextStep >= 0) {
-        // got it!
-        bot.move.dir(nextStep)
+        // move along existing path
+        const moved = bot.move.dir(nextStep)
+        if (!moved && !bot.cache.retry) {
+            bot.cache.retry = true
+            bot.cache.retryMove = nextStep
+            bot.cache.retriesLeft = 3
+        }
+
     } else if (nextStep < -10) {
         const waypoint = bot.brain.ireg(bot.brain.state++)
         if (bot.brain.state >= 4) bot.brain.state = 0

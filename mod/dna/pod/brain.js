@@ -1,3 +1,7 @@
+
+const FOLLOW_ORDERS = 0
+const COMBAT_ACTION = 1
+
 const A = null
 const B = null
 const X = null
@@ -66,6 +70,7 @@ function order(cmd, A, B, X, Z) {
     }
     this.state = 0
     this.orders = cmd
+    this.goal = FOLLOW_ORDERS
     this.setReg('A', A)
     this.setReg('B', B)
     this.setReg('X', X)
