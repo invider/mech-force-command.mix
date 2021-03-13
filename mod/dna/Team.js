@@ -10,18 +10,6 @@ class Team {
         this.marker = 0
     }
 
-    /*
-    focusOn(droid) {
-        this.focus = droid
-    }
-
-    // try to bind controls to the leader
-    capture() {
-        if (!this.leader) return false
-        this.leader.takeControl()
-    }
-    */
-
     nextSerial() {
         return ++this.droidSerial
     }
@@ -30,5 +18,19 @@ class Team {
         this.marker ++
         if (this.marker > MAX_MARKERS) this.marker = 1
         return this.marker
+    }
+
+    unitsAlive() {
+        let units = 0
+        const ls = lab.world.mob._ls
+        for (let i = 0; i < ls.length; i++) {
+            const e = ls[i]
+            if (e && !e.dead && e.team === this.id) units ++
+        }
+        return units
+    }
+
+    color() {
+        return pal.team[this.id].color
     }
 }
