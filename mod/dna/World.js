@@ -180,6 +180,12 @@ class World extends sys.Frame {
         return !env.tune.solid.includes(land)
     }
 
+    // considers solid entities as well
+    isOccupied(x, y) {
+        const e = this.getEntity(x, y)
+        return !this.isWalkable(x, y) || (e && e.solid)
+    }
+
     transparent(x, y) {
         const land = this.segment.get(x, y)
         if (!land) return true
