@@ -1,7 +1,16 @@
 // @depends(dna/behavior/Behavior)
 
 function nope(bot) {
-    log.warn(`[${bot.orders}] - not implemented!`)
+    log.warn(`[${bot.brain.orders}] - not implemented!`)
+}
+
+function moveTowards(bot, target) {
+    if (!target) return
+
+    if (bot.y < target.y) bot.move.dir(_.DOWN)
+    else if (bot.y > target.y) bot.move.dir(_.UP)
+    else if (bot.x < target.x) bot.move.dir(_.RIGHT)
+    else if (bot.x > target.x) bot.move.dir(_.LEFT)
 }
 
 function fire(bot) {
@@ -22,6 +31,17 @@ function fire(bot) {
     }
 }
 
+function targetNeutral(bot) {
+    if (bot.team <= 0) return null // must be in a team
+    const neutral = bot.scanner.scanForNeutrals()
+    if (neutral) {
+        bot.brain.target = neutral
+    } else {
+        bot.brain.target = null
+    }
+    return neutral
+}
+
 function holdPattern(bot) {
     bot.brain.order('hold the ground')
     log(`[${bot.title}] switching to hold the ground pattern`)
@@ -34,7 +54,6 @@ function takeCombatAction(bot) {
         bot.brain.steps = 0
     }
 }
-
 
 function searchAndDestroy(bot) {
     if (bot.steps > 0) {
@@ -187,12 +206,33 @@ function patrolPath(bot) {
     follow(bot, true)
 }
 
+function ramNeutrals(bot) {
+    if (!bot.brain.target) {
+        const target = targetNeutral(bot)
+        if (!target) {
+            searchAndDestroy(bot)
+        }
+    } else {
+        // already have target
+        const target = bot.brain.target
+        if (target.dead || target.team !== 0) {
+            // forget about it - it's already dead or captured
+            bot.brain.target = null
+        } else {
+            bot.status = 'moving towards ' + target.title
+            moveTowards(bot, target)
+            bot.brain.steps ++
+            if (bot.brain.steps > 20) bot.brain.target = null
+        }
+    }
+}
+
 const orderActions = {
     'search & destroy': searchAndDestroy,
     'hold the ground':  holdTheGround,
     'follow path':      followPath,
     'patrol path':      patrolPath,
-    'ram neutrals':     nope,
+    'ram neutrals':     ramNeutrals,
     'gather parts':     nope,
 }
 

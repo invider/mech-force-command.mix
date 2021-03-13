@@ -13,7 +13,20 @@ function scanForEnemy(r) {
 
     const team = this.__.team
     const enemies = ls.filter(e => e.kind === 'droid'
-                && e.team && e.team !== team)
+                && !e.dead
+                && e.team
+                && e.team !== team)
     // TODO get sorted by distance!
     if (enemies.length > 0) return lib.math.rnde(enemies)
+}
+
+function scanForNeutrals(r) {
+    const ls = this.scanArea(r)
+
+    const team = this.__.team
+    const neutrals = ls.filter(e => e.kind === 'droid'
+                && !e.dead
+                && e.team === 0)
+    // TODO get sorted by distance!
+    if (neutrals.length > 0) return lib.math.rnde(neutrals)
 }

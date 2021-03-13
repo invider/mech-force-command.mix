@@ -1,6 +1,6 @@
 function test(args, cmd, con) {
     const map = parseInt(args[1])
-    if (isNaN(map)) return 'test number must be specified'
+    if (isNaN(map)) return 'test id must be specified'
 
     con.getMod().lib.control.hide() // hide console
     trap('newGame', {
@@ -12,5 +12,5 @@ function test(args, cmd, con) {
         },
     })
 }
-test.args = '<test-number>'
+test.args = '<test-id>'
 test.info = 'run the specified test'
