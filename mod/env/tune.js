@@ -52,7 +52,7 @@ const tune = {
         'red',
         'blue',
         'green',
-        'orange',
+        'yellow',
     ],
 
     orders: [

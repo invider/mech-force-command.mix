@@ -82,7 +82,7 @@ function ui() {
             //free: true,
             //team: -1,
             leader: true,
-            team: 3,
+            team: 4,
         },
     })
     env.ports.push(port4)

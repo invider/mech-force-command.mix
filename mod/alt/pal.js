@@ -44,7 +44,7 @@ const team = [
         sat: .5,
     },
     {
-        name: 'orange',
+        name: 'yellow',
         hue: .12,
         sat: .5,
     },
