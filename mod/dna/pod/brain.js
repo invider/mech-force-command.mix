@@ -5,7 +5,12 @@ const Z = null
 
 function setReg(reg, val) {
     if (isString(val)) {
-
+        const e = lab.world.locateByTag(val)
+        if (!e) {
+            log.warn(`unable to locate en entity for [${val}]`)
+            return
+        }
+        val = e
     }
     this[reg] = val
 }
@@ -42,12 +47,12 @@ function setOrders(orders) {
     this.orders = orders
 }
 
-function order(cmd, a, b, x, z) {
+function order(cmd, A, B, X, Z) {
     this.orders = cmd
-    this.A = a
-    this.B = b
-    this.X = x
-    this.Z = z
+    this.setReg('A', A)
+    this.setReg('B', B)
+    this.setReg('X', X)
+    this.setReg('Z', Z)
 }
 
 function regToString(eg) {
