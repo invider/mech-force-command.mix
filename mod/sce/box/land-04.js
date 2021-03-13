@@ -1,4 +1,4 @@
-const name = 'Waypoints'
+const name = 'Path Patrol'
 
 const opt = {
     w: 8,

@@ -30,6 +30,11 @@ module.exports = {
         vol: 1,
     },
 
+    testsPassed: {
+        res: 'glitch12',
+        vol: 1,
+    },
+
     default: {
         vol: .7,
     }

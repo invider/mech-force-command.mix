@@ -1,4 +1,4 @@
-const name = 'Waypoints'
+const name = 'Test Waypoints'
 
 const opt = {
     w: 8,
@@ -82,10 +82,32 @@ function genSquads(world, opt) {
     d1.brain.order('follow path', m1, m3, m1, m2)
 }
 
+function onReach(droid, opt) {
+    log('reached [' + opt.target.title + ']')
+    env.test.waypoints ++
+}
+
+function onNext() {
+    if (env.test.waypoints === 4) {
+        env.test.waypoints = -1
+
+        _.sce.test.util.allTestsPassed()
+        setTimeout(() => {
+            trap('levelUp')
+        }, 1000)
+    }
+}
+
 function setup() {
     lab.mode.titleBar.title = name
     //lab.mode.port1.lookAt(0, 0)
     lab.mode.port2.lookAt(3, 3)
     lab.mode.port3.lookAt(3, 3)
     lab.mode.port4.lookAt(7, 7)
+
+    env.test = {
+        waypoints: 0
+    }
+    lab.control.mission.define('reached', onReach)
+    lab.control.mission.define('next',    onNext)
 }
