@@ -77,7 +77,6 @@ function setup() {
     lab.mode.titleBar.title = name
     lab.control.mission.define('kill', (source, context) => {
         defer(() => {
-            _.sce.test.util.allTestsPassed()
             trap('nextTest')
         }, 2)
     })
