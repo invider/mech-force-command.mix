@@ -15,6 +15,19 @@ function setReg(reg, val) {
     this[reg] = val
 }
 
+function getReg(reg) {
+    return this[reg]
+}
+
+function ireg(i) {
+    switch(i) {
+        case 0: return this.A;
+        case 1: return this.B;
+        case 2: return this.X;
+        case 3: return this.Z;
+    }
+}
+
 // find register value in the provided list
 function findRegVal(reg, list) {
     const r = this[reg]
@@ -48,6 +61,10 @@ function setOrders(orders) {
 }
 
 function order(cmd, A, B, X, Z) {
+    if (env.tune.orders.indexOf(cmd) < 0) {
+        log.warn(`unknown orders [${cmd}]!`)
+    }
+    this.state = 0
     this.orders = cmd
     this.setReg('A', A)
     this.setReg('B', B)

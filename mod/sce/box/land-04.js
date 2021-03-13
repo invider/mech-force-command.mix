@@ -11,6 +11,8 @@ function genTerrain(world, opt) {
 }
 
 function genSquads(world, opt) {
+    lib.geo.vline(world, 3, 5, 3, '^')
+
     const d1 = world.spawn(dna.bot.Droid, {
         team: 1,
         symbol: 'A',
@@ -18,17 +20,39 @@ function genSquads(world, opt) {
         y: 2,
     })
 
-    world.spawn( dna.prop.Marker, {
+    const d2 = world.spawn(dna.bot.Droid, {
+        team: 0,
+        symbol: 'B',
+        x: 6,
+        y: 5,
+    })
+    d2.attach( dna.behavior.EmptyBrain )
+
+    const d3 = world.spawn(dna.bot.Droid, {
+        team: 0,
+        symbol: 'C',
+        x: 3,
+        y: 4,
+    })
+    d3.attach( dna.behavior.EmptyBrain )
+
+    const m1 = world.spawn( dna.prop.Marker, {
         team: 1,
         id: 1,
         x: 6,
-        y: 4,
+        y: 7,
     })
-    world.spawn( dna.prop.Marker, {
+    const m2 = world.spawn( dna.prop.Marker, {
         team: 1,
         id: 2,
         x: 3,
         y: 3,
+    })
+    const m3 = world.spawn( dna.prop.Marker, {
+        team: 1,
+        id: 3,
+        x: 1,
+        y: 6,
     })
     world.spawn( dna.prop.Marker, {
         team: 0,
@@ -52,6 +76,10 @@ function genSquads(world, opt) {
     env.team[2].active = false
     env.team[3].active = false
     env.team[4].active = false
+
+    // ===============================
+    // orders!
+    d1.brain.order('patrol path', m1, m3, m1, m2)
 }
 
 function setup() {

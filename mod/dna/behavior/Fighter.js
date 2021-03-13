@@ -79,11 +79,33 @@ function followPath(bot) {
     }
 }
 
+function patrolPath(bot) {
+    // move along existing path
+    const nextStep = bot.pathFinder.nextStep()
+
+    if (nextStep >= 0) {
+        // got it!
+        bot.move.dir(nextStep)
+    } else if (nextStep < -10) {
+        const waypoint = bot.brain.ireg(bot.brain.state++)
+        if (bot.brain.state >= 4) bot.brain.state = 0
+
+        if (waypoint) {
+            const path = bot.pathFinder.findPath(waypoint.x, waypoint.y)
+            bot.status = 'patroling path'
+        } else {
+            // just skip to the next turn
+            log('skipping')
+        }
+    } else {
+        // no movement provided - just skip this turn
+    }
+}
 const orderActions = {
     'search & destroy': searchAndDestroy,
     'hold the ground':  holdTheGround,
     'follow path':      followPath,
-    'patrol path':      nope,
+    'patrol path':      patrolPath,
     'ram neutrals':     nope,
     'gather parts':     nope,
 }
