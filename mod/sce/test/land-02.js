@@ -54,6 +54,6 @@ function setup() {
     kills = 0
     lab.control.mission.define('kill', (source, context) => {
         kills ++
-        if (env.config.test === true && kills > 2) trap('nextTest')
+        if (kills > 2) trap('nextTest')
     })
 }

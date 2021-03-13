@@ -108,7 +108,6 @@ function onNext() {
     if (env.test.waypoints === 8) {
         env.test.waypoints = -1
 
-        _.sce.test.util.allTestsPassed()
         setTimeout(() => {
             trap('nextTest')
         }, 1000)

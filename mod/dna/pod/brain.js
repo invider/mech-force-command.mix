@@ -69,6 +69,7 @@ function order(cmd, A, B, X, Z) {
         log.warn(`unknown orders [${cmd}]!`)
     }
     this.state = 0
+    this.steps = 0
     this.orders = cmd
     this.goal = FOLLOW_ORDERS
     this.target = null

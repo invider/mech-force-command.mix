@@ -6,7 +6,7 @@ function nope(bot) {
 
 function fire(bot) {
     // no fire for neutrals - they are peaceful
-    if (bot.team <= 0) return
+    if (bot.team <= 0) return null
 
     const foe = bot.scanner.scanForEnemy()
     if (foe) {
@@ -14,9 +14,11 @@ function fire(bot) {
         bot.status = 'attacking [' + foe.team + '/' + foe.name + ']'
         //log(`[${this.name}] ${this.status}`)
         bot.gun.shot(foe)
+        return foe
 
     } else {
         bot.status = 'skipping attack'
+        return null
     }
 }
 
@@ -25,6 +27,14 @@ function holdPattern(bot) {
     log(`[${bot.title}] switching to hold the ground pattern`)
     // TODO sfx/reporting
 }
+
+function takeCombatAction(bot) {
+    const foe = fire(bot)
+    if (!foe) {
+        bot.brain.steps = 0
+    }
+}
+
 
 function searchAndDestroy(bot) {
     if (bot.steps > 0) {
@@ -77,6 +87,11 @@ function reachTarget(bot, target) {
 function follow(bot, patrol) {
 
     let nextStep = -1
+    bot.brain.steps ++
+    if (bot.brain.steps > 5) {
+        takeCombatAction(bot)
+        return
+    }
 
     // determine if there is a failed action cached
     if (bot.cache.retry) {
@@ -155,7 +170,6 @@ function follow(bot, patrol) {
         } else {
             if (patrol) {
                 // just skip to the next turn
-                log('skipping')
             } else {
                 holdPattern(bot)
             }
