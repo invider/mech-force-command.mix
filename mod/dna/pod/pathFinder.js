@@ -11,11 +11,6 @@ function onInstall() {
     this.step = 0
 }
 
-// Manhattan distance
-function mdist(x1, y1, x2, y2) {
-    return abs(x1 - x2) + abs(y1 - y2)
-}
-
 function match(n1, n2) {
     return (n1.x === n2.x && n1.y === n2.y)
 }
@@ -63,7 +58,7 @@ function astar(world, start, target, debug) {
             y: n.y + v.y,
             g: n.g + 1,
         }
-        k.n = mdist(k.x, k.y, target.x, target.y)
+        k.n = lib.calc.mdist(k.x, k.y, target.x, target.y)
         k.f = k.g + k.n
         return k
     }
