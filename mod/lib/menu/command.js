@@ -75,7 +75,7 @@ function orders(targetDroid) {
     }
 }
 
-function mark() {
+function mark(targetDroid) {
     return {
         name: 'mark',
         action: (menu) => {
@@ -97,7 +97,7 @@ function formMenu(focusDroid, targetDroid) {
             register('B', iteam, targetDroid),
             register('X', iteam, targetDroid),
             register('Z', iteam, targetDroid),
-            mark(),
+            mark(targetDroid),
             {
                 name: 'exit',
                 action: (menu) => {

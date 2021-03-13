@@ -78,6 +78,14 @@ function stop(action, player) {
     }
 }
 
+function resetFor(target) {
+    const player = playerMap.indexOf(target)
+    if (player < 0) return
+    for (let a = 0; a < ctrl[player].length; a++) {
+        ctrl[player][a] = OFF
+    }
+}
+
 function evo(dt) {
 
     for (let p = 0; p < ctrl.length; p++) {

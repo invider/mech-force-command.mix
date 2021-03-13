@@ -31,6 +31,11 @@ class ViewPort {
             port: this,
             hidden: true,
             itemStep: 1,
+
+            onOpt: function() {
+                lab.control.player.resetFor(this)
+                this.hide()
+            },
         })
     }
 
