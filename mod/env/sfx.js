@@ -1,4 +1,28 @@
 module.exports = {
+
+    // UI
+    open: {
+        res: 'open',
+        vol: .7,
+    },
+    move: {
+        res: 'selectHi',
+        vol: .7,
+    },
+    use: {
+        res: 'pressurePlate',
+        vol: .7,
+    },
+    'switch': {
+        res: 'click',
+        vol: .8,
+    },
+    close: {
+        res: 'consume',
+        vol: .7,
+    },
+
+    // droids
     step: {
         res: 'stepMecha',
         vol: .15,
@@ -20,8 +44,20 @@ module.exports = {
         vol: .5,
     },
 
-    capture: {
-        res: 'computer20',
+    capture1: {
+        res: 'droidD1',
+        vol: 1,
+    },
+    capture2: {
+        res: 'droidD2',
+        vol: 1,
+    },
+    capture3: {
+        res: 'droidD4',
+        vol: 1,
+    },
+    capture4: {
+        res: 'droidD5',
         vol: 1,
     },
 

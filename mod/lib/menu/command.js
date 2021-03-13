@@ -78,6 +78,7 @@ function orders(targetDroid) {
 function mark(targetDroid) {
     return {
         name: 'mark',
+        silent: true,
         action: (menu) => {
             targetDroid.marker.mark()
             // TODO placement sfx
@@ -100,15 +101,15 @@ function formMenu(focusDroid, targetDroid) {
             mark(targetDroid),
             {
                 name: 'exit',
+                silent: true,
                 action: (menu) => {
                     menu.hide()
+                    lib.sfx('close')
                 },
             },
         ],
         onSelect: function(item, i) {
             log('selected: #' + i + ': ' + item.name)
-            if (item.name === 'exit') {
-            }
         },
         onHide: function() {
             this.port.show()
@@ -117,6 +118,7 @@ function formMenu(focusDroid, targetDroid) {
             if (targetDroid && targetDroid.dead) {
                 // close the menu - we can't control a dead droid
                 this.hide()
+                lib.sfx('close')
             }
         },
     }

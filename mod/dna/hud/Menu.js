@@ -5,8 +5,8 @@ const df = {
     title: '',
     subtitle: '',
     itemStep: 2,
+    silentOpen: true,
 }
-
 class Menu extends dna.hud.Panel {
 
     constructor(st) {
@@ -55,23 +55,23 @@ class Menu extends dna.hud.Panel {
     selectNext() {
         this.selected ++
         if (this.selected >= this.items.length) this.selectFirst()
-        lib.sfx('move', .6)
+        lib.sfx('move')
     }
 
     selectPrev() {
         this.selected --
         if (this.selected < 0) this.selectLast()
-        lib.sfx('move', .6)
+        lib.sfx('move')
     }
 
     selectFirst() {
         this.selected = 0
-        lib.sfx('move', .6)
+        lib.sfx('move')
     }
 
     selectLast() {
         this.selected = this.items.length - 1
-        lib.sfx('move', .6)
+        lib.sfx('move')
     }
 
     action() {
@@ -82,20 +82,20 @@ class Menu extends dna.hud.Panel {
             } else if (this.onSelect) {
                 this.onSelect(item, this.selected)
             }
+            if (!item.silent) lib.sfx('use')
         }
-        lib.sfx('beep2', .6)
     }
 
     actionNext() {
         const item = this.items[this.selected]
         if (item && item.actionNext) item.actionNext(this)
-        lib.sfx('move2', .4)
+        lib.sfx('switch')
     }
 
     actionPrev() {
         const item = this.items[this.selected]
         if (item && item.actionPrev) item.actionPrev(this)
-        lib.sfx('move2', .4)
+        lib.sfx('switch')
     }
 
     bind() {
@@ -113,6 +113,9 @@ class Menu extends dna.hud.Panel {
         const menu = this
         this.hidden = false
         this.bind()
+        if (!this.silentOpen) {
+            lib.sfx('open')
+        }
     }
 
     unbind() {

@@ -30,11 +30,13 @@ class ViewPort {
             name: 'portMenu' + this.id,
             port: this,
             hidden: true,
+            silentOpen: false,
             itemStep: 1,
 
             onOpt: function() {
                 lab.control.player.resetFor(this)
                 this.hide()
+                lib.sfx('close')
             },
         })
     }
