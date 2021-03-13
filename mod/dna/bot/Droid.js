@@ -15,7 +15,7 @@ class Droid extends dna.bot.Platform {
             const team = env.team[this.team]
             if (team) {
                 this.title = team.name + ' droid ' + team.nextSerial()
-                if (!team.name) debugger
+                if (!team.name) throw 'missing name for team #' + team.id
             } else {
                 this.title = 'neutral ' + this.name
             }
