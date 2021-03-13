@@ -75,25 +75,29 @@ function orders(targetDroid) {
     }
 }
 
+function mark() {
+    return {
+        name: 'mark',
+        action: (menu) => {
+            targetDroid.marker.mark()
+            // TODO placement sfx
+            menu.hide()
+        },
+    }
+}
+
 function formMenu(focusDroid, targetDroid) {
     const team = env.team.get(targetDroid.team)
     const iteam = team.id
 
     const config = {
         items: [
-            {
-                name: 'mark',
-                action: (menu) => {
-                    targetDroid.marker.mark()
-                    // TODO placement sfx
-                    menu.hide()
-                },
-            },
+            orders(targetDroid),
             register('A', iteam, targetDroid),
             register('B', iteam, targetDroid),
             register('X', iteam, targetDroid),
             register('Z', iteam, targetDroid),
-            orders(targetDroid),
+            mark(),
             {
                 name: 'exit',
                 action: (menu) => {
