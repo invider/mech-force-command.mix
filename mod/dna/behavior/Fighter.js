@@ -20,6 +20,12 @@ function fire(bot) {
     }
 }
 
+function holdPattern(bot) {
+    bot.brain.order('hold the ground')
+    log(`[${bot.title}] switching to hold the ground pattern`)
+    // TODO sfx/reporting
+}
+
 function searchAndDestroy(bot) {
     if (bot.steps > 0) {
         bot.steps --
@@ -54,32 +60,21 @@ function holdTheGround(bot) {
     }
 }
 
-function followPath(bot) {
-    // move along existing path
-    const nextStep = bot.pathFinder.nextStep()
-    //log('next step: ' + env.bind.actionName(nextStep))
-
-    if (nextStep >= 0) {
-        // got it!
-        bot.move.dir(nextStep)
-    } else if (nextStep < -10) {
-        const waypoint = bot.brain.firstRegVal()
-        if (waypoint) {
-            const path = bot.pathFinder.findPath(waypoint.x, waypoint.y)
-            bot.brain.resetFirstReg()
-            bot.status = 'following path'
-
-        } else {
-            bot.brain.orders = 'hold the ground'
-            log(`[${bot.title}] switching to hold the ground procedure`)
-            // TODO sfx/reporting
-        }
-    } else {
-        // no movement provided - just skip this turn
-    }
+function plotPath(bot, waypoint) {
+    return bot.pathFinder.findPath(waypoint.x, waypoint.y)
 }
 
-function patrolPath(bot) {
+function reachTarget(bot, target) {
+    if (!target) return true
+    const d = lib.calc.mdist(bot.x, bot.y, target.x, target.y)
+    if (d > 3) return false
+
+    // reached the target!
+    lab.control.report.success('reached the target', bot, target)
+    lab.control.mission.on('reached', bot, { target })
+}
+
+function follow(bot, patrol) {
 
     let nextStep = -1
 
@@ -87,42 +82,97 @@ function patrolPath(bot) {
     if (bot.cache.retry) {
         bot.cache.retriesLeft --
         if (bot.cache.retries < 0) {
-            // TODO reevaluate the path
+            // reevaluate path!
             bot.cache.retry = false
+            const path = plotPath(bot, bot.brain.target)
+            if (path) {
+                if (patrol) {
+                    bot.status = 'patroling path'
+                } else {
+                    bot.status = 'following path'
+                }
+            } else {
+                // unable to reach!
+                holdPattern(bot)
+            }
+
         } else {
             nextStep = bot.cache.retryMove
         }
     }
     
     if (nextStep < 0) {
-        // get next step from path finder
+        // get the next step from path finder
         nextStep = bot.pathFinder.nextStep()
     }
 
     if (nextStep >= 0) {
         // move along existing path
         const moved = bot.move.dir(nextStep)
-        if (!moved && !bot.cache.retry) {
-            bot.cache.retry = true
-            bot.cache.retryMove = nextStep
-            bot.cache.retriesLeft = 3
+        if (!moved) {
+            if (!bot.cache.retry) {
+                bot.cache.retry = true
+                bot.cache.retryMove = nextStep
+                bot.cache.retriesLeft = 3
+            }
+        } else {
+            bot.cache.retry = false
         }
 
     } else if (nextStep < -10) {
-        const waypoint = bot.brain.ireg(bot.brain.state++)
-        if (bot.brain.state >= 4) bot.brain.state = 0
+        const reached = reachTarget(bot, bot.brain.target)
+        if (!reached) {
+            // reevaluate!
+            const path = plotPath(bot, bot.brain.target)
+            if (!path) {
+                // unable to reach!
+                holdPattern(bot)
+            }
+        }
+
+        let waypoint
+        if (patrol) {
+            waypoint = bot.brain.ireg(bot.brain.state++)
+            if (bot.brain.state >= 4) bot.brain.state = 0
+        } else {
+            waypoint = bot.brain.firstRegVal()
+        }
 
         if (waypoint) {
-            const path = bot.pathFinder.findPath(waypoint.x, waypoint.y)
-            bot.status = 'patroling path'
+            const path = plotPath(bot, waypoint)
+            if (path) {
+                bot.brain.target = waypoint
+                if (patrol) {
+                    bot.status = 'patroling path'
+                } else {
+                    bot.brain.resetFirstReg()
+                    bot.status = 'following path'
+                }
+            } else {
+                // unable to reach!
+                holdPattern(bot)
+            }
         } else {
-            // just skip to the next turn
-            log('skipping')
+            if (patrol) {
+                // just skip to the next turn
+                log('skipping')
+            } else {
+                holdPattern(bot)
+            }
         }
     } else {
         // no movement provided - just skip this turn
     }
 }
+
+function followPath(bot) {
+    follow(bot, false)
+}
+
+function patrolPath(bot) {
+    follow(bot, true)
+}
+
 const orderActions = {
     'search & destroy': searchAndDestroy,
     'hold the ground':  holdTheGround,

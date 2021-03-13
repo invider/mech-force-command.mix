@@ -71,6 +71,7 @@ function order(cmd, A, B, X, Z) {
     this.state = 0
     this.orders = cmd
     this.goal = FOLLOW_ORDERS
+    this.target = null
     this.setReg('A', A)
     this.setReg('B', B)
     this.setReg('X', X)
