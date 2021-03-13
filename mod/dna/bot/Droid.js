@@ -81,6 +81,9 @@ class Droid extends dna.bot.Platform {
             // interface and capture the bot!
             log(`${target.title} is captured by ${this.name}`)
             target.team = this.team
+            lab.control.mission.on('capture', target, {
+                source: this,
+            })
             switch(this.team) {
                 case 1: lib.sfx.at('capture1', this.__.x, this.__.y); break;
                 case 2: lib.sfx.at('capture2', this.__.x, this.__.y); break;
