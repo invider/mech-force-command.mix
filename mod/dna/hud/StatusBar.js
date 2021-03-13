@@ -11,6 +11,7 @@ class StatusBar extends dna.hud.Panel {
 
     matchLabel(target) {
         if (target.getStatus) return target.getStatus()
+        if (target.title) return target.title
         if (target.name) return target.name
         if (target.symbol) {
             /*
