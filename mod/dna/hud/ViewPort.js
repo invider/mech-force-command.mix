@@ -450,7 +450,7 @@ class ViewPort {
         this.menu.selectFrom( lib.menu.command.formMenu(focusDroid, targetDroid) )
     }
 
-    jump(n) {
+    jump(n, observe) {
         n = n || 1
         const curDroid = this.target.focus
         const team = this.target.team
@@ -472,7 +472,8 @@ class ViewPort {
                 return
             }
             log(`jumping to ${next.title}`)
-            this.takeControl(next)
+            if (!observe) this.takeControl(next)
+
             if (n > 0) lib.sfx('next')
             else lib.sfx('prev')
         } else {
