@@ -62,12 +62,12 @@ function followPath(bot) {
         // got it!
         bot.move.dir(RND(3))
     } else {
-        const waypoint = bot.memory.firstRegVal()
+        const waypoint = bot.brain.firstRegVal()
         if (waypoint) {
             const path = bot.pathFinder.findPath(waypoint.x, waypoint.y)
             log(`[${bot.title}] === new path ===`)
             log.list(path)
-            bot.memory.resetFirstReg()
+            bot.brain.resetFirstReg()
 
         } else {
             bot.orders = 'hold the ground'
@@ -92,7 +92,7 @@ class Fighter extends dna.behavior.Behavior {
     behave() {
         if (this.taken) return
 
-        const orders = this.memory.getOrders()
+        const orders = this.brain.getOrders()
         const actions = orderActions[orders]
         if (actions) actions(this)
     }

@@ -1,7 +1,7 @@
 function register(reg, team, targetDroid) {
     const list = lab.world.prop.select(e =>
         e instanceof dna.prop.Marker && e.team === team)
-    let cur = targetDroid.memory.findRegVal(reg, list)
+    let cur = targetDroid.brain.findRegVal(reg, list)
 
     list.push({
         none: true,
@@ -33,13 +33,13 @@ function register(reg, team, targetDroid) {
             this.name = reg + ': ' + title
         },
         sync: function(droid) {
-            if (!droid || !droid.memory) throw 'missing droid or memory!'
+            if (!droid || !droid.brain) throw 'missing droid or brain!'
 
             const e = list[this.val]
             if (e.none) {
-                droid.memory[reg] = null
+                droid.brain[reg] = null
             } else {
-                droid.memory[reg] = e
+                droid.brain[reg] = e
             }
         },
     }
@@ -47,7 +47,7 @@ function register(reg, team, targetDroid) {
 
 function orders(targetDroid) {
     const list = env.tune.orders
-    let cur = targetDroid.memory.iorders()
+    let cur = targetDroid.brain.iorders()
 
     return {
         name: list[cur],
@@ -66,11 +66,11 @@ function orders(targetDroid) {
             this.updateTitle()
         },
         sync: function(droid) {
-            if (!droid || !droid.memory) throw 'missing droid or memory!'
-            droid.memory.setOrders(list[this.val])
+            if (!droid || !droid.brain) throw 'missing droid or brain!'
+            droid.brain.setOrders(list[this.val])
         },
         updateTitle: function() {
-            this.name = targetDroid.memory.getOrders()
+            this.name = targetDroid.brain.getOrders()
         },
     }
 }
