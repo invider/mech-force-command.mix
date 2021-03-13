@@ -114,6 +114,7 @@ function determineConfig(imap) {
     let config
     if (imap < env.tune.testRange) {
         log('=== MAP #' + imap + ' ===')
+        env.map = imap
         const fineConfig = $.sce.land[imap]
         if (fineConfig) log('Config OK...')
         else log('No Config!')
@@ -122,6 +123,7 @@ function determineConfig(imap) {
     } else if (imap < env.tune.boxRange) {
         const itest = imap - env.tune.testRange
         log('=== TEST #' + itest + ' ===')
+        env.test = itest
         const fineConfig = $.sce.test.land[itest]
         if (fineConfig) log('Config OK...')
         else log('No Config!')
@@ -129,6 +131,7 @@ function determineConfig(imap) {
     } else {
         const ibox = imap - env.tune.boxRange
         log('=== BOX #' + ibox + ' ===')
+        env.box = ibox
         const fineConfig = $.sce.box.land[ibox]
         if (fineConfig) log('Config OK...')
         else log('No Config!')
