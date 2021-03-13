@@ -88,8 +88,9 @@ class Platform {
     }
 
     getStatus() {
-        if (this.status) return this.name + ' - ' + this.status
-        else return this.name
+        const title = this.title || this.name
+        if (this.status) return title + ' - ' + this.status
+        else return title
     }
 
     kill() {
