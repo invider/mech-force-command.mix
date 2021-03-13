@@ -18,14 +18,6 @@ function genSquads(world, opt) {
         y: 2,
     })
 
-    const d2 = world.spawn(dna.bot.Droid, {
-        team: 0,
-        symbol: 'B',
-        x: 6,
-        y: 5,
-    })
-    d2.attach( dna.behavior.EmptyBrain )
-
     world.spawn( dna.prop.Marker, {
         team: 1,
         id: 1,

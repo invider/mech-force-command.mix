@@ -3,14 +3,28 @@ const B = null
 const X = null
 const Z = null
 
+function setReg(reg, val) {
+    if (isString(val)) {
+
+    }
+    this[reg] = val
+}
+
+// find register value in the provided list
 function findRegVal(reg, list) {
     const r = this[reg]
     return list.indexOf(r)
 }
 
-function dreg(reg) {
-    if (!reg) return '- none -'
-    else return (reg.title || reg.name)
+function firstRegVal() {
+    return (this.A || this.B || this.X || this.Z)
+}
+
+function resetFirstReg() {
+    if(this.A) this.A = null
+    else if (this.B) this.B = null
+    else if (this.X) this.X = null
+    else if (this.Z) this.Z = null
 }
 
 function iorders() {
@@ -28,9 +42,22 @@ function setOrders(orders) {
     this.orders = orders
 }
 
+function order(cmd, a, b, x, z) {
+    this.orders = cmd
+    this.A = a
+    this.B = b
+    this.X = x
+    this.Z = z
+}
+
+function regToString(eg) {
+    if (!reg) return '- none -'
+    else return (reg.title || reg.name)
+}
+
 function dump() {
-    log('A: ' + dreg(this.A))
-    log('B: ' + dreg(this.B))
-    log('X: ' + dreg(this.X))
-    log('Z: ' + dreg(this.Z))
+    log('A: ' + regToString(this.A))
+    log('B: ' + regToString(this.B))
+    log('X: ' + regToString(this.X))
+    log('Z: ' + regToString(this.Z))
 }

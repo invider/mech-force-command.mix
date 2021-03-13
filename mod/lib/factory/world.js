@@ -25,10 +25,14 @@ function teams() {
         env.team.push( team )
         team.active = true    // TODO level responsiblity
     }
+
     env.team.get = function(n) {
         const team = this[n]
         if (!team) return this[0]
         return team
+    }
+    env.team.getName = function(n) {
+        return this.get(n).name
     }
 }
 

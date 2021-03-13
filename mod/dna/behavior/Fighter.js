@@ -1,7 +1,7 @@
 // @depends(dna/behavior/Behavior)
 
 function nope(bot) {
-    log.warn('orders are not implemented!')
+    log.warn(`[${bot.orders}] - not implemented!`)
 }
 
 function fire(bot) {
@@ -54,10 +54,33 @@ function holdTheGround(bot) {
     }
 }
 
+function followPath(bot) {
+    // move along existing path
+    console.dir(bot)
+    const nextStep = bot.pathFinder.nextStep()
+    if (nextStep >= 0) {
+        // got it!
+        bot.move.dir(RND(3))
+    } else {
+        const waypoint = bot.memory.firstRegVal()
+        if (waypoint) {
+            const path = bot.pathFinder.findPath(waypoint.x, waypoint.y)
+            log(`[${bot.title}] === new path ===`)
+            log.list(path)
+            bot.memory.resetFirstReg()
+
+        } else {
+            bot.orders = 'hold the ground'
+            log(`[${bot.title}] switching to hold the ground procedure`)
+            // TODO sfx/reporting
+        }
+    }
+}
+
 const orderActions = {
     'search & destroy': searchAndDestroy,
     'hold the ground':  holdTheGround,
-    'follow path':      nope,
+    'follow path':      followPath,
     'patrol path':      nope,
     'ram neutrals':     nope,
     'gather parts':     nope,

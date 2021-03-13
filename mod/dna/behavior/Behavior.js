@@ -16,6 +16,7 @@ class Behavior {
         // at least move should be present
         if (!this.__.move) throw `move pod should be present in ${this.__.name}`
         this.activate()
+        !this.start || this.start()
     }
 
     randomStep() {
@@ -30,5 +31,6 @@ class Behavior {
         if (mob.behave === this.behave) {
             mob.behave = false 
         }
+        !this.finish || this.finish()
     }
 }

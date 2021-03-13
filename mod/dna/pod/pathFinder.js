@@ -106,7 +106,8 @@ function astar(world, start, target) {
             if (onext && onext.f < f) f = onext.f
             if (cnext && cnext.f < f) f = cnext.f
 
-            if (!lab.world.isWalkable(next.x, next.y)) {
+            //if (!lab.world.isWalkable(next.x, next.y)) {
+            if (lab.world.isOccupied(next.x, next.y)) {
                 // skip non-walkable land
             } else if (f < next.f) {
                 // skip this node - a better path to it is already found
