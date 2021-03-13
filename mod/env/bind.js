@@ -44,6 +44,22 @@ function indexKeys() {
     }
 }
 
+function actionName(action) {
+    let n = 'unknown'
+    switch(action) {
+        case _.NONE:  n = 'none'; break;
+        case _.UP:    n = 'up';   break;
+        case _.LEFT:  n = 'left'; break; 
+        case _.DOWN:  n = 'down'; break; 
+        case _.RIGHT: n = 'right'; break; 
+        case _.NEXT:  n = 'next'; break; 
+        case _.PREV:  n = 'prev'; break; 
+        case _.USE:   n = 'use';  break; 
+        case _.OPT:   n = 'opt';  break; 
+    }
+    return n
+}
+
 function init() {
     indexKeys()
     augment(_, actions)
