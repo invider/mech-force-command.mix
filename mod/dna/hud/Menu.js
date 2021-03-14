@@ -114,9 +114,12 @@ class Menu extends dna.hud.Panel {
     }
 
     show() {
+        if (!this.hidden) return
+
         const menu = this
         this.hidden = false
         this.bind()
+        this.selected = 0
         if (!this.silentOpen) {
             lib.sfx('open')
         }
@@ -149,6 +152,7 @@ class Menu extends dna.hud.Panel {
         this.onSelect = opt.onSelect
         this.onHide   = opt.onHide
         this.items    = opt.items
+        this.selected = 0
 
         this.normalizeItems()
     }

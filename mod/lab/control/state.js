@@ -93,7 +93,7 @@ function show(name) {
 function fadeTo(name, opt) {
     const screen = this.dir[name]
     if (!screen) {
-        log.error(`missing screen [${name}]!`)
+        log.err(`missing screen [${name}]!`)
         return this
     }
 

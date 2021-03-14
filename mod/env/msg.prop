@@ -3,6 +3,8 @@ author: by Igor Khotin
 
 map: Map
 newGame: New Game
+accept: Accept
+back: Back
 resume: Resume
 abort: Abort
 continue: Continue

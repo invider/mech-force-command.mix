@@ -1,0 +1,8 @@
+Mech Force Command
+Command your forces to the victory!
+
+Players: 4x4
+Size: big
+
+Press "Accept Scenario" to begin.
+
