@@ -82,6 +82,7 @@ class Droid extends dna.bot.Platform {
             log(`${target.title} is captured by ${this.name}`)
             target.team = this.team
             job.mission.on('capture', target, {
+                team: this.team,
                 source: this,
             })
             switch(this.team) {

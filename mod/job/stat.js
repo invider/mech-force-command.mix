@@ -2,11 +2,23 @@ function start() {
     for (let i = 0; i <= env.tune.maxTeams; i++) {
         const units = env.team[i].unitsAlive()
         this.state.team[i].units = units
-        this.state.team[i].captured = units
+        this.state.team[i].original = units
+        this.state.team[i].captured = 0
     }
 }
 
-function captureCase(captured, by) {
+function captureCase(captured, context) {
+    this.state.team[context.team].captured ++
+}
+
+function killCase(killed, context) {
+    this.state.team[context.source.team].kills ++
+    this.state.team[killed.team].destroyed ++
+}
+
+function register(event, source, context) {
+    const handler = event + 'Case'
+    if (this[handler]) this[handler](source, context)
 }
 
 function teamStat() {
@@ -34,7 +46,11 @@ function reset() {
         team: [],
     }
     for (let i = 0; i <= env.tune.maxTeams; i++) {
-        this.state.team[i] = {}
-        this.state.team[i].units = 0
+        this.state.team[i] = {
+            units:      0,
+            original:   0,
+            kills:      0,
+            destroyed:  0,
+        }
     }
 }

@@ -2,6 +2,7 @@ const mission = {
     on: function(event, source, context) {
         const handler = this['on-' + event]
         if (handler) handler(source, context)
+        job.stat.register(event, source, context)
     },
 
     define: function(event, handler) {
