@@ -9,17 +9,22 @@ const main = {
             }
         },
         {
-            name: env.msg.map + ': 1',
-            map: 1,
-
+            sync: function() {
+                this.name = this.map + '.' + this.options[this.map].name
+            },
+            define: function(menu) {
+                this.map = 1
+                this.options = _.sce.land
+                this.sync()
+            },
             actionNext: function() {
-                this.map = min(this.map + 1, env.tune.maxLevel)
-                this.name = env.msg.map + ': ' + this.map
+                this.map = min(this.map + 1, this.options.length - 1)
+                this.sync()
             },
             actionPrev: function() {
                 if (this.map > 1) {
                     this.map --
-                    this.name = env.msg.map + ': ' + this.map
+                    this.sync()
                 }
             },
         },

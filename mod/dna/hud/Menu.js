@@ -11,6 +11,7 @@ class Menu extends dna.hud.Panel {
 
     constructor(st) {
         super(st, df)
+        this.normalizeItems()
     }
 
     adjust() {
@@ -39,6 +40,8 @@ class Menu extends dna.hud.Panel {
     }
 
     normalizeItems() {
+        if (!this.items) return
+
         const list = []
         this.items.forEach(item => {
             if (isString(item)) {
@@ -47,6 +50,7 @@ class Menu extends dna.hud.Panel {
                 })
             } else {
                 list.push(item)
+                if (item.define) item.define(this)
             }
         })
         this.items = list

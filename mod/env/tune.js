@@ -34,8 +34,8 @@ const tune = {
     outside: '~',
     unexplored: '?',
 
-    defaultSegmentWidth:    64,
-    defaultSegmentHeight:   64,
+    defaultSegmentWidth:    256,
+    defaultSegmentHeight:   256,
     solid:  ['~', '^', '#', '|', '-'],
     opaque: ['#'],
     resistant: ['~', '^', '#'],
