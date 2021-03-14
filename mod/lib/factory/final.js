@@ -2,6 +2,7 @@ function final() {
 
     const table = lab.mode.spawn( dna.hud.Table, {
         Z: 1,
+        name: 'gameStat',
     })
 
     const menu = lab.mode.spawn(dna.hud.Menu, {
@@ -23,7 +24,7 @@ function final() {
     menu.defineItems({
         items: [
             {
-                name: 'continue',
+                name: env.msg['continue'],
                 action: function() {
                     lab.mode.mainMenu.defineItems(lib.menu.main)
                     lab.control.state.fadeTo('menu')

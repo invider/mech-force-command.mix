@@ -5,6 +5,7 @@ map: Map
 newGame: New Game
 resume: Resume
 abort: Abort
+continue: Continue
 
 gameOver: GAME OVER
 

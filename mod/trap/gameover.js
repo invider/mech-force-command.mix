@@ -4,6 +4,7 @@ function gameover() {
     log('=== GAME OVER ===')
     env.state = 'gameover'
     lab.mode.mainMenu.defineItems(lib.menu.main)
+    lab.mode.gameStat.setTable(job.stat.gameStat())
 
     lab.control.state.fadeTo('gameover')
     /*
