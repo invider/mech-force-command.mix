@@ -19,6 +19,15 @@ function generateIsland(world, cfg) {
     const ctx2 = canvas.getContext('2d')
     const imgData = ctx.getImageData(0, 0, w, h)
 
+    function quarter(x, y) {
+        const qx = x < w/2? 0 : 1
+        const qy = y < h/2? 0 : 1
+        if (qx === 0 && qy === 0) return 1
+        else if (qx === 1 && qy === 0) return 2
+        else if (qx === 0 && qy === 1) return 3
+        else return 4
+    }
+
     function mono(x, y, v) {
         let sh = (y * w + x) * 4
         const c = limit(floor(v * 255), 0, 255)
@@ -54,6 +63,10 @@ function generateIsland(world, cfg) {
         return limit(nv, 0, 1)
     }
 
+    let minV = 10
+    let maxV = 0
+    let over = 0
+    const overLimit = .5
     for (let y = 0; y < h; y++) {
         for (let x = 0; x < w; x++) {
             const v = lib.ken.gnoise(
@@ -61,6 +74,9 @@ function generateIsland(world, cfg) {
                 (dy + y/h) * scale, z
             )
             const v2 = circleGradientFilter(x, y, v)
+            if (v2 < minV) minV = v2
+            if (v2 > maxV) maxV = v2
+            if (v2 > overLimit) over ++
 
             // moisture noise
             const moistureVal = lib.ken.gnoise(
@@ -100,14 +116,6 @@ function generateIsland(world, cfg) {
 
                 world.set(x, y, '.')
 
-                if (moistureVal > cfg.level.stone) {
-                    world.spawn( dna.bot.Mech, {
-                        team: RND(4),
-                        x: x,
-                        y: y,
-                    })
-                }
-
                 /*
                 if (mv > cfg.level.rocks) {
                     world.spawn({ symbol: 'o', x: x, y: y, })
@@ -139,9 +147,29 @@ function generateIsland(world, cfg) {
             } else {
                 mono(x, y, v2 + .3)
                 world.set(x, y, '^')
+                log('MOUNTAIN FOR ' + v2)
             }
+
+            if (v2 > cfg.level.sand
+                    && v2 < cfg.level.stone
+                    && moistureVal > cfg.level.mech) {
+                const s = floor(rnd() * 2)
+                const q = quarter(x, y)
+                world.spawn( dna.bot.Mech, {
+                    team: q * s,
+                    x: x,
+                    y: y,
+                })
+            }
+
         }
     }
+
+    log('--------------')
+    log('MIN: ' + minV)
+    log('MAX: ' + maxV)
+    log('OVER: ' + over)
+    log('--------------')
 
     ctx2.putImageData(imgData, 0, 0)
     res.attach(canvas, 'island')

@@ -4,6 +4,7 @@
 # collider
 out
 dist
+*.out
 *.zip
 *.tar
 *.tgz

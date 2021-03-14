@@ -1,8 +1,8 @@
-Mech Force Command
-Command your forces to the victory!
+Rule over this wasteland!
 
-Players: 4x4
-Size: big
+A huge island is contested between 4 mech forces.
+Use central mountain range to your advantage.
 
-Press "Accept Scenario" to begin.
+Players:  4
+Size:     big
 

@@ -77,6 +77,6 @@ class TitleBar extends dna.hud.Panel {
         //if (world.scheduled) turn += '<' + world.scheduled
         tx
             .face(lib.cidx('alert'))
-            .at(w - 10, 0).print(turn)
+            .at(w - 12, 0).print(turn)
     }
 }

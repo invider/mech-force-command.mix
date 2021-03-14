@@ -64,9 +64,8 @@ class Mech extends dna.bot.Platform {
         lib.sfx.at(name, this.x, this.y)
     }
 
-    hit(source, force) {
+    hit(source, force, type) {
         this.lfx.light(.8, .01, .6)
-
         if (this.god) return
 
         this.health -= force

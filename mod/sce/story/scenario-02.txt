@@ -1,8 +1,6 @@
-Mech Force Command
-Command your forces to the victory!
+Multiple lakes are present on this island.
+That might slow down the progress of your mechanized units.
 
-Players: 4x4
-Size: big
-
-Press "Accept Scenario" to begin.
+Players:  4
+Size:     medium
 
