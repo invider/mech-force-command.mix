@@ -7,7 +7,7 @@ function onInstall() {
 function take() {
     const mech = this.__
     mech.taken = true
-    mech.origSymbol = mech.symbol
+    //mech.origSymbol = mech.symbol
     mech.symbol = '@'
 }
 

@@ -47,6 +47,10 @@ module.exports = {
         res: 'computer20',
         vol: 1,
     },
+    accept: {
+        res: 'computer5',
+        vol: .7,
+    },
 
     capture1: {
         res: 'droidD1',

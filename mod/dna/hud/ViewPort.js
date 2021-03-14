@@ -36,7 +36,8 @@ class ViewPort {
             onOpt: function() {
                 lab.control.player.resetFor(this)
                 this.hide()
-                lib.sfx('close')
+                this.port.releaseControl()
+                lib.sfx('accept')
             },
         })
     }
@@ -120,7 +121,7 @@ class ViewPort {
     }
 
     focusOn(platform) {
-        if (this.target.focus) {
+        if (this.target.focus && this.target.taken) {
             this.releaseControl(this.target.focus)
         }
         this.target.focus = platform
@@ -140,6 +141,10 @@ class ViewPort {
 
         if (this.target.team >= -1 && this.target.team !== platform.team) {
             //log(`[${this.name}] can't capture [${platform.title}]`)
+            return
+        }
+        if (this.target.focus.taken) {
+            log('[' + platform.name + '] is already taken!')
             return
         }
         log('taking control of [' + platform.name + ']')
@@ -368,6 +373,7 @@ class ViewPort {
                 this.target.focus.control.act(action)
             } else {
                 // try take the control
+                log('take control on action #' + action)
                 this.takeControl()
             }
 
@@ -405,7 +411,7 @@ class ViewPort {
             //log(`capturing ${this.name} for player #${player+1}`)
             this.binded = true
             lab.control.player.bind(this, player)
-            this.takeControl() // take mech control if focused
+            //this.takeControl() // take mech control if focused
         }
     }
 
@@ -440,7 +446,7 @@ class ViewPort {
 
     openMenu() {
         let focusMech
-        if (this.target.focus && this.target.taken) focusMech = this.target.focus
+        if (this.target.focus) focusMech = this.target.focus
         const targetMech = focusMech
         if (!targetMech) return
 

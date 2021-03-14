@@ -11,6 +11,7 @@ class Mech extends dna.bot.Platform {
 
     constructor(st) {
         super( augment({}, df, st) )
+        this.origSymbol = this.symbol
         this.pickName(false)
 
         this.attach(dna.pod.brain)

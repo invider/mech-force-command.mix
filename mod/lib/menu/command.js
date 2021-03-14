@@ -100,11 +100,13 @@ function formMenu(focusMech, targetMech) {
             register('Z', iteam, targetMech),
             mark(targetMech),
             {
-                name: 'exit',
+                name: env.msg.apply,
                 silent: true,
                 action: (menu) => {
+                    lab.control.player.resetFor(menu)
+                    menu.port.releaseControl()
                     menu.hide()
-                    lib.sfx('close')
+                    lib.sfx('accept')
                 },
             },
         ],
