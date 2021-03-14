@@ -6,3 +6,5 @@ newGame: New Game
 resume: Resume
 abort: Abort
 
+gameOver: GAME OVER
+

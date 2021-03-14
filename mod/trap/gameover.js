@@ -4,8 +4,8 @@ function gameover() {
     log('=== GAME OVER ===')
     env.state = 'gameover'
     lab.mode.mainMenu.defineItems(lib.menu.main)
-    lab.control.state.fadeTo('menu')
 
+    lab.control.state.fadeTo('gameover')
     /*
     lab.world.paused = true
     lib.util.unbindAllPlayers()

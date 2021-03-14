@@ -3,6 +3,7 @@ function ui() {
 
     const background = tx.spawn(dna.hud.Panel, {
         Z: 1,
+        name: 'background',
     })
 
     const titleBar = tx.spawn(dna.hud.TitleBar, {
