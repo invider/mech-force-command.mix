@@ -69,7 +69,7 @@ module.exports = {
         vol: 1,
     },
     reached: {
-        res: 'scanner16',
+        res: 'computer14',
         vol: .5,
     },
 
