@@ -3,13 +3,26 @@ const name = 'move'
 function onInstall() {}
 
 function dir(direction) {
-    this.__.fsfx('step')
+    let move = false
     switch(direction) {
-        case 0: return this.up();
-        case 1: return this.left();
-        case 2: return this.down(); 
-        case 3: return this.right();
+        case 0: move = this.up();    break;
+        case 1: move = this.left();  break;
+        case 2: move = this.down();  break;
+        case 3: move = this.right(); break;
     }
+
+    const port = lab.mode.port1.inFocus(this.__)
+    if (move) {
+        switch(port) {
+            case 1: this.__.fsfx('step1'); break;
+            case 2: this.__.fsfx('step2'); break;
+            case 3: this.__.fsfx('step2'); break;
+            case 4: this.__.fsfx('step2'); break;
+        }
+    } else {
+        if (port) this.__.fsfx('misStep')
+    }
+    return move
 }
 
 function up() {

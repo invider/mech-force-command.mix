@@ -23,9 +23,25 @@ module.exports = {
     },
 
     // mech
-    step: {
+    step1: {
         res: 'stepMecha',
         vol: .15,
+    },
+    step2: {
+        res: 'stepMecha3',
+        vol: .15,
+    },
+    step3: {
+        res: 'stepMechaB1',
+        vol: .15,
+    },
+    step4: {
+        res: 'stepMechaB4',
+        vol: .15,
+    },
+    misStep: {
+        res: 'move',
+        vol: .3,
     },
     next: {
         res: 'computer3',

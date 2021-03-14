@@ -1,6 +1,5 @@
 // @depends(dna/bot/Platform)
 
-
 const df = {
     symbol: 'A',
     kind: 'mech',

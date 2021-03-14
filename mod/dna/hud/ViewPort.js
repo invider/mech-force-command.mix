@@ -503,8 +503,8 @@ class ViewPort {
     }
 
     inFocus(platform) {
-        if (this.target.focus === platform) return true
-        if (!this.next) return false
+        if (this.target.focus === platform) return this.id
+        if (!this.next) return 0
         return this.next.inFocus(platform)
     }
 }
