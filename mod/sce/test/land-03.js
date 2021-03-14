@@ -43,6 +43,6 @@ function next() {
 }
 
 function setup() {
-    lab.mode.titleBar.title = name
+    _.sce.test.util.setTitle(name)
     job.mission.define('next', next)
 }

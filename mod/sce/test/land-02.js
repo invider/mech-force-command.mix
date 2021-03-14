@@ -50,7 +50,8 @@ function genSquads(world, opt) {
 
 let kills = 0
 function setup() {
-    lab.mode.titleBar.title = name
+    _.sce.test.util.setTitle(name)
+
     kills = 0
     job.mission.define('kill', (source, context) => {
         kills ++

@@ -32,7 +32,8 @@ function genSquads(world, opt) {
 }
 
 function setup() {
-    lab.mode.titleBar.title = name
+    _.sce.test.util.setTitle(name)
+
     job.mission.define('kill', (source, context) => {
         if (env.config.test === true) trap('nextTest')
     })

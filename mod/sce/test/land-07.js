@@ -64,7 +64,8 @@ function onCapture(source, context) {
 }
 
 function setup() {
-    lab.mode.titleBar.title = name
+    _.sce.test.util.setTitle(name)
+
     lab.mode.port1.lookAt(0, 0)
     lab.mode.port2.lookAt(8, 0)
     lab.mode.port3.lookAt(0, 8)
