@@ -5,6 +5,7 @@ function newGame(opt) {
     const fade = opt.fade || {}
     fade.onHide = function() {
         lib.factory.world(map)
+        lab.world.start()
     }
     lab.control.state.fadeTo('game', fade)
 }

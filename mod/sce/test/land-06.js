@@ -75,7 +75,7 @@ function genSquads(world, opt) {
 
 function setup() {
     lab.mode.titleBar.title = name
-    lab.control.mission.define('kill', (source, context) => {
+    job.mission.define('kill', (source, context) => {
         defer(() => {
             trap('nextTest')
         }, 2)

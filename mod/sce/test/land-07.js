@@ -73,5 +73,5 @@ function setup() {
     env.test = {
         captured: 0
     }
-    lab.control.mission.define('capture', onCapture)
+    job.mission.define('capture', onCapture)
 }

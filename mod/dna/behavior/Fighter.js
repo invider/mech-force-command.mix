@@ -99,8 +99,8 @@ function reachTarget(bot, target) {
     if (d > 3) return false
 
     // reached the target!
-    lab.control.report.success('reached the target', bot, target)
-    lab.control.mission.on('reached', bot, { target })
+    job.report.success('reached the target', bot, target)
+    job.mission.on('reached', bot, { target })
 }
 
 function follow(bot, patrol) {

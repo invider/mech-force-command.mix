@@ -1,3 +1,14 @@
+function start() {
+    for (let i = 0; i <= env.tune.maxTeams; i++) {
+        const units = env.team[i].unitsAlive()
+        this.state.team[i].units = units
+        this.state.team[i].captured = units
+    }
+}
+
+function captureCase(captured, by) {
+}
+
 function teamStat() {
     if (this.state) return this.state.team
 }

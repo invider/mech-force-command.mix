@@ -52,7 +52,7 @@ let kills = 0
 function setup() {
     lab.mode.titleBar.title = name
     kills = 0
-    lab.control.mission.define('kill', (source, context) => {
+    job.mission.define('kill', (source, context) => {
         kills ++
         if (kills > 2) trap('nextTest')
     })

@@ -54,7 +54,7 @@ class TitleBar extends dna.hud.Panel {
             tx.out(' ')
         }
 
-        const stat = lab.control.stat.teamStat()
+        const stat = job.stat.teamStat()
         const teamW = floor((w - 10)/5)
         if (this.title) {
             tx

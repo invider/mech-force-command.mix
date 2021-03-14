@@ -66,7 +66,7 @@ class Droid extends dna.bot.Platform {
             this.dead = true
             this.health = 0
             kill(this)
-            lab.control.mission.on('kill', this, {
+            job.mission.on('kill', this, {
                 source,
             })
             lib.sfx.at('explosion7', this.x, this.y)
@@ -81,7 +81,7 @@ class Droid extends dna.bot.Platform {
             // interface and capture the bot!
             log(`${target.title} is captured by ${this.name}`)
             target.team = this.team
-            lab.control.mission.on('capture', target, {
+            job.mission.on('capture', target, {
                 source: this,
             })
             switch(this.team) {

@@ -12,7 +12,7 @@ const actions = {
 
 const keyboard = [
     [ 'KeyW', 'KeyA', 'KeyS', 'KeyD',
-        'KeyR', 'KeyF', 'KeyE', 'KeyQ'],
+        'KeyF', 'KeyR', 'KeyE', 'KeyQ'],
     [ 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
         'PageDown', 'PageUp', 'ShiftRight', 'Enter' ],
     [ 'KeyK', 'KeyH', 'KeyJ', 'KeyL',

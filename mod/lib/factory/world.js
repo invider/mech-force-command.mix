@@ -97,10 +97,9 @@ function bindToHUD() {
 }
 
 function cleanup() {
-    env.state = 'plaing'
     job.serial.reset()
-    lab.control.stat.reset()
-    lab.control.mission.clear()
+    job.stat.reset()
+    job.mission.clear()
     if (lab.world) lab.detach(lab.world) // clean up the old world
 }
 
@@ -155,6 +154,7 @@ function bringInFocus() {
 
 // accepts map # from the menu to generate
 function world(imap) {
+    env.state = 'creating'
     cleanup()
 
     const config = determineConfig(imap)

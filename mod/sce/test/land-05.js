@@ -124,6 +124,6 @@ function setup() {
     env.test = {
         waypoints: 0
     }
-    lab.control.mission.define('reached', onReach)
-    lab.control.mission.define('next',    onNext)
+    job.mission.define('reached', onReach)
+    job.mission.define('next',    onNext)
 }

@@ -30,6 +30,12 @@ class World extends sys.Frame {
         augment(this, df, st)
     }
 
+    // start the world evolution
+    start() {
+        env.state = 'playing'
+        job.stat.start()
+    }
+
     place(segment, quad, target) {
         if (!target) target = this.segment
         if (quad) lib.segment.positionSegment(segment, quad, target)
@@ -271,8 +277,8 @@ class World extends sys.Frame {
         }
 
         this.onMovement()
-        lab.control.stat.next()
-        lab.control.mission.on('next')
+        job.stat.next()
+        job.mission.on('next')
     }
 
     onMovement() {

@@ -44,5 +44,5 @@ function next() {
 
 function setup() {
     lab.mode.titleBar.title = name
-    lab.control.mission.define('next', next)
+    job.mission.define('next', next)
 }
