@@ -101,7 +101,7 @@ function generateIsland(world, cfg) {
                 world.set(x, y, '.')
 
                 if (moistureVal > cfg.level.stone) {
-                    const droid = world.spawn( dna.bot.Droid, {
+                    world.spawn( dna.bot.Mech, {
                         team: RND(4),
                         x: x,
                         y: y,

@@ -13,14 +13,14 @@ function genTerrain(world, opt) {
 function genSquads(world, opt) {
     lib.geo.vline(world, 3, 5, 3, '^')
 
-    const d1 = world.spawn(dna.bot.Droid, {
+    const d1 = world.spawn(dna.bot.Mech, {
         team: 1,
         symbol: 'A',
         x: 2,
         y: 2,
     })
 
-    const d2 = world.spawn(dna.bot.Droid, {
+    const d2 = world.spawn(dna.bot.Mech, {
         team: 0,
         symbol: 'B',
         x: 6,
@@ -28,7 +28,7 @@ function genSquads(world, opt) {
     })
     d2.attach( dna.behavior.EmptyBrain )
 
-    const d3 = world.spawn(dna.bot.Droid, {
+    const d3 = world.spawn(dna.bot.Mech, {
         team: 0,
         symbol: 'C',
         x: 3,

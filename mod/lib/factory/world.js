@@ -47,6 +47,7 @@ function intents() {
 }
 
 
+/*
 let leaderId = 0
 function placeLeader(world, base, team) {
     // find a palce for the hero
@@ -66,7 +67,7 @@ function placeLeader(world, base, team) {
     }
     if (sx < 0 || sy < 0) throw 'no place to land the leader!'
 
-    const leader = world.spawn(dna.bot.Droid, {
+    const leader = world.spawn(dna.bot.Mech, {
         id: leaderId,
         team: team,
         name: 'leader' + (++leaderId),
@@ -79,16 +80,17 @@ function placeLeader(world, base, team) {
     //leader.takeControl()
     return leader
 }
+*/
 
+/*
 function leaders(world, opt) {
     const base = opt.base || '_'
-    /*
     placeLeader(world, base, 1)
     placeLeader(world, base, 2)
     placeLeader(world, base, 3)
     placeLeader(world, base, 4)
-    */
 }
+*/
 
 function bindToHUD() {
     lab.mode._ls.forEach(e => e.world = lab.world)
@@ -168,7 +170,7 @@ function world(imap) {
     else generateTerrain(world, config.opt)
 
     if (config.genSquads) config.genSquads(world, config.opt)
-    else leaders(world, config.opt)
+    //else leaders(world, config.opt)
 
     if (config.setup) config.setup(world, config.opt)
 

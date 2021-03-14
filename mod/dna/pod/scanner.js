@@ -12,7 +12,7 @@ function scanForEnemy(r) {
     const ls = this.scanArea(r)
 
     const team = this.__.team
-    const enemies = ls.filter(e => e.kind === 'droid'
+    const enemies = ls.filter(e => e.kind === 'mech'
                 && !e.dead
                 && e.team
                 && e.team !== team)
@@ -24,7 +24,7 @@ function scanForNeutrals(r) {
     const ls = this.scanArea(r)
 
     const team = this.__.team
-    const neutrals = ls.filter(e => e.kind === 'droid'
+    const neutrals = ls.filter(e => e.kind === 'mech'
                 && !e.dead
                 && e.team === 0)
     // TODO get sorted by distance!

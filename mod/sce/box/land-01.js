@@ -12,28 +12,28 @@ function genTerrain(world, opt) {
 }
 
 function genSquads(world, opt) {
-    const leader1 = world.spawn(dna.bot.Droid, {
+    const leader1 = world.spawn(dna.bot.Mech, {
         team: 1,
         symbol: 'A',
         x: 2,
         y: 2,
     })
 
-    const d2 = world.spawn(dna.bot.Droid, {
+    const d2 = world.spawn(dna.bot.Mech, {
         team: 1,
         symbol: 'B',
         x: 7,
         y: 2,
     })
 
-    const d3 = world.spawn(dna.bot.Droid, {
+    const d3 = world.spawn(dna.bot.Mech, {
         team: 1,
         symbol: 'C',
         x: 1,
         y: 6,
     })
 
-    const d4 = world.spawn(dna.bot.Droid, {
+    const d4 = world.spawn(dna.bot.Mech, {
         team: 1,
         symbol: 'D',
         x: 6,

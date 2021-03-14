@@ -1,12 +1,12 @@
 // @depends(dna/bot/Platform)
 
 const df = {
-    symbol: 'D',
-    kind: 'droid',
+    symbol: 'A',
+    kind: 'mech',
     health: 100,
 }
 
-class Droid extends dna.bot.Platform {
+class Mech extends dna.bot.Platform {
 
     constructor(st) {
         super( augment({}, df, st) )
@@ -16,11 +16,11 @@ class Droid extends dna.bot.Platform {
 
         if (!this.name) {
             this.name = env.team.getName(this.team)
-                + '-droid-' + serialId
+                + '-mech-' + serialId
         }
         if (!this.title) {
             this.title = env.team.getName(this.team)
-                + ' droid ' + serialId
+                + ' mech ' + serialId
         }
         this.attach(dna.pod.brain)
         this.attach(dna.pod.cache)
@@ -75,7 +75,7 @@ class Droid extends dna.bot.Platform {
 
     push(target) {
         if (this.team === 0) return
-        if (!target || target.kind !== 'droid') return
+        if (!target || target.kind !== 'mech') return
 
         if (target.team === 0) {
             // interface and capture the bot!

@@ -15,29 +15,29 @@ function genTerrain(world, opt) {
     lib.geo.hline(world, 2, 6, 3, '^')
 }
 
-let targetDroid
+let targetMech
 function genSquads(world, opt) {
-    const droid = world.spawn( dna.bot.Droid, {
+    const mech = world.spawn( dna.bot.Mech, {
         team: 1,
         x: 2,
         y: 4,
     })
-    droid.attach( dna.pod.markPath )
+    mech.attach( dna.pod.markPath )
 
-    droid.attach( dna.pod.pathFinder )
-    droid.attach( dna.behavior.PathWalker )
-    targetDroid = droid
+    mech.attach( dna.pod.pathFinder )
+    mech.attach( dna.behavior.PathWalker )
+    targetMech = mech
 
     const tx = 10
     const ty = 6
     world.set(tx, ty, 'o')
     world.setf(tx, ty, '#402020')
-    droid.pathFinder.findPath(tx, ty)
+    mech.pathFinder.findPath(tx, ty)
 }
 
 function next() {
-    if (targetDroid && targetDroid.x === 10 && targetDroid.y === 6) {
-        targetDroid = null
+    if (targetMech && targetMech.x === 10 && targetMech.y === 6) {
+        targetMech = null
         trap('nextTest')
     }
 }

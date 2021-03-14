@@ -356,7 +356,7 @@ class ViewPort {
 
         if (this.target.focus) {
             if (this.target.focus.dead) {
-                // focus droid has been destroyed
+                // focus mech has been destroyed
                 this.releaseControl()
                 if (this.target.taken) {
                     const port = this
@@ -409,7 +409,7 @@ class ViewPort {
             //log(`capturing ${this.name} for player #${player+1}`)
             this.binded = true
             lab.control.player.bind(this, player)
-            this.takeControl() // take droid control if focused
+            this.takeControl() // take mech control if focused
         }
     }
 
@@ -443,33 +443,33 @@ class ViewPort {
     }
 
     openMenu() {
-        let focusDroid
-        if (this.target.focus && this.target.taken) focusDroid = this.target.focus
-        const targetDroid = focusDroid
-        if (!targetDroid) return
+        let focusMech
+        if (this.target.focus && this.target.taken) focusMech = this.target.focus
+        const targetMech = focusMech
+        if (!targetMech) return
 
         this.hide()
-        this.menu.selectFrom( lib.menu.command.formMenu(focusDroid, targetDroid) )
+        this.menu.selectFrom( lib.menu.command.formMenu(focusMech, targetMech) )
     }
 
     jump(n, observe) {
         n = n || 1
-        const curDroid = this.target.focus
+        const curMech = this.target.focus
         const team = this.target.team
         const ls = lab.world.mob._ls
 
         let next
         const fn = n > 0? lib.array.next : lib.array.prev
         if (team >= 0) {
-            next = fn(ls, curDroid,
-                    (e) => (e.kind === 'droid' && !e.dead && e.team === team))
+            next = fn(ls, curMech,
+                    (e) => (e.kind === 'mech' && !e.dead && e.team === team))
         } else {
-            next = fn(ls, curDroid,
-                    (e) => (e.kind === 'droid' && !e.dead))
+            next = fn(ls, curMech,
+                    (e) => (e.kind === 'mech' && !e.dead))
         }
 
         if (next) {
-            if (next === curDroid) {
+            if (next === curMech) {
                 lib.sfx('idle')
                 return
             }

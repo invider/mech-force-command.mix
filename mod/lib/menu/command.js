@@ -1,7 +1,7 @@
-function register(reg, team, targetDroid) {
+function register(reg, team, targetMech) {
     const list = lab.world.prop.select(e =>
         e instanceof dna.prop.Marker && e.team === team)
-    let cur = targetDroid.brain.findRegVal(reg, list)
+    let cur = targetMech.brain.findRegVal(reg, list)
 
     list.push({
         none: true,
@@ -19,35 +19,35 @@ function register(reg, team, targetDroid) {
             this.val ++
             if (this.val >= list.length) this.val = 0
             this.updateTitle()
-            this.sync(targetDroid)
+            this.sync(targetMech)
         }, 
         actionPrev: function() {
             this.val --
             if (this.val < 0) this.val = list.length - 1
             this.updateTitle()
-            this.sync(targetDroid)
+            this.sync(targetMech)
         },
         updateTitle: function() {
             const e = list[this.val]
             const title = e.title || e.name
             this.name = reg + ': ' + title
         },
-        sync: function(droid) {
-            if (!droid || !droid.brain) throw 'missing droid or brain!'
+        sync: function(mech) {
+            if (!mech || !mech.brain) throw 'missing mech or brain!'
 
             const e = list[this.val]
             if (e.none) {
-                droid.brain[reg] = null
+                mech.brain[reg] = null
             } else {
-                droid.brain[reg] = e
+                mech.brain[reg] = e
             }
         },
     }
 }
 
-function orders(targetDroid) {
+function orders(targetMech) {
     const list = env.tune.orders
-    let cur = targetDroid.brain.iorders()
+    let cur = targetMech.brain.iorders()
 
     return {
         name: list[cur],
@@ -56,49 +56,49 @@ function orders(targetDroid) {
         actionNext: function() {
             this.val ++
             if (this.val >= list.length) this.val = 0
-            this.sync(targetDroid)
+            this.sync(targetMech)
             this.updateTitle()
         }, 
         actionPrev: function() {
             this.val --
             if (this.val < 0) this.val = list.length - 1
-            this.sync(targetDroid)
+            this.sync(targetMech)
             this.updateTitle()
         },
-        sync: function(droid) {
-            if (!droid || !droid.brain) throw 'missing droid or brain!'
-            droid.brain.setOrders(list[this.val])
+        sync: function(mech) {
+            if (!mech || !mech.brain) throw 'missing mech or brain!'
+            mech.brain.setOrders(list[this.val])
         },
         updateTitle: function() {
-            this.name = targetDroid.brain.getOrders()
+            this.name = targetMech.brain.getOrders()
         },
     }
 }
 
-function mark(targetDroid) {
+function mark(targetMech) {
     return {
         name: 'mark',
         silent: true,
         action: (menu) => {
-            targetDroid.marker.mark()
+            targetMech.marker.mark()
             // TODO placement sfx
             menu.hide()
         },
     }
 }
 
-function formMenu(focusDroid, targetDroid) {
-    const team = env.team.get(targetDroid.team)
+function formMenu(focusMech, targetMech) {
+    const team = env.team.get(targetMech.team)
     const iteam = team.id
 
     const config = {
         items: [
-            orders(targetDroid),
-            register('A', iteam, targetDroid),
-            register('B', iteam, targetDroid),
-            register('X', iteam, targetDroid),
-            register('Z', iteam, targetDroid),
-            mark(targetDroid),
+            orders(targetMech),
+            register('A', iteam, targetMech),
+            register('B', iteam, targetMech),
+            register('X', iteam, targetMech),
+            register('Z', iteam, targetMech),
+            mark(targetMech),
             {
                 name: 'exit',
                 silent: true,
@@ -115,8 +115,8 @@ function formMenu(focusDroid, targetDroid) {
             this.port.show()
         },
         track: function() {
-            if (targetDroid && targetDroid.dead) {
-                // close the menu - we can't control a dead droid
+            if (targetMech && targetMech.dead) {
+                // close the menu - we can't control a dead mech
                 this.hide()
                 lib.sfx('close')
             }

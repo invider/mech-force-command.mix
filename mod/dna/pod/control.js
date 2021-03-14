@@ -5,10 +5,10 @@ function onInstall() {
 }
 
 function take() {
-    const droid = this.__
-    droid.taken = true
-    droid.origSymbol = droid.symbol
-    droid.symbol = '@'
+    const mech = this.__
+    mech.taken = true
+    mech.origSymbol = mech.symbol
+    mech.symbol = '@'
 }
 
 function act(action) {

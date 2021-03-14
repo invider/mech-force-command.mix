@@ -4,8 +4,8 @@ function godmod(args, cmd, con) {
         target.god = true
         return 'set godmod for [' + target.title + ']'
     } else {
-        return 'no target droid in port 1!'
+        return 'no target mech in port 1!'
     }
 }
-godmod.info = 'set the god mode for the current droid in port 1'
+godmod.info = 'set the god mode for the current mech in port 1'
 

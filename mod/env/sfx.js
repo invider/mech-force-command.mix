@@ -22,7 +22,7 @@ module.exports = {
         vol: .7,
     },
 
-    // droids
+    // mech
     step: {
         res: 'stepMecha',
         vol: .15,

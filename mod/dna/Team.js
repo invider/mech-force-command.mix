@@ -6,12 +6,12 @@ class Team {
     constructor() {
         this.id = job.serial('team') - 1
         this.name = env.tune.teams[this.id]
-        this.droidSerial = 0
+        this.mechSerial = 0
         this.marker = 0
     }
 
     nextSerial() {
-        return ++this.droidSerial
+        return ++this.mechSerial
     }
 
     nextMarker() {
