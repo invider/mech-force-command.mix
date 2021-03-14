@@ -40,8 +40,12 @@ module.exports = {
         vol: .5,
     },
     free: {
-        res: 'computer5',
-        vol: .5,
+        res: 'beepNeutral5',
+        vol: .7,
+    },
+    auto: {
+        res: 'computer20',
+        vol: 1,
     },
 
     capture1: {

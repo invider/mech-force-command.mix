@@ -333,21 +333,17 @@ class ViewPort {
     act(action, repeat, pressTime) {
         //log(`[${this.name}] #${action}`)
         if (action === _.NEXT) {
-            this.jump(1)
+            this.jump(1, !this.target.taken)
             return
         } else if (action === _.PREV) {
-            if (this.target.focus) {
+            if (this.target.taken) {
+                this.releaseControl()
+                lib.sfx('auto')
+
+            } else if (this.target.focus && (repeat === 1 || repeat > 5)) {
                 this.releaseFocus()
                 lib.sfx('free')
             }
-            /*
-            if (this.target.focus && repeat >= env.tune.portReleaseRepeats) {
-            } else {
-                if (this.target.focus) {
-                    this.jump(-1)
-                }
-            }
-            */
             return
         } else if (action === _.OPT) {
             this.openMenu()
