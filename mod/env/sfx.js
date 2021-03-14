@@ -88,6 +88,10 @@ module.exports = {
         res: 'computer14',
         vol: .5,
     },
+    kill: {
+        res: 'explosion2',
+        vol: .7,
+    },
 
     mark: {
         res: 'beepPositive6',

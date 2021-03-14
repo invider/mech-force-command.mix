@@ -77,7 +77,7 @@ class Mech extends dna.bot.Platform {
             job.mission.on('kill', this, {
                 source,
             })
-            lib.sfx.at('explosion7', this.x, this.y)
+            lib.sfx.at('kill', this.x, this.y)
         }
     }
 
