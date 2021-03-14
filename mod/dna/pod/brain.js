@@ -79,7 +79,7 @@ function order(cmd, A, B, X, Z) {
     this.setReg('Z', Z)
 }
 
-function regToString(eg) {
+function regToString(reg) {
     if (!reg) return '- none -'
     else return (reg.title || reg.name)
 }
@@ -89,4 +89,11 @@ function dump() {
     log('B: ' + regToString(this.B))
     log('X: ' + regToString(this.X))
     log('Z: ' + regToString(this.Z))
+
+    log('target: ' + regToString(this.target))
+    log('status: ' + this.__.status)
+    log('state: ' + this.state)
+    log('steps: ' + this.steps)
+    log('orders: ' + this.orders)
+    log('goal: ' + this.goal)
 }

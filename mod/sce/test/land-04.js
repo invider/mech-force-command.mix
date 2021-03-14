@@ -54,7 +54,7 @@ function genSquads(world, opt) {
         team: 1,
         id: 2,
         x: 3,
-        y: 3,
+        y: 1,
     })
     const m3 = world.spawn( dna.prop.Marker, {
         team: 1,
@@ -93,12 +93,13 @@ function genSquads(world, opt) {
 }
 
 function onReach(mech, opt) {
-    log(mech.title + ' reached [' + opt.target.title + ']')
     env.test.waypoints ++
+    log('#' + env.test.waypoints + ' '
+        + mech.title + ' reached [' + opt.target.title + ']')
 }
 
 function onNext() {
-    if (env.test.waypoints === 4) {
+    if (env.test.waypoints >= 4) {
         env.test.waypoints = -1
 
         setTimeout(() => {

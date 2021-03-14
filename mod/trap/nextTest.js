@@ -1,6 +1,7 @@
 function nextTest() {
     if (env.autoProgress) {
-        if (env.test === _.sce.test.land.length - 1) {
+        log(env.itest + ' === ' + (_.sce.test.land.length - 1))
+        if (env.itest === _.sce.test.land.length - 1) {
             _.sce.test.util.allTestsPassed()
         }
         trap('levelUp')

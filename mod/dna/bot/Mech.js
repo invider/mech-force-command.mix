@@ -61,6 +61,10 @@ class Mech extends dna.bot.Platform {
         }
     }
 
+    lsfx(name) {
+        lib.sfx.at(name, this.x, this.y)
+    }
+
     hit(source, force) {
         this.lfx.light(.8, .01, .6)
 

@@ -2,7 +2,7 @@ const TEST_PASSED = 'TEST PASSED!'
 const ALL_PASSED = 'ALL TESTS PASSED!'
 
 function setTitle(testName) {
-    lab.mode.titleBar.title = 'Test #' + env.test + ' - ' + testName
+    lab.mode.titleBar.title = 'Test #' + env.itest + ' - ' + testName
 }
 
 function testPassed() {

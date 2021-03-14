@@ -13,6 +13,15 @@ function moveTowards(mech, target) {
     else if (mech.x > target.x) mech.move.dir(_.LEFT)
 }
 
+function ram(mech) {
+    const target = targetNeutral(mech)
+    if (!target || target.dead || target.team !== 0) return null
+    mech.status = 'ramming ' + target.title
+    moveTowards(mech, target)
+    mech.brain.steps ++
+    if (mech.brain.steps > 20) mech.brain.steps = 0
+}
+
 function fire(mech) {
     // no fire for neutrals - they are peaceful
     if (mech.team <= 0) return null
@@ -26,7 +35,6 @@ function fire(mech) {
         return foe
 
     } else {
-        mech.status = 'skipping attack'
         return null
     }
 }
@@ -49,10 +57,15 @@ function holdPattern(mech) {
 }
 
 function takeCombatAction(mech) {
-    const foe = fire(mech)
-    if (!foe) {
+    return fire(mech)
+}
+
+function takeRamAction(mech) {
+    const neutral = ram(mech)
+    if (!neutral) {
         mech.brain.steps = 0
     }
+    return neutral
 }
 
 function searchAndDestroy(mech) {
@@ -76,16 +89,13 @@ function searchAndDestroy(mech) {
 
 function holdTheGround(mech) {
     if (mech.steps > 0) {
+        // move in random dir for the starters
         mech.steps --
-    } else {
-        mech.steps = RND(1, 5)
-        mech.action = RND(1)
-    }
-
-    if (mech.action === 0) {
-        // just skip and wait
+        mech.move.dir(RND(3))
+        mech.status = 'taking a holding position'
     } else {
         fire(mech)
+        mech.status = 'holding the ground'
     }
 }
 
@@ -101,14 +111,23 @@ function reachTarget(mech, target) {
     // reached the target!
     job.report.success('reached the target', mech, target)
     job.mission.on('reached', mech, { target })
+    mech.lsfx('reached')
+    return true
 }
 
 function follow(mech, patrol) {
+    //if (!mech.brain.target) log('no target')
+    //else log(mech.brain.target.title)
 
     let nextStep = -1
     mech.brain.steps ++
     if (mech.brain.steps > 5) {
-        takeCombatAction(mech)
+        let target
+        target = takeCombatAction(mech)
+        if (!target) target = takeRamAction(mech)
+        if (!target) {
+            mech.brain.steps = 0
+        }
         return
     }
 
@@ -127,6 +146,8 @@ function follow(mech, patrol) {
                 }
             } else {
                 // unable to reach!
+                if (!mech.brain.target) log('no target!')
+                else log('unable to plot path to ' + mech.brain.target.title)
                 holdPattern(mech)
             }
 
@@ -154,7 +175,7 @@ function follow(mech, patrol) {
         }
 
     } else if (nextStep < -10) {
-        const reached = reachTarget(mech, mech.brain.target)
+        const reached = reachTarget(mech, mech.pathFinder.target)
         if (!reached) {
             // reevaluate!
             const path = plotPath(mech, mech.brain.target)
@@ -219,7 +240,7 @@ function ramNeutrals(mech) {
             // forget about it - it's already dead or captured
             mech.brain.target = null
         } else {
-            mech.status = 'moving towards ' + target.title
+            mech.status = 'ramming ' + target.title
             moveTowards(mech, target)
             mech.brain.steps ++
             if (mech.brain.steps > 20) mech.brain.target = null

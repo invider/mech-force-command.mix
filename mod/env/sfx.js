@@ -68,6 +68,10 @@ module.exports = {
         res: 'droidD5',
         vol: 1,
     },
+    reached: {
+        res: 'scanner16',
+        vol: .5,
+    },
 
     mark: {
         res: 'beepPositive6',
