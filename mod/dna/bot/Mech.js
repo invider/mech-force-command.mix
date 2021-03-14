@@ -108,4 +108,9 @@ class Mech extends dna.bot.Platform {
             // TODO interfacing sfx
         }
     }
+
+    pickup(drop) {
+        // TODO consume drop module
+        this.fsfx('pickup')
+    }
 }

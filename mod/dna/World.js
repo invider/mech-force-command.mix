@@ -260,12 +260,40 @@ class World extends sys.Frame {
         }
     }
 
+    touch(source) {
+        for (let i = 0; i < this.mob._ls.length; i++) {
+            const target = this.mob._ls[i]
+            if (target && !target.dead && target !== source) {
+                if (source.x === target.x && source.y === target.y) {
+                    // got a collision!
+                    let handled = false
+                    if (source.touch) handled = source.touch(target)
+                    if (!handled && target.touch) target.touch(source)
+                }
+            }
+        }
+
+        // now for props
+        for (let i = 0; i < this.prop._ls.length; i++) {
+            const target = this.prop._ls[i]
+            if (target && !target.dead && target !== source) {
+                if (source.x === target.x && source.y === target.y) {
+                    // got a collision!
+                    let handled = false
+                    if (source.touch) handled = source.touch(target)
+                    if (!handled && target.touch) target.touch(source)
+                }
+            }
+        }
+    }
+
     next() {
         this.turn ++
         for (let i = 0; i < this.mob._ls.length; i++) {
             const mob = this.mob._ls[i]
             if (mob && !mob.dead) {
                 mob.next()
+                this.touch(mob)
             }
         }
 
@@ -275,7 +303,6 @@ class World extends sys.Frame {
                 ghost.next()
             }
         }
-
         this.onMovement()
         job.stat.next()
         job.mission.on('next')

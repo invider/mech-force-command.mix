@@ -67,6 +67,10 @@ module.exports = {
         res: 'computer5',
         vol: .7,
     },
+    pickup: {
+        res: 'click',
+        vol: .7,
+    },
 
     capture1: {
         res: 'droidD1',
