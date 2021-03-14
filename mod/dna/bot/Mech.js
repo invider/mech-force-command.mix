@@ -1,5 +1,6 @@
 // @depends(dna/bot/Platform)
 
+
 const df = {
     symbol: 'A',
     kind: 'mech',
@@ -10,18 +11,8 @@ class Mech extends dna.bot.Platform {
 
     constructor(st) {
         super( augment({}, df, st) )
+        this.pickName(false)
 
-        const team = env.team.get(this.team)
-        const serialId = team.nextSerial()
-
-        if (!this.name) {
-            this.name = env.team.getName(this.team)
-                + '-mech-' + serialId
-        }
-        if (!this.title) {
-            this.title = env.team.getName(this.team)
-                + ' mech ' + serialId
-        }
         this.attach(dna.pod.brain)
         this.attach(dna.pod.cache)
         this.attach(dna.pod.marker)
@@ -33,6 +24,19 @@ class Mech extends dna.bot.Platform {
         this.attach(dna.pod.control)
         this.attach(dna.pod.totalControl)
         this.attach(dna.behavior.Fighter)
+    }
+
+    pickName(rename) {
+        const team = env.team.get(this.team)
+        const serialId = team.nextSerial()
+        if (rename || !this.name) {
+            this.name = env.team.getName(this.team)
+                + '-mech-' + serialId
+        }
+        if (rename || !this.title) {
+            this.title = env.team.getName(this.team)
+                + ' mech ' + serialId
+        }
     }
 
     /*
@@ -78,9 +82,10 @@ class Mech extends dna.bot.Platform {
         if (!target || target.kind !== 'mech') return
 
         if (target.team === 0) {
-            // interface and capture the bot!
+            // interface and capture the mech!
             log(`${target.title} is captured by ${this.name}`)
             target.team = this.team
+            target.pickName(true)
             job.mission.on('capture', target, {
                 team: this.team,
                 source: this,
@@ -94,8 +99,8 @@ class Mech extends dna.bot.Platform {
             }
 
         } else if (target.team === this.__.team) {
-            // TODO only if this bot is taken...
-            // TODO mark the bot for interfacing
+            // TODO only if this mech is taken...
+            // TODO mark the mech for interfacing
             // TODO interfacing sfx
         }
     }

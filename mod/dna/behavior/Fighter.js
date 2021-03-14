@@ -1,196 +1,196 @@
 // @depends(dna/behavior/Behavior)
 
-function nope(bot) {
-    log.warn(`[${bot.brain.orders}] - not implemented!`)
+function nope(mech) {
+    log.warn(`[${mech.brain.orders}] - not implemented!`)
 }
 
-function moveTowards(bot, target) {
+function moveTowards(mech, target) {
     if (!target) return
 
-    if (bot.y < target.y) bot.move.dir(_.DOWN)
-    else if (bot.y > target.y) bot.move.dir(_.UP)
-    else if (bot.x < target.x) bot.move.dir(_.RIGHT)
-    else if (bot.x > target.x) bot.move.dir(_.LEFT)
+    if (mech.y < target.y) mech.move.dir(_.DOWN)
+    else if (mech.y > target.y) mech.move.dir(_.UP)
+    else if (mech.x < target.x) mech.move.dir(_.RIGHT)
+    else if (mech.x > target.x) mech.move.dir(_.LEFT)
 }
 
-function fire(bot) {
+function fire(mech) {
     // no fire for neutrals - they are peaceful
-    if (bot.team <= 0) return null
+    if (mech.team <= 0) return null
 
-    const foe = bot.scanner.scanForEnemy()
+    const foe = mech.scanner.scanForEnemy()
     if (foe) {
         // watttack!!!
-        bot.status = 'attacking [' + foe.team + '/' + foe.name + ']'
+        mech.status = 'attacking [' + foe.team + '/' + foe.name + ']'
         //log(`[${this.name}] ${this.status}`)
-        bot.gun.shot(foe)
+        mech.gun.shot(foe)
         return foe
 
     } else {
-        bot.status = 'skipping attack'
+        mech.status = 'skipping attack'
         return null
     }
 }
 
-function targetNeutral(bot) {
-    if (bot.team <= 0) return null // must be in a team
-    const neutral = bot.scanner.scanForNeutrals()
+function targetNeutral(mech) {
+    if (mech.team <= 0) return null // must be in a team
+    const neutral = mech.scanner.scanForNeutrals()
     if (neutral) {
-        bot.brain.target = neutral
+        mech.brain.target = neutral
     } else {
-        bot.brain.target = null
+        mech.brain.target = null
     }
     return neutral
 }
 
-function holdPattern(bot) {
-    bot.brain.order('hold the ground')
-    log(`[${bot.title}] switching to hold the ground pattern`)
+function holdPattern(mech) {
+    mech.brain.order('hold the ground')
+    log(`[${mech.title}] switching to hold the ground pattern`)
     // TODO sfx/reporting
 }
 
-function takeCombatAction(bot) {
-    const foe = fire(bot)
+function takeCombatAction(mech) {
+    const foe = fire(mech)
     if (!foe) {
-        bot.brain.steps = 0
+        mech.brain.steps = 0
     }
 }
 
-function searchAndDestroy(bot) {
-    if (bot.steps > 0) {
-        bot.steps --
+function searchAndDestroy(mech) {
+    if (mech.steps > 0) {
+        mech.steps --
     } else {
-        bot.steps = RND(5)
-        bot.action = RND(5)
+        mech.steps = RND(5)
+        mech.action = RND(5)
     }
 
-    if (bot.action <= 3) {
-        bot.move.dir(RND(3))
-        bot.status = 'walking around'
+    if (mech.action <= 3) {
+        mech.move.dir(RND(3))
+        mech.status = 'walking around'
 
-    } else if (bot.action === 4) {
+    } else if (mech.action === 4) {
         // just skip and wait
     } else {
-        fire(bot)
+        fire(mech)
     }
 }
 
-function holdTheGround(bot) {
-    if (bot.steps > 0) {
-        bot.steps --
+function holdTheGround(mech) {
+    if (mech.steps > 0) {
+        mech.steps --
     } else {
-        bot.steps = RND(1, 5)
-        bot.action = RND(1)
+        mech.steps = RND(1, 5)
+        mech.action = RND(1)
     }
 
-    if (bot.action === 0) {
+    if (mech.action === 0) {
         // just skip and wait
     } else {
-        fire(bot)
+        fire(mech)
     }
 }
 
-function plotPath(bot, waypoint) {
-    return bot.pathFinder.findPath(waypoint.x, waypoint.y)
+function plotPath(mech, waypoint) {
+    return mech.pathFinder.findPath(waypoint.x, waypoint.y)
 }
 
-function reachTarget(bot, target) {
+function reachTarget(mech, target) {
     if (!target) return true
-    const d = lib.calc.mdist(bot.x, bot.y, target.x, target.y)
+    const d = lib.calc.mdist(mech.x, mech.y, target.x, target.y)
     if (d > 3) return false
 
     // reached the target!
-    job.report.success('reached the target', bot, target)
-    job.mission.on('reached', bot, { target })
+    job.report.success('reached the target', mech, target)
+    job.mission.on('reached', mech, { target })
 }
 
-function follow(bot, patrol) {
+function follow(mech, patrol) {
 
     let nextStep = -1
-    bot.brain.steps ++
-    if (bot.brain.steps > 5) {
-        takeCombatAction(bot)
+    mech.brain.steps ++
+    if (mech.brain.steps > 5) {
+        takeCombatAction(mech)
         return
     }
 
     // determine if there is a failed action cached
-    if (bot.cache.retry) {
-        bot.cache.retriesLeft --
-        if (bot.cache.retriesLeft < 0) {
+    if (mech.cache.retry) {
+        mech.cache.retriesLeft --
+        if (mech.cache.retriesLeft < 0) {
             // reevaluate path!
-            bot.cache.retry = false
-            const path = plotPath(bot, bot.brain.target)
+            mech.cache.retry = false
+            const path = plotPath(mech, mech.brain.target)
             if (path) {
                 if (patrol) {
-                    bot.status = 'patroling path'
+                    mech.status = 'patroling path'
                 } else {
-                    bot.status = 'following path'
+                    mech.status = 'following path'
                 }
             } else {
                 // unable to reach!
-                holdPattern(bot)
+                holdPattern(mech)
             }
 
         } else {
-            nextStep = bot.cache.retryMove
+            nextStep = mech.cache.retryMove
         }
     }
     
     if (nextStep < 0) {
         // get the next step from path finder
-        nextStep = bot.pathFinder.nextStep()
+        nextStep = mech.pathFinder.nextStep()
     }
 
     if (nextStep >= 0) {
         // move along existing path
-        const moved = bot.move.dir(nextStep)
+        const moved = mech.move.dir(nextStep)
         if (!moved) {
-            if (!bot.cache.retry) {
-                bot.cache.retry = true
-                bot.cache.retryMove = nextStep
-                bot.cache.retriesLeft = 3
+            if (!mech.cache.retry) {
+                mech.cache.retry = true
+                mech.cache.retryMove = nextStep
+                mech.cache.retriesLeft = 3
             }
         } else {
-            bot.cache.retry = false
+            mech.cache.retry = false
         }
 
     } else if (nextStep < -10) {
-        const reached = reachTarget(bot, bot.brain.target)
+        const reached = reachTarget(mech, mech.brain.target)
         if (!reached) {
             // reevaluate!
-            const path = plotPath(bot, bot.brain.target)
+            const path = plotPath(mech, mech.brain.target)
             if (!path) {
                 // unable to reach!
-                holdPattern(bot)
+                holdPattern(mech)
             }
         }
 
         let waypoint
         if (patrol) {
-            waypoint = bot.brain.ireg(bot.brain.state++)
-            if (bot.brain.state >= 4) bot.brain.state = 0
+            waypoint = mech.brain.ireg(mech.brain.state++)
+            if (mech.brain.state >= 4) mech.brain.state = 0
         } else {
-            waypoint = bot.brain.firstRegVal()
+            waypoint = mech.brain.firstRegVal()
         }
 
         if (waypoint) {
-            const path = plotPath(bot, waypoint)
+            const path = plotPath(mech, waypoint)
             if (path) {
-                bot.brain.target = waypoint
+                mech.brain.target = waypoint
                 if (patrol) {
-                    bot.status = 'patroling path'
+                    mech.status = 'patroling path'
                 } else {
-                    bot.brain.resetFirstReg()
-                    bot.status = 'following path'
+                    mech.brain.resetFirstReg()
+                    mech.status = 'following path'
                 }
             } else {
                 // unable to reach!
-                holdPattern(bot)
+                holdPattern(mech)
             }
         } else {
             if (patrol) {
                 // just skip to the next turn
             } else {
-                holdPattern(bot)
+                holdPattern(mech)
             }
         }
     } else {
@@ -198,31 +198,31 @@ function follow(bot, patrol) {
     }
 }
 
-function followPath(bot) {
-    follow(bot, false)
+function followPath(mech) {
+    follow(mech, false)
 }
 
-function patrolPath(bot) {
-    follow(bot, true)
+function patrolPath(mech) {
+    follow(mech, true)
 }
 
-function ramNeutrals(bot) {
-    if (!bot.brain.target) {
-        const target = targetNeutral(bot)
+function ramNeutrals(mech) {
+    if (!mech.brain.target) {
+        const target = targetNeutral(mech)
         if (!target) {
-            searchAndDestroy(bot)
+            searchAndDestroy(mech)
         }
     } else {
         // already have target
-        const target = bot.brain.target
+        const target = mech.brain.target
         if (target.dead || target.team !== 0) {
             // forget about it - it's already dead or captured
-            bot.brain.target = null
+            mech.brain.target = null
         } else {
-            bot.status = 'moving towards ' + target.title
-            moveTowards(bot, target)
-            bot.brain.steps ++
-            if (bot.brain.steps > 20) bot.brain.target = null
+            mech.status = 'moving towards ' + target.title
+            moveTowards(mech, target)
+            mech.brain.steps ++
+            if (mech.brain.steps > 20) mech.brain.target = null
         }
     }
 }

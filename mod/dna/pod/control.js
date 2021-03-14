@@ -12,21 +12,21 @@ function take() {
 }
 
 function act(action) {
-    const bot = this.__
-    if (bot.dead) return
+    const mech = this.__
+    if (mech.dead) return
 
     if (action < 4) {
-        bot.move.dir(action)
+        mech.move.dir(action)
         //lib.sfx('step')
 
         /*
         // try to fire
-        const foe = bot.scanner.scanForEnemy()
+        const foe = mech.scanner.scanForEnemy()
         if (foe) {
             // watttack!!!
-            bot.status = 'attacking [' + foe.team + '/' + foe.name + ']'
+            mech.status = 'attacking [' + foe.team + '/' + foe.name + ']'
             //log(`[${this.name}] ${this.status}`)
-            bot.gun.shot(foe)
+            mech.gun.shot(foe)
         }
         */
 
@@ -35,12 +35,12 @@ function act(action) {
 
     switch(action) {
         case $.USE:
-            const foe = bot.scanner.scanForEnemy()
+            const foe = mech.scanner.scanForEnemy()
             if (foe) {
                 // watttack!!!
-                bot.status = 'attacking [' + foe.team + '/' + foe.name + ']'
+                mech.status = 'attacking [' + foe.team + '/' + foe.name + ']'
                 //log(`[${this.name}] ${this.status}`)
-                bot.gun.shot(foe)
+                mech.gun.shot(foe)
             }
             //sfx('move', .4)
             //hero.pack.selectNext()
