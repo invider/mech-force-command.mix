@@ -1,7 +1,9 @@
 Rule over this wasteland!
 
 A huge island is contested between 4 mech forces.
-Use central mountain range to your advantage.
+Use the central mountain range to your advantage.
+
+Try to capture and control [$] mech factories hidden deep in the mountains.
 
 Players:  4
 Size:     big

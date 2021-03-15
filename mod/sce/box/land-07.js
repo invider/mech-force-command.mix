@@ -29,12 +29,7 @@ function genSquads(world, opt) {
     })
     d2.attach( dna.behavior.EmptyBrain )
 
-    world.spawn( dna.prop.Factory, {
-        x: 5,
-        y: 6,
-    })
-
-
+    world.spawn( dna.prop.Factory, { x: 5, y: 6 })
 
     lab.mode.port1.lookAt(0, 0)
     lab.mode.port2.lookAt(8, 0)

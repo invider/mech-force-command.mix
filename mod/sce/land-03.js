@@ -25,4 +25,12 @@ function genTerrain(world) {
         },
         world: world,
     })
+
+    world.spawn( dna.prop.Factory, { x: 52, y: 46 })
+    world.spawn( dna.prop.Factory, { x: 71, y: 47 })
+    world.spawn( dna.prop.Factory, { x: 53, y: 77 })
+    world.spawn( dna.prop.Factory, { x: 84, y: 75 })
+
+    world.spawn( dna.prop.Factory, { x: 67, y: 78 })
+    world.spawn( dna.prop.Factory, { x: 60, y: 37 })
 }
