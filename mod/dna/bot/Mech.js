@@ -4,6 +4,7 @@ const df = {
     symbol: 'A',
     kind: 'mech',
     health: 100,
+    level: 1,
 }
 
 class Mech extends dna.bot.Platform {
@@ -124,8 +125,27 @@ class Mech extends dna.bot.Platform {
         }
     }
 
+    levelUp() {
+        if (this.level >= 26) return
+        this.level ++
+        this.origSymbol = String.fromCharCode('A'.charCodeAt(0) + this.level)
+        if (!this.taken) this.symbol = this.origSymbol
+    }
+
+    energyUp() {
+        const max = 80 + this.level * 20
+        this.health = min(this.health + 50, max)
+    }
+
     pickup(drop) {
-        // TODO consume drop module
+        switch(drop.symbol) {
+            case '*':
+                this.energyUp()
+                break
+            case 'o':
+                this.levelUp()
+                break
+        }
         this.fsfx('pickup')
     }
 }
