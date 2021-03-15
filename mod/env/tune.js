@@ -61,6 +61,6 @@ const tune = {
         'follow path',
         'patrol path',
         'ram neutrals',
-        'gather parts',
+        //'gather parts',
     ],
 }

@@ -45,8 +45,8 @@ class World extends sys.Frame {
     spawn(dna, st) {
         const e = isObj(dna)? dna : new dna(st)
 
-        if (e.next) this.mob.attach(e)
-        else this.prop.attach(e)
+        if (e.prop) this.prop.attach(e)
+        else this.mob.attach(e)
         e._ = this
 
         if (e.init) e.init()
@@ -294,6 +294,13 @@ class World extends sys.Frame {
             if (mob && !mob.dead) {
                 mob.next()
                 this.touch(mob)
+            }
+        }
+
+        for (let i = 0; i < this.prop._ls.length; i++) {
+            const prop = this.prop._ls[i]
+            if (prop && !prop.dead && prop.next) {
+                prop.next()
             }
         }
 

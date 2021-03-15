@@ -64,6 +64,21 @@ class Mech extends dna.bot.Platform {
         lib.sfx.at(name, this.x, this.y)
     }
 
+    drop() {
+        const n = RND(3, 9)
+        for (let i = 0; i < n; i++) {
+            let s = 'o'
+            if (rnd() > .4) s = '*'
+            lab.world.spawn( dna.prop.Drop, {
+                team: this.team,
+                symbol: s,
+                spread: RND(1, 5),
+                x: this.x,
+                y: this.y,
+            })
+        }
+    }
+
     hit(source, force, type) {
         this.lfx.light(.8, .01, .6)
         if (this.god) return
@@ -72,6 +87,7 @@ class Mech extends dna.bot.Platform {
         if (this.health <= 0) {
             this.dead = true
             this.health = 0
+            this.drop()
             kill(this)
             job.mission.on('kill', this, {
                 source,

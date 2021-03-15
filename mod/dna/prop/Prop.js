@@ -1,4 +1,5 @@
 const df = {
+    prop: true,
     team: 0,
     x: 0,
     y: 0,
