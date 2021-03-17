@@ -147,7 +147,6 @@ function generateIsland(world, cfg) {
             } else {
                 mono(x, y, v2 + .3)
                 world.set(x, y, '^')
-                log('MOUNTAIN FOR ' + v2)
             }
 
             if (v2 > cfg.level.sand
@@ -165,11 +164,13 @@ function generateIsland(world, cfg) {
         }
     }
 
+    /*
     log('--------------')
     log('MIN: ' + minV)
     log('MAX: ' + maxV)
     log('OVER: ' + over)
     log('--------------')
+    */
 
     ctx2.putImageData(imgData, 0, 0)
     res.attach(canvas, 'island')

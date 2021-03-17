@@ -36,11 +36,15 @@ function next() {
         this.state.team[i].units = units
         if (i > 0 && units > 0) activeTeams++
     }
-    
-    if (activeTeams < 2
+
+    const config = lab.world.config
+    if (!env.config.test
+            && !env.config.box
             && env.state !== 'gameover'
-            && !env.config.test
-            && !env.config.box) {
+            && (  
+                (config.isComplete && config.isComplete())
+                || (!config.isComplete && activeTeams < 2)
+            )){
         defer(() => trap('gameover'), env.tune.gameoverDelay)
     }
 }

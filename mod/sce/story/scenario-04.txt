@@ -1,0 +1,5 @@
+Order the mech to visit all 4 waypoints.
+
+Players:  1
+Size:     tiny
+

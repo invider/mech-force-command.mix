@@ -137,7 +137,7 @@ class ViewPort {
         if (!platform || platform.dead) return
 
         this.focusOn(platform) // need to follow it first
-        if (this.hidden || this.disabled || this.locked) return
+        if (this.disabled || this.locked) return
 
         if (this.target.team >= -1 && this.target.team !== platform.team) {
             //log(`[${this.name}] can't capture [${platform.title}]`)

@@ -36,15 +36,15 @@ function teams() {
     }
 }
 
+/*
 function intents() {
-    /*
     world.attach(new dna.bad.Intent({
         world: world,
         w: world.segment.w,
         h: world.segment.h,
     }))
-    */
 }
+*/
 
 
 /*
@@ -164,7 +164,9 @@ function world(imap) {
     teams()
 
     const world = lab.spawn('World')
-    intents(world)
+    //intents(world)
+
+    world.config = config
 
     if (config.genTerrain) config.genTerrain(world, config.opt)
     else generateTerrain(world, config.opt)
