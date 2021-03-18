@@ -1,0 +1,5 @@
+Capture neutral mechs by ramming them.
+
+Players:  1
+Size:     tiny
+
