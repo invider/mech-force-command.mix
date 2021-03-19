@@ -15,3 +15,12 @@ function unbindAllPlayers() {
     lab.control.player.bind(2, false)
     */
 }
+
+function packArray(src) {
+    if (!isArray(src)) throw 'array is expected!'
+    const res = []
+    src.forEach(e => {
+        if (e !== undefined && e !== null) res.push(e)
+    })
+    return res
+}

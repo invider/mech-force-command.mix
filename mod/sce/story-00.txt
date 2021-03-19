@@ -1,0 +1,5 @@
+Destroy all the opponents!
+
+Players: 4
+Size:    medium
+

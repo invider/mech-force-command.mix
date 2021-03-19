@@ -3,14 +3,12 @@ const main = {
         {
             name: env.msg.newGame,
             action: function(menu) {
+                const map = menu.items[1].map
                 trap('showScenario', {
-                    map: menu.items[1].map,
+                    map: map,
+                    land:  _.sce.land[map],
+                    story: _.sce.story[map],
                 })
-                /*
-                trap('newGame', {
-                    map: menu.items[1].map,
-                })
-                */
             }
         },
         {
