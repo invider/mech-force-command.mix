@@ -11,6 +11,7 @@ class Menu extends dna.hud.Panel {
 
     constructor(st) {
         super(st, df)
+        this.settings = {}
         this.normalizeItems()
     }
 
@@ -150,6 +151,7 @@ class Menu extends dna.hud.Panel {
         this.onSelect = opt.onSelect
         this.onHide   = opt.onHide
         this.items    = opt.items
+        this.settings = opt.settings || {}
         this.selected = 0
 
         this.normalizeItems()
@@ -185,19 +187,21 @@ class Menu extends dna.hud.Panel {
         this.background()
 
         // title
+        const title = this.settings.title || this.title
         let y = floor(tx.th * .25)
-        let x = floor(tx.tw/2 - this.title.length/2)
+        let x = floor(tx.tw/2 - title.length/2)
         tx.back(lib.cidx('base'))
             .face(lib.cidx('alert'))
-            .at(x, y).print(this.title)
+            .at(x, y).print(title)
 
         // subtitle
+        const subtitle = this.settings.subtitle || this.subtitle
         y = floor(tx.th * .9)
-        x = floor(tx.tw - this.subtitle.length)
+        x = floor(tx.tw - subtitle.length)
         tx.back(lib.cidx('base'))
             .face(lib.cidx('alert'))
-            .at(x, y).print(this.subtitle)
-            
+            .at(x, y).print(subtitle)
+
 
         y = this.y + floor(this.h/2 - len/2)
 

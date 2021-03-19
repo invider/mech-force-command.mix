@@ -42,7 +42,9 @@ function scenario() {
             {
                 name: env.msg.back,
                 action: function(menu) {
-                    lab.mode.mainMenu.defineItems(lib.menu.main)
+                    lab.mode.mainMenu.defineItems(
+                        lib.menu.listScenarios( _.sce.land, true )
+                    )
                     lab.control.state.fadeTo('menu')
                 },
             },

@@ -2,6 +2,10 @@ function listScenarios(src, skipFirst) {
     const menu = {
         items: [], 
 
+        settings: {
+            title: '=== Select Scenario ===',
+        },
+
         onSelect: function(item, i) {
             log('selected: #' + i + ': ' + item.name)
             trap('showScenario', {
@@ -20,5 +24,13 @@ function listScenarios(src, skipFirst) {
             land: src[i],
         })
     }
+
+    menu.items.push({
+        name: env.msg.back,
+        action: function(menu) {
+            menu.selectMore(lib.menu.main)
+        },
+    })
+
     return menu
 }
