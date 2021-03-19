@@ -3,14 +3,18 @@ const main = {
         {
             name: env.msg.newGame,
             action: function(menu) {
+                menu.selectMore(lib.menu.listScenarios( _.sce.land, true ))
+                /*
                 const map = menu.items[1].map
                 trap('showScenario', {
                     map: map,
                     land:  _.sce.land[map],
                     story: _.sce.story[map],
                 })
+                */
             }
         },
+        /*
         {
             sync: function() {
                 this.name = this.map + '.' + this.options[this.map].name
@@ -31,6 +35,7 @@ const main = {
                 }
             },
         },
+        */
         /*
         {
             name: 'Difficulty: Easy',

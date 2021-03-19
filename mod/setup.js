@@ -1,11 +1,13 @@
 function setup() {
     augment(pal, env.palette)
 
-    // pack missions
-    $.sce.land = lib.util.packArray($.sce.land)
-    $.sce.story = lib.util.packArray($.sce.story)
-    $.sce.train.land = lib.util.packArray($.sce.train.land)
-    $.sce.train.story = lib.util.packArray($.sce.train.story)
+    // pack scenarios
+    _.sce.land = lib.util.packArray(_.sce.land)
+    _.sce.story = lib.util.packArray(_.sce.story)
+    _.sce.land.forEach((land, i) => {
+        land.story = _.sce.story[i]
+    })
+
 
     // set Field of View algorithm
     lib.attach(lib.shaddowFov, 'fov')

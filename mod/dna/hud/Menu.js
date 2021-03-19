@@ -42,18 +42,16 @@ class Menu extends dna.hud.Panel {
     normalizeItems() {
         if (!this.items) return
 
-        const list = []
-        this.items.forEach(item => {
+        for (let i = 0; i < this.items.length; i++) {
+            const item = this.items[i]
             if (isString(item)) {
-                list.push({
+                this.item[i] = {
                     name: item,
-                })
+                }
             } else {
-                list.push(item)
                 if (item.define) item.define(this)
             }
-        })
-        this.items = list
+        }
     }
 
     selectNext() {
@@ -215,7 +213,7 @@ class Menu extends dna.hud.Panel {
                   .face(lib.cidx('alert'))
             }
             tx.at(x, y).print(item.name)
-            y += this.itemStep
+            y += this.items.itemStep || this.itemStep
         }
     }
 }
