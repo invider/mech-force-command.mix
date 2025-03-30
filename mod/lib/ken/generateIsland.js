@@ -30,7 +30,7 @@ function generateIsland(world, cfg) {
 
     function mono(x, y, v) {
         let sh = (y * w + x) * 4
-        const c = limit(floor(v * 255), 0, 255)
+        const c = clamp(floor(v * 255), 0, 255)
         imgData.data[sh++] = c
         imgData.data[sh++] = c
         imgData.data[sh++] = c
@@ -39,9 +39,9 @@ function generateIsland(world, cfg) {
 
     function rgb(x, y, r, g, b) {
         let sh = (y * w + x) * 4
-        const R = limit(floor(r * 255), 0, 255)
-        const G = limit(floor(g * 255), 0, 255)
-        const B = limit(floor(b * 255), 0, 255)
+        const R = clamp(floor(r * 255), 0, 255)
+        const G = clamp(floor(g * 255), 0, 255)
+        const B = clamp(floor(b * 255), 0, 255)
         imgData.data[sh++] = R
         imgData.data[sh++] = G
         imgData.data[sh++] = B
@@ -57,16 +57,16 @@ function generateIsland(world, cfg) {
     }
 
     function circleGradientFilter(x, y, v) {
-        const distToCenter = len(x-cx, y-cy)
+        const distToCenter = length(x-cx, y-cy)
         const heightFactor = 1 - distToCenter / r
         const nv = v * heightFactor
-        return limit(nv, 0, 1)
+        return clamp(nv, 0, 1)
     }
 
     let minV = 10
     let maxV = 0
     let over = 0
-    const overLimit = .5
+    const overclamp = .5
     for (let y = 0; y < h; y++) {
         for (let x = 0; x < w; x++) {
             const v = lib.ken.gnoise(
@@ -76,7 +76,7 @@ function generateIsland(world, cfg) {
             const v2 = circleGradientFilter(x, y, v)
             if (v2 < minV) minV = v2
             if (v2 > maxV) maxV = v2
-            if (v2 > overLimit) over ++
+            if (v2 > overclamp) over ++
 
             // moisture noise
             const moistureVal = lib.ken.gnoise(

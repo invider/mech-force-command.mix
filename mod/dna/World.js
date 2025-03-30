@@ -96,13 +96,13 @@ class World extends sys.Frame {
         for (let i = 0; i < this.mob._ls.length; i++) {
             const e = this.mob._ls[i]
             if (e && !e.dead) {
-                if (dist(x, y, e.x, e.y) <= r) ls.push(e)
+                if (distance(x, y, e.x, e.y) <= r) ls.push(e)
             }
         }
         for (let i = 0; i < this.prop._ls.length; i++) {
             const e = this.prop._ls[i]
             if (e && !e.dead) {
-                if (dist(x, y, e.x, e.y) <= r) ls.push(e)
+                if (distance(x, y, e.x, e.y) <= r) ls.push(e)
             }
         }
         return ls

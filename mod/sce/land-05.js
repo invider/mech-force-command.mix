@@ -6,7 +6,7 @@ const opt = {
     base: ' ',
 }
 
-const pin = {}
+const pan = {}
 const mechs = []
 
 function genTerrain(world) {
@@ -46,7 +46,7 @@ function genSquads(world, opt) {
         x: 5,
         y: 5,
     })
-    pin.d1 = d1
+    pan.d1 = d1
 
     const m1 = world.spawn(dna.bot.Mech, {
         team: 0,
@@ -86,7 +86,7 @@ function onCapture(mech, opt) {
 function setup() {
     job.mission.define('capture', onCapture)
 
-    const d1 = pin.d1
+    const d1 = pan.d1
     lab.mode.port1.takeControl(d1)
     lab.mode.port2.focusOn(d1)
     lab.mode.port3.focusOn(d1)

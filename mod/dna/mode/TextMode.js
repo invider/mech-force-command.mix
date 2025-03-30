@@ -178,13 +178,13 @@ class TextMode extends sys.LabFrame {
 
     zoomIn() {
         const s = floor(this.scale * (1 + env.tune.zoomStep) * 100)/100
-        this.scale = limit(s, env.tune.minZoom, env.tune.maxZoom)
+        this.scale = clamp(s, env.tune.minZoom, env.tune.maxZoom)
         this.adjust()
     }
 
     zoomOut() {
         const s = floor(this.scale * (1 - env.tune.zoomStep) * 100)/100
-        this.scale = limit(s, env.tune.minZoom, env.tune.maxZoom)
+        this.scale = clamp(s, env.tune.minZoom, env.tune.maxZoom)
         this.adjust()
     }
 

@@ -37,7 +37,7 @@ soundFx.at = function(name, x, y) {
         soundFx(name)
     } else {
         // somewhere out
-        const fade = 1 - limit(minDist/env.tune.sfxFade, 0, 1)
+        const fade = 1 - clamp(minDist/env.tune.sfxFade, 0, 1)
         const vol = env.tune.minVolume + (1-env.tune.minVolume) * fade
         soundFx(name, vol)
     }

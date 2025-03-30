@@ -167,7 +167,7 @@ class ViewPort {
     }
 
     distToCenter(x, y) {
-        return dist(x, y, this.cx(), this.cy())
+        return distance(x, y, this.cx(), this.cy())
     }
 
     printEntity(e) {

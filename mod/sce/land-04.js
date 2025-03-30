@@ -6,7 +6,7 @@ const opt = {
     base: ' ',
 }
 
-const pin = {}
+const pan = {}
 const waypoints = []
 
 function genTerrain(world) {
@@ -46,31 +46,31 @@ function genSquads(world, opt) {
         x: 5,
         y: 5,
     })
-    pin.d1 = d1
+    pan.d1 = d1
 
-    pin.m1 = world.spawn(dna.prop.Marker, {
+    pan.m1 = world.spawn(dna.prop.Marker, {
         id:   1,
         team: 1,
         x: 11,
         y: 5,
     })
-    waypoints.push(pin.m1)
+    waypoints.push(pan.m1)
 
-    pin.m2 = world.spawn(dna.prop.Marker, {
+    pan.m2 = world.spawn(dna.prop.Marker, {
         id:   2,
         team: 1,
         x: 9,
         y: 11,
     })
-    waypoints.push(pin.m2)
+    waypoints.push(pan.m2)
 
-    pin.m3 = world.spawn(dna.prop.Marker, {
+    pan.m3 = world.spawn(dna.prop.Marker, {
         id:   3,
         team: 1,
         x: 7,
         y: 7,
     })
-    waypoints.push(pin.m3)
+    waypoints.push(pan.m3)
 
     env.team[0].active = false
     env.team[2].active = false
@@ -101,7 +101,7 @@ function onReach(mech, opt) {
 function setup() {
     job.mission.define('reached', onReach)
 
-    const d1 = pin.d1
+    const d1 = pan.d1
     lab.mode.port1.takeControl(d1)
     lab.mode.port2.focusOn(d1)
     lab.mode.port3.focusOn(d1)

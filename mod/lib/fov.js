@@ -29,7 +29,7 @@ function fov(observer, test) {
             let visible
             const lx = x - r
             const ly = y - r
-            //if (dist(0, 0, lx, ly) < r) visible = true
+            //if (distance(0, 0, lx, ly) < r) visible = true
             if (lx*lx + ly*ly < r*r) visible = true
             f.map[y*f.w + x] = visible
         }

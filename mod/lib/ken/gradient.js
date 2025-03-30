@@ -3,7 +3,7 @@
 // All coordinates are assumed to be within [-1..1] square,
 // and provided value is a noise within [-1..1].
 function circleGradient(r1, r2, fx, fy, v) {
-    let dist = len(fx, fy)
+    let dist = length(fx, fy)
     if (dist < r1) return v
     const elevation = 1 - (dist - r1) / (r2 - r1)
     return ((v + 1) * elevation) - 1
@@ -11,7 +11,7 @@ function circleGradient(r1, r2, fx, fy, v) {
 
 function verticalLinearGradient(l1, l2, fx, fy, v) {
     const y = (fy + 1)/2
-    const elevation = limit((y - l1)/(l2 - l1), 0, 1)
+    const elevation = clamp((y - l1)/(l2 - l1), 0, 1)
     return ((v + 1) * elevation) - 1
 }
 

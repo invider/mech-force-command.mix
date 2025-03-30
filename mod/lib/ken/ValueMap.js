@@ -23,9 +23,9 @@ class ValueMap {
     // set the pixel to rgb values [0..1]
     rgb(x, y, r, g, b) {
         let sh = (y * this.w + x) * 4
-        const R = limit(floor(r * 255), 0, 255)
-        const G = limit(floor(g * 255), 0, 255)
-        const B = limit(floor(b * 255), 0, 255)
+        const R = clamp(floor(r * 255), 0, 255)
+        const G = clamp(floor(g * 255), 0, 255)
+        const B = clamp(floor(b * 255), 0, 255)
         this.imgData.data[sh++] = R
         this.imgData.data[sh++] = G
         this.imgData.data[sh++] = B
@@ -40,7 +40,7 @@ class ValueMap {
     // @param {number} v - value in between [-1..1]
     shiftColor(x, y, c, v) {
         let sh = (y * this.w + x) * 4 + c
-        this.imgData.data[sh] = limit(this.imgData.data[sh] + v*255, 0, 255)
+        this.imgData.data[sh] = clamp(this.imgData.data[sh] + v*255, 0, 255)
     }
 
     // set monochrome pixel for provided field value [-1..1]
@@ -107,7 +107,7 @@ class ValueMap {
             for (let x = 0; x < this.w; x++) {
                 const fx = (x/this.w * 2) - 1
                 const fy = (y/this.h * 2) - 1
-                const v = limit(fn(fx, fy), -1, 1)
+                const v = clamp(fn(fx, fy), -1, 1)
 
                 this.map[y*this.w + x] = v
                 this.fput(x, y, v, filter)
